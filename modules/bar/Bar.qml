@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import qs.services
 
 Scope {
     PanelWindow {
@@ -12,11 +13,23 @@ Scope {
         implicitHeight: 42
         color: "black"
 
-        Text {
+        Row {
+            id: barLeft
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter   // Center vertically
+            anchors.margins: 2
+            spacing: 10
+            Clock {}
+        }
+
+        Row {
+            id: barCenter
             anchors.centerIn: parent
-            text: "Chaos Shell Alpha v0.1 Prototype"
-            color: "white"
-            font.pixelSize: 16
+            Text {
+                text: "Chaos Shell Alpha v0.1 Prototype"
+                color: "white"
+                font.pixelSize: 16
+            }
         }
     }
 }
