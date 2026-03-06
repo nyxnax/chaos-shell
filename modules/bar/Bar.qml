@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import "../../settings"
+import qs.services
 
 Scope {
     property var config
@@ -16,11 +17,35 @@ Scope {
         implicitHeight: 42
         color: "black"
 
-        Text {
+        Row {
+            id: barLeft
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter   // Center vertically
+            anchors.margins: 2
+            spacing: 10
+            Clock {}
+        }
+
+        Row {
+            id: barCenter
             anchors.centerIn: parent
             text: "Chaos Shell Alpha v0.1 Prototype|" + (config.isTop ? "Top" : "Bottom")
             color: "white"
             font.pixelSize: 16
+            Workspaces {}
+        }
+
+        Row {
+            id: barRight
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter   // Center vertically
+            anchors.margins: 10
+            spacing: 10
+            Text {
+                text: "Chaos Shell Alpha v0.1"
+                color: "white"
+                font.pixelSize: 16
+            }
         }
     }
 }
