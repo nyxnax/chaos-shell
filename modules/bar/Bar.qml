@@ -25,8 +25,17 @@ Scope {
         Row {
             id: barCenter
             anchors.centerIn: parent
+            Workspaces {}
+        }
+
+        Row {
+            id: barRight
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter   // Center vertically
+            anchors.margins: 10
+            spacing: 10
             Text {
-                text: "Chaos Shell Alpha v0.1 Prototype"
+                text: "Chaos Shell Alpha v0.1"
                 color: "white"
                 font.pixelSize: 16
             }

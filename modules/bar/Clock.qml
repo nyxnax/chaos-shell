@@ -24,14 +24,14 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 0
 
-        Text { // Hour
+        Text { // Hours
             id: hours
             text: Time.hour + ":"
             font {pixelSize: 16; weight: 500}
             color: "white"
         }
 
-        Text { // Minute
+        Text { // Minutes
           id: minutes
           text: Time.minute
           font: hours.font
