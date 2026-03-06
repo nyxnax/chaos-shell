@@ -1,10 +1,14 @@
 import QtQuick
 import Quickshell
+import "../../settings"
 
 Scope {
+    property var config
     PanelWindow {
+        
         anchors {
-            top: true
+            top: config.isTop
+            bottom: !config.isTop
             left: true
             right: true
         }
@@ -14,7 +18,7 @@ Scope {
 
         Text {
             anchors.centerIn: parent
-            text: "Chaos Shell Alpha v0.1 Prototype"
+            text: "Chaos Shell Alpha v0.1 Prototype|" + (config.isTop ? "Top" : "Bottom")
             color: "white"
             font.pixelSize: 16
         }

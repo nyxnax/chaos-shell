@@ -1,7 +1,21 @@
+import QtQuick
 import Quickshell
 
-import qs.modules.bar
+//import qs.modules.bar
+import "modules/bar"
+import "settings"
+import "settings/ui_elements"
+
+
 
 ShellRoot {
-    Bar {}
+    Config { 
+        id: mainConfig 
+    }
+    Bar {
+        config: mainConfig
+    }
+    Test {
+        config: mainConfig
+    }
 }
