@@ -19,32 +19,33 @@ Rectangle {
       }
     }
 
-  Row {
-    id: layout
-    anchors.centerIn: parent
-    spacing: 0
+    Row {
+        id: layout
+        anchors.centerIn: parent
+        spacing: 0
 
-    Text { // Hour
-      id: hours
-      text: Time.hour + ":"
-      font {pixelSize: 16; weight: 500}
-      color: "white"
-    }
+        Text { // Hour
+            id: hours
+            text: Time.hour + ":"
+            font {pixelSize: 16; weight: 500}
+            color: "white"
+        }
 
-    Text { // Minute
-      id: minutes
-      text: Time.minute
-      font: hours.font
-      color: "white"
+        Text { // Minute
+          id: minutes
+          text: Time.minute
+          font: hours.font
+          color: "white"
+        }
+
+        Text { // Date
+          id: date
+          text: "  " + Time.date
+          font {pixelSize: 16; weight: 400}
+          color: "white"
+          opacity: 0.5
+          anchors.bottom: parent.bottom
+          anchors.bottomMargin: 1
+        }
     }
-    Text { // Date
-      id: date
-      text: "  " + Time.date
-      font {pixelSize: 16; weight: 400}
-      color: "white"
-      opacity: 0.5
-      anchors.bottom: parent.bottom
-      anchors.bottomMargin: 1
-    }
-  }
 }
