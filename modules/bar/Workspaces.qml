@@ -6,7 +6,7 @@ import Quickshell.Hyprland
 RowLayout {
     spacing: 3
     Repeater {
-        model: 10
+        model: 5
         delegate: Rectangle {
             readonly property var ws: Hyprland.workspaces.values.find(w => w.id === index + 1)
             readonly property bool exists: ws !== undefined
