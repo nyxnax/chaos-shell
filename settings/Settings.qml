@@ -4,13 +4,14 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import qs.settings
+import qs.common.widgets
 
 ApplicationWindow {
     id: settingsWindow
-    width: 600
-    height: 400
+    minimumWidth: 600
+    minimumHeight: 600
     visible: Config.generalStorage.showSettings
-    color: "#121212"
+    color: "black"
 
     Process {
         id: matugenProcess
@@ -81,10 +82,17 @@ ApplicationWindow {
     Component {
         id: genericUI
         ColumnLayout {
-            Switch {
-                text: "Orientation (Top/Bottom)"
-                checked: Config.generalStorage.isTop
-                onToggled: Config.togglePossition()
+            Row {
+                StyledSwitch {
+                    text: "Orientation (Top/Bottom)"
+                    checked: Config.generalStorage.isTop
+                    onToggled: Config.togglePossition()
+                }
+                Text {
+                    text: "Orientation (Top/Bottom)"
+                    color: "white"
+                    font.pixelSize: 18
+                }
             }
         }
     }

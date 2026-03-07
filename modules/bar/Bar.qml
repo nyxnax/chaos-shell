@@ -3,10 +3,11 @@ import QtQuick.Controls
 import Quickshell
 import "../../settings"
 import qs.services
+import qs.common.widgets
 
 Scope {
     //property var config
-// Dynamically create an array of names like ["DP-1", "DP-2"]
+    // Dynamically create an array of names like ["DP-1", "DP-2"]
     readonly property int workspacesPerScreen: 5
     readonly property var screenList: {
         const names = [];
@@ -63,12 +64,11 @@ Scope {
                 anchors.margins: 10
                 spacing: 10
                 Text {
-                    text: "Chaos Shell Alpha v0.1 Prototype|" + (Config.isTop ? "Top" : "Bottom")
+                    text: "Chaos Shell Alpha v0.2"
                     color: "white"
                     font.pixelSize: 16
                 }
-                Switch {
-                    text: "󰒓"
+                StyledSwitch {
                     onClicked: Config.toggleSettings()
                 }
             }
