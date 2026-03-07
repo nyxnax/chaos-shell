@@ -1,25 +1,29 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 import Quickshell
 import "../../settings"
 
-FloatingWindow {
+ApplicationWindow {
     id: settingsWindow
-    implicitWidth: 150
-    implicitHeight: 60
-    visible: false
+    minimumWidth: 150
+    minimumHeight: 60
+    width: 1100
+    height: 750
+    visible: true
     title: "Chaos Settings"
-    
+
     color: "black"
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: Config.togglePossition()
+    ColumnLayout {
+        anchors.centerIn: parent
+        spacing: 10
 
-        Text {
-            anchors.centerIn: parent
-            color: "white"
-            text: Config.isTop ? "Move to bottom" : "Move to Top"
+        Switch {
+            id: bartoggle
+            text: qsTr("Orientation")
+            checked: false
+            onClicked: Config.togglePossition()
 
         }
     }
