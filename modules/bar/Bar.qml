@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import Quickshell
 import "../../settings"
 import qs.services
@@ -17,7 +18,7 @@ Scope {
 
     Variants {
         model: Quickshell.screens;
-        
+
         PanelWindow {
             required property var modelData
             screen: modelData
@@ -65,6 +66,10 @@ Scope {
                     text: "Chaos Shell Alpha v0.1 Prototype|" + (Config.isTop ? "Top" : "Bottom")
                     color: "white"
                     font.pixelSize: 16
+                }
+                Switch {
+                    text: "󰒓"
+                    onClicked: Config.toggleSettings()
                 }
             }
         }

@@ -10,7 +10,7 @@ ApplicationWindow {
     minimumHeight: 60
     width: 1100
     height: 750
-    visible: Config.showSettings
+    visible: !Config.showSettings
     title: "Chaos Settings"
 
     color: "black"
