@@ -3,45 +3,53 @@ import Quickshell
 import "../../settings"
 import qs.services
 
-Scope {
+
+Variants {
+    model: Quickshell.screens;
     property var config
-    PanelWindow {
-        
-        anchors {
-            top: config.isTop
-            bottom: !config.isTop
-            left: true
-            right: true
-        }
+    delegate: Component {
+        PanelWindow {
+            required property var modelData
+            
 
-        implicitHeight: 42
-        color: "black"
+            screen: modelData
 
-        Row {
-            id: barLeft
-            anchors.left: parent.left
-            anchors.verticalCenter: parent.verticalCenter   // Center vertically
-            anchors.margins: 2
-            spacing: 10
-            Clock {}
-        }
+            anchors {
+                top: config.isTop
+                bottom: !config.isTop
+                left: true
+                right: true
+            }
 
-        Row {
-            id: barCenter
-            anchors.centerIn: parent
-            Workspaces {}
-        }
+            implicitHeight: 42
+            color: "black"
 
-        Row {
-            id: barRight
-            anchors.right: parent.right
-            anchors.verticalCenter: parent.verticalCenter   // Center vertically
-            anchors.margins: 10
-            spacing: 10
-            Text {
-                text: "Chaos Shell Alpha v0.1 Prototype|" + (config.isTop ? "Top" : "Bottom")
-                color: "white"
-                font.pixelSize: 16
+            Row {
+                id: barLeft
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter   // Center vertically
+                anchors.margins: 2
+                spacing: 10
+                Clock {}
+            }
+
+            Row {
+                id: barCenter
+                anchors.centerIn: parent
+                Workspaces {}
+            }
+
+            Row {
+                id: barRight
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter   // Center vertically
+                anchors.margins: 10
+                spacing: 10
+                Text {
+                    text: "Chaos Shell Alpha v0.1 Prototype|" + (config.isTop ? "Top" : "Bottom")
+                    color: "white"
+                    font.pixelSize: 16
+                }
             }
         }
     }

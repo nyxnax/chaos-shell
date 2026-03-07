@@ -10,7 +10,7 @@ FloatingWindow {
     implicitHeight: 60
     visible: true
     title: "Chaos Settings"
-
+    
     color: "black"
 
     MouseArea {
