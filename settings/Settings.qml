@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Io
 import qs.settings
 
 ApplicationWindow {
@@ -10,6 +11,21 @@ ApplicationWindow {
     height: 400
     visible: Config.generalStorage.showSettings
     color: "#121212"
+
+    Process {
+        id: matugenProcess
+        running: false
+        // Call the interpreter, then the absolute path to your script
+        command: ["bash", "./wallpaper_matugen_runner.sh"]
+
+        onStdoutChanged: console.log("Script Out: " + stdout)
+        onStderrChanged: console.warn("Script Error: " + stderr)
+
+        onExited: (exitCode) => {
+            console.log("Script finished with code: " + exitCode);
+            matugenProcess.running = false;
+        }
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -76,16 +92,33 @@ ApplicationWindow {
     Component {
         id: appearanceUI
         ColumnLayout {
+            spacing: 20
+
             Label { text: "Opacity: " + (Config.appearanceStorage.opacity * 100).toFixed(0) + "%"; color: "white" }
             Slider {
+                Layout.fillWidth: true
                 from: 0; to: 1
                 value: Config.appearanceStorage.opacity
                 onMoved: Config.appearanceStorage.opacity = value
             }
+
             TextField {
+                Layout.fillWidth: true
                 placeholderText: "Theme"
                 text: Config.appearanceStorage.theme
                 onEditingFinished: Config.appearanceStorage.theme = text
+            }
+
+            // --- New Matugen Button ---
+            Button {
+                text: matugenProcess.running ? "Generating..." : "Regenerate Theme from Wallpaper"
+                enabled: !matugenProcess.running
+                Layout.fillWidth: true
+
+                onClicked: {
+                    console.log("Starting Matugen...");
+                    matugenProcess.running = true;
+                }
             }
         }
     }
@@ -100,4 +133,8 @@ ApplicationWindow {
             }
         }
     }
+
+
+
+
 }
