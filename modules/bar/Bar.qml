@@ -5,12 +5,23 @@ import qs.services
 
 Scope {
     //property var config
+// Dynamically create an array of names like ["DP-1", "DP-2"]
+    readonly property int workspacesPerScreen: 5
+    readonly property var screenList: {
+        const names = [];
+        for (let i = 0; i < Quickshell.screens.length; i++) {
+            names.push(Quickshell.screens[i].name);
+        }
+        return names;
+    }
+
     Variants {
         model: Quickshell.screens;
         
         PanelWindow {
             required property var modelData
             screen: modelData
+            readonly property int screenIndex: screenList.indexOf(modelData.name)
             anchors {
                 top: Config.isTop
                 bottom: !Config.isTop
@@ -30,7 +41,19 @@ Scope {
             Row {
                 id: barCenter
                 anchors.centerIn: parent
-                Workspaces {}
+                spacing: 5
+
+            // DEBUG TEXT: This will tell us if Quickshell sees the monitor name
+            //Text {
+            //    text: `[Index: ${modelData.index}]` // Should show 0 on screen 1, 1 on screen 2
+            //    color: "red"
+            //    font.pixelSize: 10
+            //    anchors.verticalCenter: parent.verticalCenter
+            //}
+
+                Workspaces {
+                    workspaceOffset: Math.max(0, screenIndex) * workspacesPerScreen
+                }
             }
             Row {
                 id: barRight

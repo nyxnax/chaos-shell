@@ -7,7 +7,7 @@ FloatingWindow {
     id: settingsWindow
     implicitWidth: 150
     implicitHeight: 60
-    visible: true
+    visible: false
     title: "Chaos Settings"
     
     color: "black"
