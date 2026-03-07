@@ -5,24 +5,11 @@ import Quickshell
 import qs.modules.bar
 import qs.settings
 
+import "." // Import the directory where AppConfig is
+
 ShellRoot {
-    id: root
-    property bool ready: false
+    readonly property bool _init: AppConfig.initialized
 
-    Component.onCompleted: {
-        Qt.application.name = "Chaos Shell";
-        Qt.application.organization = "Chaos Labs";
-        root.ready = true;
-    }
-
-    // Only load these once the metadata is set
-    Loader {
-        active: root.ready
-        sourceComponent: Component {
-            Item {
-                Bar {}
-                Settings {}
-            }
-        }
-    }
+    Bar {}
+    Settings {}
 }
