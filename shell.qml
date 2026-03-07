@@ -1,10 +1,9 @@
 import QtQuick
 import Quickshell
 
-//import qs.modules.bar
-import "modules/bar"
-import "settings"
-import "settings/ui_elements"
+import qs.modules.bar
+import qs.settings
+import qs.settings.ui_elements
 
 
 
