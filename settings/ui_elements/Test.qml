@@ -5,7 +5,6 @@ import "../../settings"
 
 FloatingWindow {
     id: settingsWindow
-    property var config
     implicitWidth: 150
     implicitHeight: 60
     visible: true
@@ -15,12 +14,12 @@ FloatingWindow {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: config.togglePossition()
+        onClicked: Config.togglePossition()
 
         Text {
             anchors.centerIn: parent
             color: "white"
-            text: config.isTop ? "Move to bottom" : "Move to Top"
+            text: Config.isTop ? "Move to bottom" : "Move to Top"
 
         }
     }

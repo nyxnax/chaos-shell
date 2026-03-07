@@ -9,14 +9,6 @@ import qs.settings.ui_elements
 
 
 ShellRoot {
-
-    Config { 
-        id: mainConfig 
-    }
-    Bar {
-        config: mainConfig
-    }
-    Test {
-        config: mainConfig
-    }
+    Bar {}
+    Test {}
 }
