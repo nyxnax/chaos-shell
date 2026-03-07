@@ -2,15 +2,15 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
-import "../../settings"
+import qs.settings
 
 ApplicationWindow {
     id: settingsWindow
-    minimumWidth: 150
-    minimumHeight: 60
+    minimumWidth: 720
+    minimumHeight: 600
     width: 1100
     height: 750
-    visible: !Config.showSettings
+    visible: Config.showSettings
     title: "Chaos Settings"
 
     color: "black"
@@ -21,10 +21,9 @@ ApplicationWindow {
 
         Switch {
             id: bartoggle
-            text: qsTr("Orientation")
+            text: "Orientation"
             checked: false
             onClicked: Config.togglePossition()
-
         }
     }
 }
