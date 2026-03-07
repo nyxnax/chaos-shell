@@ -1,3 +1,4 @@
+
 import QtQuick
 import Quickshell
 
@@ -8,6 +9,7 @@ import qs.settings.ui_elements
 
 
 ShellRoot {
+
     Config { 
         id: mainConfig 
     }

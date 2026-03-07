@@ -2,6 +2,7 @@ import QtQuick
 import QtCore
 import Quickshell
 
+
 QtObject {
 
     id: root

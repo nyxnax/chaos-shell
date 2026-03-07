@@ -3,8 +3,8 @@ import qs.services
 
 Rectangle {
     id: root
-    height: 30
-    width: layout.width + 10
+    implicitHeight: 30
+    implicitWidth: layout.width + 10
     color: mouse.containsMouse ? "#2affffff" : "#00000000"
     radius: 6
 

@@ -4,8 +4,8 @@ import "../../settings"
 
 PanelWindow {
     property var config
-    width: 150
-    height: 60
+    implicitWidth: 150
+    implicitHeight: 60
     anchors {
         bottom: true
         right: true
