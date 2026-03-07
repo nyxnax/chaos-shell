@@ -11,7 +11,7 @@ ShellRoot {
 
     Component.onCompleted: {
         Qt.application.name = "Chaos Shell";
-        Qt.application.organization = "Choas Labs";
+        Qt.application.organization = "Chaos Labs";
         root.ready = true;
     }
 
