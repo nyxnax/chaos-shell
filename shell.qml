@@ -4,7 +4,6 @@ import Quickshell
 
 import qs.modules.bar
 import qs.settings
-import qs.settings.ui_elements
 
 ShellRoot {
     Component.onCompleted: {
@@ -12,5 +11,5 @@ ShellRoot {
         Qt.application.organization = "Choas Labs";
     }
     Bar {}
-    Test {}
+    Settings {}
 }

@@ -37,9 +37,9 @@ Singleton {
     property string theme: appearanceStorage.theme
     property real opacity: appearanceStorage.opacity
 
-    function setTheme(newTheme) {
-        appearanceStorage.theme = newTheme
-    }
+    //function setTheme(newTheme) {
+    //    appearanceStorage.theme = newTheme
+    //}
 
     property var categories: [generalStorage, appearanceStorage, testStorage]
 
