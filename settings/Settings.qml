@@ -84,7 +84,6 @@ ApplicationWindow {
         ColumnLayout {
             Row {
                 StyledSwitch {
-                    text: "Orientation (Top/Bottom)"
                     checked: Config.generalStorage.isTop
                     onToggled: Config.togglePossition()
                 }
