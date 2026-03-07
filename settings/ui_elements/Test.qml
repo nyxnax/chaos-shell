@@ -1,15 +1,15 @@
 import QtQuick
+import QtQuick.Controls
 import Quickshell
 import "../../settings"
 
-PanelWindow {
+FloatingWindow {
+    id: settingsWindow
     property var config
     implicitWidth: 150
     implicitHeight: 60
-    anchors {
-        bottom: true
-        right: true
-    }
+    visible: true
+    title: "Chaos Settings"
 
     color: "black"
 
