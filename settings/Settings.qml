@@ -37,7 +37,7 @@ ApplicationWindow {
             Layout.fillWidth: true
             Repeater {
                 model: Config.categories
-                TabButton { text: modelData.category }
+                StyledTabButton { text: modelData.category }
             }
         }
 
@@ -55,7 +55,8 @@ ApplicationWindow {
 
                         Label {
                             text: modelData.category
-                            font.pixelSize: 22
+                            font.pixelSize: 42
+                            font.capitalization: Font.Capitalize
                             color: "white"
                         }
 
@@ -83,6 +84,7 @@ ApplicationWindow {
         id: genericUI
         ColumnLayout {
             Row {
+                spacing: 10
                 StyledSwitch {
                     checked: Config.generalStorage.isTop
                     onToggled: Config.togglePossition()
@@ -101,24 +103,41 @@ ApplicationWindow {
         ColumnLayout {
             spacing: 20
 
-            Label { text: "Opacity: " + (Config.appearanceStorage.opacity * 100).toFixed(0) + "%"; color: "white" }
-            Slider {
-                Layout.fillWidth: true
-                from: 0; to: 1
-                value: Config.appearanceStorage.opacity
-                onMoved: Config.appearanceStorage.opacity = value
+            Column {
+                Label {
+                    text: "Background Opacity" ; color: "white"
+                    font.pixelSize: 18
+                }
+                RowLayout {
+                    spacing: 10
+                    Slider {
+                        Layout.fillWidth: true
+                        from: 0; to: 1
+                        value: Config.appearanceStorage.opacity
+                        onMoved: Config.appearanceStorage.opacity = value
+                    }
+                    Label {
+                        text: (Config.appearanceStorage.opacity * 100).toFixed(0) + "%"
+                        font.pixelSize: 16
+                    }
+                }
             }
-
-            TextField {
-                Layout.fillWidth: true
-                placeholderText: "Theme"
-                text: Config.appearanceStorage.theme
-                onEditingFinished: Config.appearanceStorage.theme = text
+            Row {
+                spacing: 10
+                StyledSwitch {
+                    checked: Config.generalStorage.isTop
+                    onToggled: Config.toggleLight()
+                }
+                Text {
+                    text: "Light mode"
+                    color: "white"
+                    font.pixelSize: 18
+                }
             }
 
             // --- New Matugen Button ---
             Button {
-                text: matugenProcess.running ? "Generating..." : "Regenerate Theme from Wallpaper"
+                text: matugenProcess.running ? "Generating..." : "Refresh theme"
                 enabled: !matugenProcess.running
                 Layout.fillWidth: true
 

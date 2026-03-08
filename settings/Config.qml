@@ -24,8 +24,11 @@ Singleton {
 
     property Settings appearanceStorage: Settings {
         category: "Appearance"
-        property string theme: "dark"
+        property bool light: false
         property real opacity: 0.9
+    }
+    function toggleLight() {
+        appearanceStorage.light = !appearanceStorage.light
     }
 
     property Settings testStorage: Settings {
@@ -34,7 +37,7 @@ Singleton {
     }
 
     // Facade properties for Appearance
-    property string theme: appearanceStorage.theme
+    //property string theme: appearanceStorage.theme
     property real opacity: appearanceStorage.opacity
 
     //function setTheme(newTheme) {

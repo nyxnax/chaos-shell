@@ -4,7 +4,7 @@ import QtQuick.Controls
 // Material 3 switch. See https://m3.material.io/components/switch/overview
 
 Switch {
-    id:root
+    id: root
     property real scale: .75
     implicitHeight: 32 * root.scale
     implicitWidth: 52 * root.scale
