@@ -17,7 +17,7 @@ ApplicationWindow {
         id: matugenProcess
         running: false
         // Call the interpreter, then the absolute path to your script
-        command: ["bash", "./wallpaper_matugen_runner.sh"]
+        command: ["bash", Quickshell.path("./wallpaper_matugen_runner.sh")]
 
         onStdoutChanged: console.log("Script Out: " + stdout)
         onStderrChanged: console.warn("Script Error: " + stderr)
