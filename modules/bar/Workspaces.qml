@@ -1,7 +1,8 @@
-import QtQuick
-import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
+import QtQuick
+import QtQuick.Layouts
+import qs.common
 
 RowLayout {
     spacing: 3
@@ -14,7 +15,7 @@ RowLayout {
     property int workspaceCount: 5
 
     // workspace dubug
-    //Text { text: workspaceOffset; color: "red"; font.pixelSize: 10 } 
+    //Text { text: workspaceOffset; color: "red"; font.pixelSize: 10 }
 
     Repeater {
         model: workspaceCount
@@ -27,15 +28,22 @@ RowLayout {
             readonly property bool exists: ws !== undefined
             readonly property bool isOccupied: exists && ws.toplevels.values.length > 0
             //readonly property bool isFocused: Hyprland.focusedWorkspace?.id === wsId
-            readonly property bool isFocused: exists && ws.focused 
+            readonly property bool isFocused: exists && ws.focused
 
 
-            Layout.preferredWidth: isFocused ? 25 : 12
-            Layout.preferredHeight: 12
+            Layout.preferredWidth: isFocused ? 28 : 14
+            Layout.preferredHeight: 14
             radius: 100
 
             Behavior on Layout.preferredWidth {
-                NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
+                NumberAnimation {
+                    duration: Appearance.animationCurves.expressiveDefaultSpatialDuration
+                    easing.type: Easing.BezierSpline
+                    easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
+                }
+            }
+            Behavior on color {
+                animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)
             }
 
             color: {
@@ -46,14 +54,14 @@ RowLayout {
             /*
             Text {
                 text: wsId; color: "red"; font.pixelSize: 8
-                anchors.centerIn: parent 
+                anchors.centerIn: parent
             }
             */
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
                 onClicked: Hyprland.dispatch(`workspace ${wsId}`)
-                //onClicked: Hyprland.dispatch("workspace " + (index +1)) 
+                //onClicked: Hyprland.dispatch("workspace " + (index +1))
             }
         }
     }
