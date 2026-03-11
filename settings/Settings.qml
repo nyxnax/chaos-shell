@@ -102,7 +102,7 @@ ApplicationWindow {
 
                 Item { Layout.fillWidth: true }
 
-                Button {
+                StyledButton {
                     text: "Close"
                     onClicked: Config.generalStorage.showSettings = false
                 }
