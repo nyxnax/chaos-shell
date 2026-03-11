@@ -44,7 +44,6 @@ Rectangle {
           font {pixelSize: 16; weight: 400}
           color: "white"
           opacity: 0.5
-          anchors.bottom: parent.bottom
           anchors.bottomMargin: 1
         }
     }
