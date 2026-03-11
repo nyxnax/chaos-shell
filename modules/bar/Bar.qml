@@ -63,11 +63,6 @@ Scope {
                 anchors.verticalCenter: parent.verticalCenter   // Center vertically
                 anchors.margins: 10
                 spacing: 10
-                Text {
-                    text: "Chaos Shell Alpha v0.2"
-                    color: "white"
-                    font.pixelSize: 16
-                }
                 StyledSwitch {
                     onClicked: Config.toggleSettings()
                 }

@@ -17,7 +17,7 @@ ApplicationWindow {
         id: matugenProcess
         running: false
         // Call the interpreter, then the absolute path to your script
-        command: ["bash", Quickshell.configPath("wallpaper_matugen_runner.sh")]
+        command: ["bash", Quickshell.configPath("./scripts/wall.sh")]
 
         onStdoutChanged: console.log("Script Out: " + stdout)
         onStderrChanged: console.warn("Script Error: " + stderr)
@@ -72,6 +72,39 @@ ApplicationWindow {
                             }
                         }
                     }
+                }
+            }
+        }
+
+        Rectangle {
+            id: footer
+            Layout.fillWidth: true
+            Layout.preferredHeight: 50
+            color: "transparent"
+
+            Rectangle {
+                width: parent.width
+                height: 1
+                color: "#222222"
+                anchors.top: parent.top
+            }
+
+            RowLayout {
+                anchors.fill: parent
+                anchors.leftMargin: 10
+                anchors.rightMargin: 10
+
+                Label {
+                    text: "Chaos Shell Alpha 0.2"
+                    color: "#AAAAAA"
+                    font.pixelSize: 14
+                }
+
+                Item { Layout.fillWidth: true }
+
+                Button {
+                    text: "Close"
+                    onClicked: Config.generalStorage.showSettings = false
                 }
             }
         }
