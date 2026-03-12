@@ -6,8 +6,16 @@ pragma ComponentBehavior: Bound
 Singleton {
     id: root
 
+    property QtObject colors
     property QtObject animationCurves
     property QtObject animation
+
+    colors: QtObject {
+        property color background: "#1a1b26"
+        property color foreground: "#c0caf5"
+        property color primary: "#7aa2f7"
+        property color accent: "#7dcfff"
+    }
 
     animationCurves: QtObject {
         readonly property list<real> expressiveFastSpatial: [0.42, 1.67, 0.21, 0.90, 1, 1] // Default, 350ms

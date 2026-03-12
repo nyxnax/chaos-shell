@@ -1,0 +1,6 @@
+{
+    "background": "{{colors.background.default.hex}}",
+    "foreground": "{{colors.foreground.default.hex}}",
+    "primary": "{{colors.primary.default.hex}}",
+    "accent": "{{colors.accent.default.hex}}"
+}

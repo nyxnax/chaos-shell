@@ -1,8 +1,9 @@
 import QtQuick
 import QtQuick.Controls
 import Quickshell
-import "../../settings"
+import qs.settings
 import qs.services
+import qs.common
 import qs.common.widgets
 
 Scope {
@@ -25,8 +26,8 @@ Scope {
             screen: modelData
             readonly property int screenIndex: screenList.indexOf(modelData.name)
             anchors {
-                top: Config.isTop
-                bottom: !Config.isTop
+                top: !Config.options.bar.bottom
+                bottom: Config.options.bar.bottom
                 left: true
                 right: true
             }
@@ -63,9 +64,7 @@ Scope {
                 anchors.verticalCenter: parent.verticalCenter   // Center vertically
                 anchors.margins: 10
                 spacing: 10
-                StyledSwitch {
-                    onClicked: Config.toggleSettings()
-                }
+                // ControlCenter {}
             }
         }
     }

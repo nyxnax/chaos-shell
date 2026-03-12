@@ -1,16 +1,13 @@
-import qs
 import QtQuick
 import Quickshell
 import Quickshell.Io
 
 import qs.modules.bar
 import qs.settings
-
-
+import qs.common
 
 ShellRoot {
-    readonly property bool _init: AppConfig.initialized
-
     Settings {}
     Bar {}
+    Ipc {}
 }

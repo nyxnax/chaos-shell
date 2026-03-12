@@ -1,49 +1,81 @@
 pragma Singleton
 import QtQuick
-import QtCore
+import QtCore // Remove after rewrite
 import Quickshell
+import Quickshell.Io
+import qs.common
+import qs.common.functions
 
 Singleton {
-
     id: root
-    property Settings generalStorage: Settings {
-        category: "generic"
-        property bool isTop: true
-        property bool showSettings: false
+
+    property string filePath: Directories.shellConfigPath
+    property alias options: configOptionsJsonAdapter
+    property bool ready: false
+    property int readWriteDelay: 50 // milliseconds
+    property bool blockWrites: false
+
+    function setNestedValue(nestedKey, value) {
+        let keys = nestedKey.split(".");
+        let obj = root.options;
+        let parents = [obj];
+
+        // Traverse and collect parent objects
+        for (let i = 0; i < keys.length - 1; ++i) {
+            if (!obj[keys[i]] || typeof obj[keys[i]] !== "object") {
+                obj[keys[i]] = {};
+            }
+            obj = obj[keys[i]];
+            if (!obj) {
+                console.warn("Config.updateKey: failed to resolve", keys[i])
+                return
+            }
+            parents.push(obj);
+        }
+
+        // Convert value to correct type using JSON.parse when safe
+        let convertedValue = value;
+        if (typeof value === "string") {
+            let trimmed = value.trim();
+            if (trimmed === "true" || trimmed === "false" || !isNaN(Number(trimmed))) {
+                try {
+                    convertedValue = JSON.parse(trimmed);
+                } catch (e) {
+                    convertedValue = value;
+                }
+            }
+        }
+
+        obj[keys[keys.length - 1]] = convertedValue;
     }
-    property bool isTop: generalStorage.isTop
-    function togglePossition() {
-        generalStorage.isTop = !generalStorage.isTop
+
+    Timer { id: fileReloadTimer; interval: root.readWriteDelay; repeat: false; onTriggered: configFileView.reload() }
+    Timer {id: fileWriteTimer; interval: root.readWriteDelay; repeat: false; onTriggered: configFileView.writeAdapter() }
+
+    FileView {
+        id: configFileView
+        path: root.filePath
+        watchChanges: true
+        blockWrites: root.blockWrites
+        onFileChanged: fileReloadTimer.restart()
+        onAdapterUpdated: fileWriteTimer.restart()
+        onLoaded: root.ready = true
+        onLoadFailed: error => {
+            if (error == FileViewError.FileNotFound) {
+                writeAdapter();
+            }
+        }
+
+        JsonAdapter {
+            id: configOptionsJsonAdapter
+
+            property JsonObject appearance: JsonObject {
+                property bool light: false
+            }
+
+            property JsonObject bar: JsonObject {
+                property bool bottom: true
+            }
+        }
     }
-
-    property bool showSettings: generalStorage.showSettings
-    function toggleSettings() {
-        generalStorage.showSettings = !generalStorage.showSettings
-    }
-
-
-    property Settings appearanceStorage: Settings {
-        category: "Appearance"
-        property bool light: false
-        property real opacity: 0.9
-    }
-    function toggleLight() {
-        appearanceStorage.light = !appearanceStorage.light
-    }
-
-    property Settings testStorage: Settings {
-        category: "test"
-        property string easteregg: "unga bunga"
-    }
-
-    // Facade properties for Appearance
-    //property string theme: appearanceStorage.theme
-    property real opacity: appearanceStorage.opacity
-
-    //function setTheme(newTheme) {
-    //    appearanceStorage.theme = newTheme
-    //}
-
-    property var categories: [generalStorage, appearanceStorage, testStorage]
-
 }
