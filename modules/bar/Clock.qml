@@ -1,4 +1,6 @@
 import QtQuick
+import qs.common
+import qs.common.widgets
 import qs.services
 
 Rectangle {
@@ -11,12 +13,13 @@ Rectangle {
     Behavior on color { ColorAnimation { duration: 150 } }
 
     MouseArea {
-      id: mouse
-      anchors.fill: parent
-      hoverEnabled: true
-      onClicked: {
-        Quickshell.process(["foot", "nmtui"]).run();
-      }
+        id: mouse
+        anchors.fill: parent
+        hoverEnabled: true
+        onClicked: {
+            Global.states.settingsOpen = true
+        }
+        PointingHand {}
     }
 
     Row {
@@ -24,27 +27,27 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 0
 
-        Text { // Hours
+        StyledText { // Hours
             id: hours
             text: Time.hour + ":"
-            font {pixelSize: 16; weight: 500}
+            font.weight: 500
             color: "white"
         }
 
-        Text { // Minutes
-          id: minutes
-          text: Time.minute
-          font: hours.font
-          color: "white"
+        StyledText { // Minutes
+            id: minutes
+            text: Time.minute
+            font: hours.font
+            color: "white"
         }
 
-        Text { // Date
-          id: date
-          text: "  " + Time.date
-          font {pixelSize: 16; weight: 400}
-          color: "white"
-          opacity: 0.5
-          anchors.bottomMargin: 1
+        StyledText { // Date
+            id: date
+            text: "  " + Time.date
+            font.weight: 400
+            color: "white"
+            opacity: 0.5
+            anchors.bottomMargin: 1
         }
     }
 }

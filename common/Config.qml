@@ -1,6 +1,5 @@
 pragma Singleton
 import QtQuick
-import QtCore // Remove after rewrite
 import Quickshell
 import Quickshell.Io
 import qs.common
@@ -71,6 +70,16 @@ Singleton {
 
             property JsonObject appearance: JsonObject {
                 property bool light: false
+
+                property JsonObject fonts: JsonObject {
+                    property string main: "Google Sans Flex"
+                    property string numbers: "Google Sans Flex"
+                    property string title: "Google Sans Flex"
+                    property string iconNerd: "JetBrains Mono NF"
+                    property string monospace: "JetBrains Mono NF"
+                    property string reading: "Readex Pro"
+                    property string expressive: "Space Grotesk"
+                }
             }
 
             property JsonObject bar: JsonObject {

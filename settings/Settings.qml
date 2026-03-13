@@ -12,6 +12,7 @@ ApplicationWindow {
     minimumHeight: 600
     visible: Global.states.settingsOpen
     color: "black"
+    title: "Chaos Settings"
 
     property var pages: [
         {

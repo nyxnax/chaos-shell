@@ -37,7 +37,7 @@ Scope {
                 id: barLeft
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter   // Center vertically
-                anchors.margins: 2
+                anchors.margins: 5
                 spacing: 10
                 Clock {}
             }
@@ -62,9 +62,9 @@ Scope {
                 id: barRight
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter   // Center vertically
-                anchors.margins: 10
+                anchors.margins: 5
                 spacing: 10
-                // ControlCenter {}
+                ControlCenter {}
             }
         }
     }
