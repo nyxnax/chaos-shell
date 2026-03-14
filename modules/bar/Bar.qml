@@ -31,13 +31,13 @@ Scope {
                 left: true
                 right: true
             }
-            implicitHeight: 42
-            color: "black"
+            implicitHeight: 48
+            color: Appearance.colors.m3background
             Row {
                 id: barLeft
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter   // Center vertically
-                anchors.margins: 5
+                anchors.margins: 10
                 spacing: 10
                 Clock {}
             }
@@ -62,7 +62,7 @@ Scope {
                 id: barRight
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter   // Center vertically
-                anchors.margins: 5
+                anchors.margins: 10
                 spacing: 10
                 ControlCenter {}
             }

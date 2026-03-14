@@ -47,9 +47,9 @@ RowLayout {
             }
 
             color: {
-                if (isFocused) return "#FFFFFF"
-                if (isOccupied) return "#5a5a5a"
-                return "#2a2a2a"
+                if (isFocused) return Appearance.colors.m3primary
+                if (isOccupied) return Appearance.colors.m3outline
+                return Appearance.colors.m3outlineVariant
             }
             /*
             Text {

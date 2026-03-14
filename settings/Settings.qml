@@ -8,24 +8,40 @@ import qs.common.widgets
 
 ApplicationWindow {
     id: root
-    minimumWidth: 600
-    minimumHeight: 600
+
+    width: Screen.width * 0.7
+    height: Screen.height * 0.7
+    minimumWidth: 400
+    minimumHeight: 400
     visible: Global.states.settingsOpen
-    color: "black"
     title: "Chaos Settings"
+    onClosing: Global.states.settingsOpen = false
+    color: Appearance.colors.m3background
 
     property var pages: [
         {
+            name: "Wallpaper",
+            icon: "wallpaper_slideshow",
+            iconRotation: 180,
+            component: "WallpaperConfig.qml"
+        },
+        {
             name: "Appearance",
-            icon: "yes",
+            icon: "palette",
             iconRotation: 180,
             component: "AppearanceConfig.qml"
         },
         {
             name: "Bar",
-            icon: "bar",
+            icon: "toast",
             iconRotation: 180,
             component: "BarConfig.qml"
+        },
+        {
+            name: "About",
+            icon: "info",
+            iconRotation: 180,
+            component: "About.qml"
         }
     ]
     property int currentPage: 0
@@ -70,33 +86,30 @@ ApplicationWindow {
             }
         }
 
-        TabBar {
-            id: bar
-            currentIndex: root.currentPage
-            Layout.fillWidth: true
-            Repeater {
-                model: root.pages
-                StyledTabButton { text: modelData.name }
-            }
-        }
 
         StackLayout {
-            currentIndex: bar.currentIndex
+            currentIndex: tab.currentIndex
             Layout.fillWidth: true
             Layout.fillHeight: true
 
             Repeater {
                 model: root.pages
                 delegate: ScrollView {
+                contentWidth: availableWidth
+
                     ColumnLayout {
                         width: parent.width
                         spacing: 20
 
-                        Label {
-                            text: modelData.name
-                            font.pixelSize: 42
-                            font.capitalization: Font.Capitalize
-                            color: "white"
+                        ConfigRow {
+                            MaterialSymbol {
+                                text: modelData.icon
+                                font.pixelSize: Appearance.font.pixelSize.title * 1.2
+                            }
+                            StyledText {
+                                text: modelData.name
+                                font.pixelSize: Appearance.font.pixelSize.title * 1.2
+                            }
                         }
 
                         Loader {
@@ -108,35 +121,68 @@ ApplicationWindow {
             }
         }
 
-        Rectangle {
-            id: footer
-            Layout.fillWidth: true
-            Layout.preferredHeight: 50
-            color: "transparent"
+        TabBar {
+            id: tab
+            currentIndex: root.currentPage
+            width: contentWidth
+            Layout.alignment: Qt.AlignHCenter
 
-            Rectangle {
-                width: parent.width
-                height: 1
-                color: "#222222"
-                anchors.top: parent.top
+            background:Rectangle {
+                color: Appearance.colors.m3primary
+                radius: 10
+
+                Rectangle {
+                    id: indicator
+                    height: parent.height - 8
+                    width: 60 - 8
+                    y: 4
+                    x: (tab.currentItem ? tab.currentItem.x : 0) + 4
+                    color: Appearance.colors.m3primaryContainer
+                    radius: 8
+
+                    Behavior on x {
+                        NumberAnimation {
+                            duration: Appearance.animationCurves.expressiveDefaultSpatialDuration
+                            easing.type: Easing.BezierSpline
+                            easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
+                        }
+                    }
+                }
             }
 
-            RowLayout {
-                anchors.fill: parent
-                anchors.leftMargin: 10
-                anchors.rightMargin: 10
+            Repeater {
+                model: root.pages
 
-                Label {
-                    text: "Chaos Shell Alpha 0.3"
-                    color: "#AAAAAA"
-                    font.pixelSize: 14
-                }
+                StyledTabButton {
+                    id: tabButton
+                    implicitWidth: 60
+                    implicitHeight: 60
 
-                Item { Layout.fillWidth: true }
+                    MaterialSymbol {
+                        anchors.centerIn: parent
+                        text: modelData.icon
+                        color: tabButton.checked
+                            ? Appearance.colors.m3onPrimaryContainer
+                            : Appearance.colors.m3onPrimary
+                        iconSize: Appearance.font.pixelSize.huge
+                        opacity: 0.9
+                    }
 
-                StyledButton {
-                    text: "Close"
-                    onClicked: Global.states.settingsOpen = false
+                    ToolTip {
+                        text: modelData.name
+                        visible: tabButton.hovered && text !== ""
+                        //delay: 50
+
+                        contentItem: Text {
+                            text: modelData.name
+                            color: Appearance.colors.m3onSecondaryContainer
+                            font.pixelSize: Appearance.font.pixelSize.normal
+                        }
+                        background: Rectangle {
+                            color: Appearance.colors.m3secondaryContainer
+                            radius: 6
+                        }
+                    }
                 }
             }
         }

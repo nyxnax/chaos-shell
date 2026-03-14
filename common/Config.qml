@@ -70,6 +70,9 @@ Singleton {
 
             property JsonObject appearance: JsonObject {
                 property bool light: false
+                property string scheme: "scheme-tonal-spot"
+                property string wallpaper: ""
+                property int fontScale : 100
 
                 property JsonObject fonts: JsonObject {
                     property string main: "Google Sans Flex"
@@ -84,6 +87,7 @@ Singleton {
 
             property JsonObject bar: JsonObject {
                 property bool bottom: true
+                property bool date: true
             }
         }
     }

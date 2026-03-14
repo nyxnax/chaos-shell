@@ -31,23 +31,21 @@ Rectangle {
             id: hours
             text: Time.hour + ":"
             font.weight: 500
-            color: "white"
         }
 
         StyledText { // Minutes
             id: minutes
             text: Time.minute
             font: hours.font
-            color: "white"
         }
 
         StyledText { // Date
             id: date
             text: "  " + Time.date
             font.weight: 400
-            color: "white"
             opacity: 0.5
             anchors.bottomMargin: 1
+            visible: Config.options.bar.date
         }
     }
 }

@@ -13,6 +13,6 @@ TabButton {
     }
 
     background: Rectangle {
-        color: "#00000000"
+        color: "transparent"
     }
 }

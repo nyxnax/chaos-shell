@@ -20,8 +20,8 @@ Text {
         pixelSize: Appearance?.font.pixelSize.large ?? 15
         variableAxes: shouldUseNumberFont ? ({}) : Appearance.font.variableAxes.main
     }
-    //color: Appearance?.m3colors.m3onBackground ?? "black"
-    //linkColor: Appearance?.m3colors.m3primary
+    color: Appearance?.colors.m3onBackground ?? "black"
+    linkColor: Appearance?.colors.m3primary
 
     component Anim: NumberAnimation {
         target: root

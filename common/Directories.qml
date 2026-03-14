@@ -16,11 +16,8 @@ Singleton {
     property string shellConfig: FileUtils.trimFileProtocol(`${Directories.config}/chaos-labs`)
     property string shellConfigName: "/config.json"
     property string shellConfigPath: `${Directories.shellConfig}/config/${Directories.shellConfigName}`
-    property string generatedMaterialThemePath: FileUtils.trimFileProtocol(`${Directories.config}/nucleus-shell/config/colors.json`)
-
-    readonly property string wallDir: home + "/Pictures/Wallpapers"
     readonly property string themeJson: shellConfig + "/theme.json"
-    readonly property string matugenTemplate: config + "/common/templates/quickshell.json"
+    readonly property string wallpapers: home + "/Pictures/Wallpapers"
 
     Component.onCompleted: {
         Quickshell.execDetached(["mkdir", "-p", `${shellConfig}`])

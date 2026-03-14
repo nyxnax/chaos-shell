@@ -3,13 +3,14 @@ import QtQuick.Controls
 import qs.common
 
 // Material 3 switch. See https://m3.material.io/components/switch/overview
+// Credit: end-4
 
 Switch {
     id: root
     property real scale: .75
     implicitHeight: 32 * root.scale
     implicitWidth: 52 * root.scale
-    property color activeColor: "#AAAAAA"
+    property color activeColor: Appearance.colors.m3primary
     property color inactiveColor: "#45464F"
 
     PointingHand{}

@@ -32,7 +32,6 @@ Rectangle {
                 id: networkIconBackground
                 visible: Network.wifiStatus === "connected" && !Network.ethernet
                 text: "wifi"
-                color: "white"
                 opacity: 0.4
                 iconSize: networkIcon.iconSize
                 anchors.centerIn: parent
@@ -41,7 +40,6 @@ Rectangle {
                 id: networkIcon
                 text: Network.materialSymbol
                 iconSize: Appearance.font.pixelSize.larger
-                color: "white"
                 anchors.centerIn: parent
             }
 

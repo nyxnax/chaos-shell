@@ -12,10 +12,125 @@ Singleton {
     property QtObject animation
 
     colors: QtObject {
-        property color background: "#1a1b26"
-        property color foreground: "#c0caf5"
-        property color primary: "#7aa2f7"
-        property color accent: "#7dcfff"
+        // Primary
+        property color m3primary: "#cd2a6c"
+        property color m3onPrimary: "#ffffff"
+        property color m3primaryContainer: "#ffd8e8"
+        property color m3onPrimaryContainer: "#3d0023"
+        property color m3primaryFixed: "#ffd8e8"
+        property color m3primaryFixedDim: "#fdb0d4"
+        property color m3onPrimaryFixed: "#3d0023"
+        property color m3onPrimaryFixedVariant: "#884b6a"
+        // Secondary
+        property color m3secondary: "#725763"
+        property color m3onSecondary: "#ffffff"
+        property color m3secondaryContainer: "#fdd9e7"
+        property color m3onSecondaryContainer: "#29151f"
+        property color m3secondaryFixed: "#fdd9e7"
+        property color m3secondaryFixedDim: "#e0bdcb"
+        property color m3onSecondaryFixed: "#29151f"
+        property color m3onSecondaryFixedVariant: "#59404b"
+        // Tertiary
+        property color m3tertiary: "#7f553a"
+        property color m3onTertiary: "#ffffff"
+        property color m3tertiaryContainer: "#ffdbc8"
+        property color m3onTertiaryContainer: "#301401"
+        property color m3tertiaryFixed: "#ffdbc8"
+        property color m3tertiaryFixedDim: "#f2bb9a"
+        property color m3onTertiaryFixed: "#301401"
+        property color m3onTertiaryFixedVariant: "#643e25"
+        // Error
+        property color m3error: "#ba1a1a"
+        property color m3onError: "#ffffff"
+        property color m3errorContainer: "#ffdad6"
+        property color m3onErrorContainer: "#410002"
+        // Background & Surface
+        property color m3background: "#000000"
+        property color m3onBackground: "#21191d"
+        property color m3surface: "#fff8f8"
+        property color m3onSurface: "#21191d"
+        property color m3surfaceVariant: "#f1dee4"
+        property color m3onSurfaceVariant: "#504348"
+        property color m3surfaceTint: "#cd2a6c"
+        // Surface Containers
+        property color m3surfaceDim: "#e5d6db"
+        property color m3surfaceBright: "#fff8f8"
+        property color m3surfaceContainerLowest: "#ffffff"
+        property color m3surfaceContainerLow: "#fff0f4"
+        property color m3surfaceContainer: "#f9eaee"
+        property color m3surfaceContainerHigh: "#f4e4e9"
+        property color m3surfaceContainerHighest: "#eedfe3"
+        // Inverse & Utils
+        property color m3inverseSurface: "#372e31"
+        property color m3inverseOnSurface: "#fcedf1"
+        property color m3inversePrimary: "#fdb0d4"
+        property color m3outline: "#827379"
+        property color m3outlineVariant: "#d4c2c8"
+        property color m3shadow: "#000000"
+        property color m3scrim: "#000000"
+
+// Primary
+    Behavior on m3primary { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onPrimary { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3primaryContainer { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onPrimaryContainer { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3primaryFixed { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3primaryFixedDim { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onPrimaryFixed { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onPrimaryFixedVariant { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+
+    // Secondary
+    Behavior on m3secondary { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onSecondary { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3secondaryContainer { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onSecondaryContainer { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3secondaryFixed { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3secondaryFixedDim { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onSecondaryFixed { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onSecondaryFixedVariant { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+
+    // Tertiary
+    Behavior on m3tertiary { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onTertiary { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3tertiaryContainer { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onTertiaryContainer { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3tertiaryFixed { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3tertiaryFixedDim { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onTertiaryFixed { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onTertiaryFixedVariant { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+
+    // Error
+    Behavior on m3error { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onError { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3errorContainer { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onErrorContainer { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+
+    // Background & Surface
+    Behavior on m3background { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onBackground { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3surface { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onSurface { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3surfaceVariant { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3onSurfaceVariant { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3surfaceTint { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+
+    // Surface Containers
+    Behavior on m3surfaceDim { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3surfaceBright { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3surfaceContainerLowest { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3surfaceContainerLow { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3surfaceContainer { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3surfaceContainerHigh { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3surfaceContainerHighest { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+
+    // Inverse & Utils
+    Behavior on m3inverseSurface { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3inverseOnSurface { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3inversePrimary { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3outline { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3outlineVariant { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3shadow { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    Behavior on m3scrim { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
     }
 
     font: QtObject {
@@ -42,14 +157,14 @@ Singleton {
             })
         }
         property QtObject pixelSize: QtObject {
-            property int smallest: 10
-            property int smaller: 12
-            property int small: 15
-            property int normal: 16
-            property int large: 17
-            property int larger: 19
-            property int huge: 22
-            property int title: huge
+            property int smallest: 10 * (Config.options.appearance.fontScale / 100)
+            property int smaller: 12 * (Config.options.appearance.fontScale / 100)
+            property int small: 15 * (Config.options.appearance.fontScale / 100)
+            property int normal: 18 * (Config.options.appearance.fontScale / 100)
+            property int large: 20 * (Config.options.appearance.fontScale / 100)
+            property int larger: 22 * (Config.options.appearance.fontScale / 100)
+            property int huge: 30 * (Config.options.appearance.fontScale / 100)
+            property int title: huge * (Config.options.appearance.fontScale / 100)
         }
     }
 
