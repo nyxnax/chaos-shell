@@ -9,7 +9,7 @@ import qs.common.widgets
 Scope {
     //property var config
     // Dynamically create an array of names like ["DP-1", "DP-2"]
-    readonly property int workspacesPerScreen: 5
+    readonly property int workspacesPerScreen: 10
     readonly property var screenList: {
         const names = [];
         for (let i = 0; i < Quickshell.screens.length; i++) {
