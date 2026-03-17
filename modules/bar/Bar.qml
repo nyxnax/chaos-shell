@@ -29,8 +29,9 @@ Scope {
             readonly property int screenIndex: screenList.indexOf(modelData.name)
 
             anchors {
-                top: !Config.options.bar.bottom
-                bottom: Config.options.bar.bottom
+                // Primary monitor (index 0) uses the global config, secondary monitors (index > 0) are forced to the bottom
+                top: screenIndex === 0 ? !Config.options.bar.bottom : false
+                bottom: screenIndex === 0 ? Config.options.bar.bottom : true
                 left: true
                 right: true
             }

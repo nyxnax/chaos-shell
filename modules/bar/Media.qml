@@ -121,4 +121,22 @@ RowLayout {
             }
         }
     }
+    // Album Art
+    Rectangle {
+        Layout.preferredWidth: 32
+        Layout.preferredHeight: 32
+        radius: 8
+        color: Appearance.colors.m3surfaceVariant
+        clip: true
+        // Only show this block if the media player actually provides cover art
+        visible: MediaService.trackArtUrl !== ""
+
+        Image {
+            anchors.fill: parent
+            source: MediaService.trackArtUrl
+            fillMode: Image.PreserveAspectCrop
+            asynchronous: true
+            mipmap: true // Makes it look smooth when scaled down to 32x32
+        }
+    }
 }

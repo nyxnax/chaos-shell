@@ -10,6 +10,7 @@ QtObject {
     readonly property bool hasMedia: activePlayer !== null
     readonly property string trackTitle: activePlayer ? activePlayer.trackTitle : ""
     readonly property string trackArtist: activePlayer ? activePlayer.trackArtist : ""
+    readonly property string trackArtUrl: activePlayer ? activePlayer.trackArtUrl : ""
     readonly property bool isPlaying: activePlayer ? activePlayer.playbackState === MprisPlaybackState.Playing : false
 
     function togglePlayPause() {
