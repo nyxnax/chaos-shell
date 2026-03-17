@@ -13,6 +13,25 @@ RowLayout {
     opacity: MediaService.hasMedia ? 1 : 0
     Behavior on opacity { NumberAnimation { duration: 200 } }
 
+    // Album Art
+    Rectangle {
+        Layout.preferredWidth: 32
+        Layout.preferredHeight: 32
+        radius: 8
+        color: Appearance.colors.m3surfaceVariant
+        clip: true
+        // Only show this block if the media player actually provides cover art
+        visible: MediaService.trackArtUrl !== ""
+
+        Image {
+            anchors.fill: parent
+            source: MediaService.trackArtUrl
+            fillMode: Image.PreserveAspectCrop
+            asynchronous: true
+            mipmap: true // Makes it look smooth when scaled down to 32x32
+        }
+    }
+
     // Play/Pause Button
     Rectangle {
         Layout.preferredWidth: 32
@@ -50,6 +69,9 @@ RowLayout {
             Layout.preferredHeight: titleText.implicitHeight
             clip: true
 
+            // React to layout resizing
+            onWidthChanged: titleText.checkScroll()
+
             Text {
                 id: titleText
                 text: MediaService.trackTitle
@@ -57,19 +79,28 @@ RowLayout {
                 font.pixelSize: 13
                 font.weight: Font.DemiBold
 
-                onTextChanged: {
-                    x = 0;
-                    titleAnim.restart();
+                onTextChanged: checkScroll()
+                onImplicitWidthChanged: checkScroll()
+
+                function checkScroll() {
+                    // Only start the animation if the text actually overflows the container
+                    if (implicitWidth > titleContainer.width && titleContainer.width > 0) {
+                        if (!titleAnim.running) titleAnim.restart();
+                    } else {
+                        // Otherwise, kill the animation and lock it to the start position
+                        titleAnim.stop();
+                        x = 0;
+                    }
                 }
 
                 SequentialAnimation on x {
                     id: titleAnim
                     loops: Animation.Infinite
-                    running: titleText.implicitWidth > titleContainer.width && titleContainer.width > 0
 
                     PauseAnimation { duration: 2000 }
                     NumberAnimation {
-                        to: titleContainer.width - titleText.implicitWidth
+                        // Safety clamp: ensures 'to' is NEVER positive, making it physically impossible to scroll backwards
+                        to: Math.min(0, titleContainer.width - titleText.implicitWidth)
                         duration: Math.max(1000, (titleText.implicitWidth - titleContainer.width) * 30)
                     }
                     PauseAnimation { duration: 2000 }
@@ -90,25 +121,33 @@ RowLayout {
             Layout.preferredHeight: artistText.implicitHeight
             clip: true
 
+            onWidthChanged: artistText.checkScroll()
+
             Text {
                 id: artistText
                 text: MediaService.trackArtist
                 color: Appearance.colors.m3outline
                 font.pixelSize: 11
 
-                onTextChanged: {
-                    x = 0;
-                    artistAnim.restart();
+                onTextChanged: checkScroll()
+                onImplicitWidthChanged: checkScroll()
+
+                function checkScroll() {
+                    if (implicitWidth > artistContainer.width && artistContainer.width > 0) {
+                        if (!artistAnim.running) artistAnim.restart();
+                    } else {
+                        artistAnim.stop();
+                        x = 0;
+                    }
                 }
 
                 SequentialAnimation on x {
                     id: artistAnim
                     loops: Animation.Infinite
-                    running: artistText.implicitWidth > artistContainer.width && artistContainer.width > 0
 
                     PauseAnimation { duration: 2000 }
                     NumberAnimation {
-                        to: artistContainer.width - artistText.implicitWidth
+                        to: Math.min(0, artistContainer.width - artistText.implicitWidth)
                         duration: Math.max(1000, (artistText.implicitWidth - artistContainer.width) * 30)
                     }
                     PauseAnimation { duration: 2000 }
@@ -119,24 +158,6 @@ RowLayout {
                     }
                 }
             }
-        }
-    }
-    // Album Art
-    Rectangle {
-        Layout.preferredWidth: 32
-        Layout.preferredHeight: 32
-        radius: 8
-        color: Appearance.colors.m3surfaceVariant
-        clip: true
-        // Only show this block if the media player actually provides cover art
-        visible: MediaService.trackArtUrl !== ""
-
-        Image {
-            anchors.fill: parent
-            source: MediaService.trackArtUrl
-            fillMode: Image.PreserveAspectCrop
-            asynchronous: true
-            mipmap: true // Makes it look smooth when scaled down to 32x32
         }
     }
 }
