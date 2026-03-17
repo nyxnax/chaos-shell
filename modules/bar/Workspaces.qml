@@ -13,7 +13,7 @@ RowLayout {
     // Dynamically calculate the number of workspaces to show.
     // Minimum 5, Maximum 10.
     readonly property int workspaceCount: {
-        let maxIdx = 5;
+        let maxIdx = 1;
         const monitorWorkspaces = Hyprland.workspaces.values;
         for (let i = 0; i < monitorWorkspaces.length; i++) {
             const ws = monitorWorkspaces[i];
