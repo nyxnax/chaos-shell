@@ -63,7 +63,9 @@ Scope {
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.margins: 10
-                spacing: 10
+                spacing: 15
+
+                Media {}
                 ControlCenter {}
             }
         }
