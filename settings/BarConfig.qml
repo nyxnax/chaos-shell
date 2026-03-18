@@ -29,6 +29,24 @@ ColumnLayout {
 
     Rectangle{height: 12; color:"transparent"} // Spacing
 
+    ConfigRow { // Workspaces Section
+        MaterialSymbol {text: "view_carousel"}
+        StyledText {text: "Workspaces"}
+    }
+
+    ConfigRow {
+        StyledSwitch {
+            checked: Config.options.bar.workspaceIcons
+            onCheckedChanged: {
+                Config.options.bar.workspaceIcons = checked;
+                console.log ("Bar: Workspace icons toggled")
+            }
+        }
+        StyledText {text: "Show app icons"}
+    }
+
+    Rectangle{height: 12; color:"transparent"} // Spacing
+
     ConfigRow { // Clock Section
         MaterialSymbol {text: "watch"}
         StyledText {text: "Clock"}
