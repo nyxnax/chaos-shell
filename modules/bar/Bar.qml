@@ -46,6 +46,7 @@ Scope {
                 anchors.margins: 10
                 spacing: 10
                 Clock {}
+
             }
 
             Row {
@@ -66,6 +67,7 @@ Scope {
                 anchors.margins: 10
                 spacing: 15
 
+                SysTray {}
                 Media {}
                 ControlCenter {}
             }
