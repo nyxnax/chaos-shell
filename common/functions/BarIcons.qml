@@ -25,13 +25,13 @@ QtObject {
         if (lower.includes("steam")) return "";
         if (lower.includes("vlc") || lower.includes("mpv")) return "";
 
-        // Development / Terminal
-        if (lower.includes("kitty") || lower.includes("alacritty") || lower.includes("wezterm") || lower.includes("konsole")|| lower.includes("~")) return "";
-        if (lower.includes("code") || lower.includes("codium")) return "󰨞";
-
         // System / Files
         if (lower.includes("thunar") || lower.includes("dolphin") || lower.includes("nautilus")) return "";
         if (lower.includes("obsidian")) return "󰠮";
+
+        // Development / Terminal
+        if (lower.includes("kitty") || lower.includes("alacritty") || lower.includes("wezterm") || lower.includes("konsole")|| lower.includes("~")) return "";
+        if (lower.includes("code") || lower.includes("codium")) return "󰨞";
 
         // If not listed dont show
         return "";
