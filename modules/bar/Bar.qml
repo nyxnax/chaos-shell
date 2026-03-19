@@ -31,7 +31,6 @@ Scope {
             readonly property bool isAutoHide: Config.options.bar.autoHide
             property bool mouseOver: false
             readonly property bool expanded: !isAutoHide || mouseOver
-            exclusionMode: isAutoHide ? ExclusionMode.Ignore : ExclusionMode.Auto
 
             anchors {
                 // Primary monitor (index 0) uses the global config, secondary monitors (index > 0) are forced to the bottom
@@ -41,7 +40,8 @@ Scope {
                 right: true
             }
 
-            implicitHeight: expanded ? 48 : 2
+            exclusionMode: isAutoHide ? ExclusionMode.Ignore : ExclusionMode.Auto
+            implicitHeight: expanded ? 48 : 5
             color: Appearance.colors.m3background
 
             Behavior on implicitHeight {
