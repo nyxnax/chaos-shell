@@ -28,6 +28,11 @@ Scope {
 
             readonly property int screenIndex: screenList.indexOf(modelData.name)
 
+            readonly property bool isAutoHide: Config.options.bar.autoHide
+            property bool mouseOver: false
+            readonly property bool expanded: !isAutoHide || mouseOver
+            exclusionMode: isAutoHide ? ExclusionMode.Ignore : ExclusionMode.Auto
+
             anchors {
                 // Primary monitor (index 0) uses the global config, secondary monitors (index > 0) are forced to the bottom
                 top: screenIndex === 0 ? !Config.options.bar.bottom : false
@@ -36,40 +41,61 @@ Scope {
                 right: true
             }
 
-            implicitHeight: 48
+            implicitHeight: expanded ? 48 : 2
             color: Appearance.colors.m3background
 
-            Row {
-                id: barLeft
-                anchors.left: parent.left
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.margins: 10
-                spacing: 10
-                Clock {}
-
-            }
-
-            Row {
-                id: barCenter
-                anchors.centerIn: parent
-                spacing: 5
-
-                Workspaces {
-                    workspaceOffset: Math.max(0, screenIndex) * workspacesPerScreen
-                    targetMonitorName: bar.screen.name
+            Behavior on implicitHeight {
+                    NumberAnimation {
+                        duration: Appearance.animation.elementMoveFast.duration
+                        easing.type: Appearance.animation.elementMoveFast.type
+                    }
                 }
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: bar.mouseOver = true
+                onExited: bar.mouseOver = false
+                // Allows you to click items inside the bar
+                propagateComposedEvents: true
             }
 
-            Row {
-                id: barRight
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.margins: 10
-                spacing: 10
+            Item {
+                anchors.fill: parent
 
-                SysTray {}
-                Media {}
-                ControlCenter {}
+                opacity: bar.expanded ? 1 : 0
+                Row {
+                    id: barLeft
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.margins: 10
+                    spacing: 10
+
+                    Clock {}
+                }
+
+                Row {
+                    id: barCenter
+                    anchors.centerIn: parent
+                    spacing: 5
+
+                    Workspaces {
+                        workspaceOffset: Math.max(0, screenIndex) * workspacesPerScreen
+                        targetMonitorName: bar.screen.name
+                    }
+                }
+
+                Row {
+                    id: barRight
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.margins: 10
+                    spacing: 10
+
+                    SysTray {}
+                    Media {}
+                    ControlCenter {}
+                }
             }
         }
     }

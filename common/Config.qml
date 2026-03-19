@@ -87,6 +87,7 @@ Singleton {
 
             property JsonObject bar: JsonObject {
                 property bool bottom: true
+                property bool autoHide: false
                 property bool showDate: true
                 property bool showTime: true
                 property bool workspaceIcons: true // NEW: Setting for workspace icons
