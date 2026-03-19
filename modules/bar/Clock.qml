@@ -43,9 +43,27 @@ Rectangle {
             id: date
             text: "  " + Time.date
             font.weight: 400
-            opacity: 0.5
             anchors.bottomMargin: 1
-            visible: Config.options.bar.date
+
+            property bool isShown: Config.options.bar.date
+            visible: opacity > 0
+            opacity: isShown ? 0.7 : 0
+            scale: isShown ? 1 : 0.7
+
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: Appearance.animation.elementMoveFast.duration
+                    easing.type: Appearance.animation.elementMoveFast.type
+                    easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
+                }
+            }
+            Behavior on scale {
+                NumberAnimation {
+                    duration: Appearance.animation.elementMoveFast.duration
+                    easing.type: Appearance.animation.elementMoveFast.type
+                    easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
+                }
+            }
         }
     }
 }

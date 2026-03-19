@@ -11,7 +11,7 @@ Switch {
     implicitHeight: 32 * root.scale
     implicitWidth: 52 * root.scale
     property color activeColor: Appearance.colors.m3primary
-    property color inactiveColor: "#45464F"
+    property color inactiveColor: Appearance.colors.m3surfaceContainerHighest
 
     PointingHand{}
 
@@ -21,7 +21,7 @@ Switch {
         radius: 9999
         color: root.checked ? root.activeColor : root.inactiveColor
         border.width: 2 * root.scale
-        border.color: root.checked ? root.activeColor : "#5a5a5a"
+        border.color: root.checked ? root.activeColor : Appearance.colors.m3outline
 
         Behavior on color {
             animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)
@@ -32,8 +32,8 @@ Switch {
     }
 
     indicator: Rectangle {
-        width: (root.pressed || root.down) ? 28 : root.checked ? 24 : 16
-        height: (root.pressed || root.down) ? 28 : root.checked ? 24 : 16
+        width: (root.pressed || root.down) ? (28 * root.scale) : root.checked ? (24 * root.scale) : (16 * root.scale)
+        height: (root.pressed || root.down) ? (28 * root.scale) : root.checked ? (24 * root.scale) : (16 * root.scale)
         radius: 9999
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left

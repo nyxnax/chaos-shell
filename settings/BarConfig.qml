@@ -6,61 +6,72 @@ import qs.common.widgets
 
 ColumnLayout {
     id: root
+    width: 500
+    spacing: 15
 
-    ConfigRow {// Main Section
-        MaterialSymbol {text: "dashboard"}
-        StyledText {text: "Main"}
-    }
-
-    ConfigRow {
-        uniform: false
-        StyledSwitch {
+    ConfigGroup {// Main Section
+        ConfigSwitch {
+            buttonIcon: "screen_rotation_alt"
+            text: "Bar position"
+            description: "Switches the bar's position from top to bottom"
             checked: Config.options.bar.bottom
             onCheckedChanged: {
                 Config.options.bar.bottom = checked;
-                console.log ("Bar: Position set")
+                console.log ("Bar: Bar position switched")
             }
         }
-        StyledText {text: "Orientation"}
-        ToolTip {
-            text: "Top - Bottom"
-        }
     }
 
-    Rectangle{height: 12; color:"transparent"} // Spacing
-
-    ConfigRow { // Workspaces Section
-        MaterialSymbol {text: "view_carousel"}
-        StyledText {text: "Workspaces"}
-    }
-
-    ConfigRow {
-        StyledSwitch {
+    ConfigGroup { // Workspaces Section
+        icon: "view_carousel"
+        title: "Workspaces"
+        ConfigSwitch {
+            buttonIcon: "apps"
+            text: "App icons"
+            description: "Display app icons inside the workspace indicators"
             checked: Config.options.bar.workspaceIcons
             onCheckedChanged: {
                 Config.options.bar.workspaceIcons = checked;
                 console.log ("Bar: Workspace icons toggled")
             }
         }
-        StyledText {text: "Show app icons"}
     }
 
-    Rectangle{height: 12; color:"transparent"} // Spacing
-
-    ConfigRow { // Clock Section
-        MaterialSymbol {text: "watch"}
-        StyledText {text: "Clock"}
-    }
-
-
-    ConfigRow {
-        StyledSwitch {
+    ConfigGroup{ // Clock Section
+        icon: "watch"
+        title: "Time"
+        ConfigSwitch {
+            buttonIcon: "calendar_clock"
+            text: "Date"
+            description: "Show date next to clock"
             checked: Config.options.bar.date
             onCheckedChanged: {
                 Config.options.bar.date = checked;
                 console.log ("Bar: Date toggled")
             }
         }
-        StyledText {text: "Show date"}
+    }
+
+    ConfigGroup{ // Media Section
+        icon: "music_note"
+        title: "Media"
+        ConfigSwitch {
+            buttonIcon: "art_track"
+            text: "Cover art"
+            description: "Display cover art from currently playing media"
+            checked: Config.options.bar.showCoverArt
+            onCheckedChanged: {
+                Config.options.bar.showCoverArt = checked;
+                console.log ("Bar: Cover art toggled")
+            }
+        }
+    }
+
+    ConfigGroup { // Just here as fluff
+        icon: "dashboard"
+        title: "Test"
+        ConfigSwitch { text: "Item 1"; description: "These do nothing, they're just here as fluff for testing and showcase" }
+        ConfigSwitch { text: "Item 2" }
+        ConfigSwitch { text: "Item 3" }
     }
 }

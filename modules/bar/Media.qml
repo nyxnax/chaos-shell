@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import qs.common
 import qs.services
+import Qt5Compat.GraphicalEffects
 
 RowLayout {
     id: root
@@ -15,20 +16,59 @@ RowLayout {
 
     // Album Art
     Rectangle {
+        id: albumArt
         Layout.preferredWidth: 32
         Layout.preferredHeight: 32
         radius: 8
         color: Appearance.colors.m3surfaceVariant
         clip: true
-        // Only show this block if the media player actually provides cover art
-        visible: MediaService.trackArtUrl !== ""
+
+        property bool isShown: MediaService.trackArtUrl !== "" && Config.options.bar.showCoverArt
+        visible: opacity > 0
+
+        opacity: isShown ? 1 : 0
+        scale: isShown ? 1 : 0.7
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: Appearance.animation.elementMoveFast.duration
+                easing.type: Appearance.animation.elementMoveFast.type
+                easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
+            }
+        }
+
+        Behavior on scale {
+            NumberAnimation {
+                duration: Appearance.animation.elementMoveFast.duration
+                easing.type: Appearance.animation.elementMoveFast.type
+                easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
+            }
+        }
 
         Image {
+            id: coverArt
             anchors.fill: parent
             source: MediaService.trackArtUrl
             fillMode: Image.PreserveAspectCrop
             asynchronous: true
             mipmap: true // Makes it look smooth when scaled down to 32x32
+
+            layer.enabled: true
+            layer.effect: OpacityMask {
+                maskSource: Rectangle {
+                    width: coverArt.width
+                    height: coverArt.height
+                    radius: albumArt.radius
+                }
+            }
+
+            Behavior on source {
+                NumberAnimation {
+                    duration: Appearance.animation.elementMoveFast.duration
+                    easing.type: Appearance.animation.elementMoveFast.type
+                    easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
+                }
+            }
         }
     }
 

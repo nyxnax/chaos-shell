@@ -55,7 +55,7 @@ RowLayout {
             Behavior on Layout.preferredWidth {
                 NumberAnimation {
                     duration: Appearance.animationCurves.expressiveDefaultSpatialDuration
-                    easing.type: Easing.BezierSpline
+                    easing.type: Appearance.animation.elementMoveFast.type
                     easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
                 }
             }

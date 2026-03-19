@@ -89,6 +89,7 @@ Singleton {
                 property bool bottom: true
                 property bool date: true
                 property bool workspaceIcons: true // NEW: Setting for workspace icons
+                property bool showCoverArt: false
             }
         }
     }
