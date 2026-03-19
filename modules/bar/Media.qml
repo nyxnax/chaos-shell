@@ -9,10 +9,26 @@ RowLayout {
     id: root
     spacing: 8
 
-    // Bind visibility and opacity to the service
-    visible: MediaService.hasMedia
-    opacity: MediaService.hasMedia ? 1 : 0
-    Behavior on opacity { NumberAnimation { duration: 200 } }
+
+    readonly property bool shouldShow: MediaService.hasMedia && Config.options.bar.showMedia
+    opacity: shouldShow ? 1 : 0
+    visible: opacity > 0
+
+    Behavior on opacity {
+        NumberAnimation {
+            duration: Appearance.animation.elementMoveFast.duration
+            easing.type: Appearance.animation.elementMoveFast.type
+            easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
+        }
+    }
+
+    scale: shouldShow ? 1 : 0.95
+    Behavior on scale {
+        NumberAnimation {
+            duration: Appearance.animation.elementMoveFast.duration
+            easing.type: Appearance.animation.elementMoveFast.type
+        }
+    }
 
     // Album Art
     Rectangle {
@@ -23,7 +39,7 @@ RowLayout {
         color: Appearance.colors.m3surfaceVariant
         clip: true
 
-        property bool isShown: MediaService.trackArtUrl !== "" && Config.options.bar.showCoverArt
+        readonly property bool isShown: MediaService.trackArtUrl !== "" && Config.options.bar.showCoverArt
         visible: opacity > 0
 
         opacity: isShown ? 1 : 0

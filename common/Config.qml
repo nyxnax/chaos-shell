@@ -87,9 +87,11 @@ Singleton {
 
             property JsonObject bar: JsonObject {
                 property bool bottom: true
-                property bool date: true
+                property bool showDate: true
+                property bool showTime: true
                 property bool workspaceIcons: true // NEW: Setting for workspace icons
                 property bool showCoverArt: false
+                property bool showMedia: true
             }
         }
     }

@@ -13,19 +13,12 @@ ItemDelegate {
     property alias iconSize: iconWidget.iconSize
 
     Layout.fillWidth: true
-    implicitHeight: contentItem.implicitHeight + 8 * 2
+    implicitHeight: contentItem.implicitHeight + 12 * 2
     font.pixelSize: Appearance.font.pixelSize.large
 
     property int position: 0 // 0: mid, 1: top, 2: bottom, 3: both
     property int smallRadius: 4
-    readonly property int outerRadius: {
-        let p = root.parent;
-        while (p) {
-            if (p.radiusValue !== undefined) return p.radiusValue;
-            p = p.parent;
-        }
-        return 24;
-    }
+    property int outerRadius: 14
     background: Rectangle {
 
         topLeftRadius: (root.position === 1 || root.position === 3) ? outerRadius : smallRadius

@@ -7,28 +7,19 @@ import qs.common.widgets
 
 ColumnLayout {
     id: root
-    ConfigRow { // Customization Section
-        MaterialSymbol {text: "format_paint"}
-        StyledText {text: "Customization"}
-    }
 
-    ConfigRow {
-        uniform: false
-        StyledSwitch {
+    ConfigGroup { // Theming Section
+        icon: "format_paint"
+        title: "Theme"
+        ConfigSwitch {
+            buttonIcon: Config.options.appearance.light ? "brightness_7" : "moon_stars"
+            text: Config.options.appearance.light ? "Light Mode" : "Dark Mode"
             checked: Config.options.appearance.light
             onCheckedChanged: {
                 Config.options.appearance.light = checked;
-                console.log ("Config: Theme mode changed")
-            }
-            onToggled: {
-                console.log("Light mode set to: " + checked);
-                Config.options.appearance.light = checked;
+                console.log ("Appearance: Light theme set to " + checked)
                 Theme.generate();
             }
-        }
-        StyledText {
-            text: "Light mode"
-            font.pixelSize: 18
         }
     }
 
