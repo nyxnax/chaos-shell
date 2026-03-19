@@ -103,7 +103,7 @@ RowLayout {
                         text: BarIcons.getAppIcon(modelData)
                         font.family: Appearance.font.family.iconNerd
                         font.pixelSize: 11
-                        color: isFocused ? Appearance.colors.m3onPrimary : Appearance.colors.m3onSurfaceVariant
+                        color: isFocused ? Appearance.colors.m3onPrimary : Appearance.colors.m3onoutline
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
