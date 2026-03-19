@@ -66,7 +66,7 @@ RowLayout {
 
             color: {
                 if (isFocused) return Appearance.colors.m3primary
-                if (isOccupied) return Appearance.colors.m3surfaceVariant
+                if (isOccupied) return Appearance.colors.m3outline
                 return Appearance.colors.m3outlineVariant
             }
 

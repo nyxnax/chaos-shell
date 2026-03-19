@@ -7,7 +7,6 @@ QtObject {
     // --- ICON MAPPING DICTIONARY ---
     function getAppIcon(className) {
         //console.log("[IconService] Hyprland reported window class:", className);
-
         // Sanitize the string to make matching easier
         const lower = className.toString().toLowerCase().trim();
 
@@ -22,8 +21,10 @@ QtObject {
 
         // Media / Gaming
         if (lower.includes("spotify")) return "";
-        if (lower.includes("steam")) return "";
         if (lower.includes("vlc") || lower.includes("mpv")) return "";
+        if (lower.includes("minecraft")) return "󰍳";
+        if (lower.includes("heroes")) return "";
+        if (lower.includes("steam")) return "";
 
         // System / Files
         if (lower.includes("thunar") || lower.includes("dolphin") || lower.includes("nautilus")) return "";
