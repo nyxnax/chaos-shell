@@ -171,7 +171,8 @@ ApplicationWindow {
                     ToolTip {
                         text: modelData.name
                         visible: tabButton.hovered && text !== ""
-                        //delay: 50
+                        delay: 50
+                        timeout: 2000
 
                         contentItem: Text {
                             text: modelData.name
@@ -181,6 +182,28 @@ ApplicationWindow {
                         background: Rectangle {
                             color: Appearance.colors.m3secondaryContainer
                             radius: 6
+                        }
+
+                        enter: Transition {
+                            NumberAnimation {
+                                property: "opacity"
+                                from: 0.0
+                                to: 1.0
+                                duration: Appearance.animation.elementMoveFast.duration
+                                easing.type: Appearance.animation.elementMoveFast.type
+                                easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
+                            }
+                        }
+
+                        exit: Transition {
+                            NumberAnimation {
+                                property: "opacity"
+                                from: 1.0
+                                to: 0.0
+                                duration: Appearance.animation.elementMoveFast.duration
+                                easing.type: Appearance.animation.elementMoveFast.type
+                                easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
+                            }
                         }
                     }
                 }
