@@ -66,7 +66,7 @@ RowLayout {
 
             color: {
                 if (isFocused) return Appearance.colors.m3primary
-                if (isOccupied) return Appearance.colors.m3outline
+                if (isOccupied) return Appearance.colors.m3secondary
                 return Appearance.colors.m3outlineVariant
             }
 
@@ -103,7 +103,7 @@ RowLayout {
                         text: BarIcons.getAppIcon(modelData)
                         font.family: Appearance.font.family.iconNerd
                         font.pixelSize: 11
-                        color: isFocused ? Appearance.colors.m3onPrimary : Appearance.colors.m3onoutline
+                        color: isFocused ? Appearance.colors.m3onPrimary : Appearance.colors.m3onSecondary
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
