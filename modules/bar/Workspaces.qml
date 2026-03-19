@@ -45,8 +45,8 @@ RowLayout {
 
             // Expand the width of the pill to fit the icons inside!
             Layout.preferredWidth: {
-                if (!showIcons) return isFocused ? 28 : 14;
-                return Math.max(isFocused ? 28 : 18, iconRow.width + 12);
+                if (!showIcons) return isFocused ? 28 : 16;
+                return Math.max(isFocused ? 28 : 16, iconRow.width + 12);
             }
 
             Layout.preferredHeight: 16
