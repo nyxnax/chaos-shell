@@ -15,12 +15,10 @@ ColumnLayout {
         StyledText {
             id: title
             text: "Chaos Shell"
-            color: "white"
             font.pixelSize: Appearance.font.pixelSize.huge
         }
         StyledText {
-            text: "v0.4"
-            color: "white"
+            text: "v0.5"
             opacity: 0.6
             font.pixelSize: title.font.pixelSize
         }

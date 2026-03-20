@@ -8,6 +8,7 @@ import QtQuick.Layouts
 
 MouseArea {
     id: root
+    visible: Battery.available
     //property bool borderless: Config.options.bar.borderless
     readonly property var chargeState: Battery.chargeState
     readonly property bool isCharging: Battery.isCharging

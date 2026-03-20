@@ -85,6 +85,11 @@ Singleton {
                 }
             }
 
+            property JsonObject osd: JsonObject {
+                property bool enable: true
+                property bool showPercent: false
+            }
+
             property JsonObject bar: JsonObject {
                 property bool bottom: true
                 property bool autoHide: false
@@ -95,6 +100,7 @@ Singleton {
                 property bool showArtist: true
                 property bool showMedia: true
             }
+
             property JsonObject battery: JsonObject {
                 property bool automaticSuspend: true
                 property bool sounds: true

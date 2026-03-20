@@ -10,5 +10,6 @@ Singleton {
 
     states: QtObject {
         property bool settingsOpen: false
+        property bool osdVolumeOpen: false
     }
 }

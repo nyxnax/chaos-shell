@@ -7,6 +7,7 @@ import qs.common.widgets
 
 ColumnLayout {
     id: root
+    spacing: 15
 
     ConfigGroup { // Theming Section
         icon: "format_paint"
@@ -70,22 +71,16 @@ ColumnLayout {
 
     Rectangle{height: 12; color:"transparent"} // Spacing
 
-    ConfigRow { // Accessibility Section
-        MaterialSymbol {text: "visibility"}
-        StyledText {text: "Visability and Accessibility"}
-    }
-
-    Column {
-        spacing: 2;
-        ConfigRow {StyledText {text: "Font size"}}
+    ConfigGroup { // Visibility / Accessibility Section
+        icon: "accessibility_new"
+        title: "Accessibility and Visibility"
         ConfigRow {
-            Slider {
+            MaterialSymbol {text: "text_fields"}
+            StyledText {text: "Font size"}
+            Item {Layout.fillWidth: true}
+            StyledSlider {
                 id: fontSlider
-                from: 80
-                to: 200
-                stepSize: 20
-                snapMode: Slider.SnapAlways
-
+                from: 80; to: 140; stepSize: 10; snapMode: Slider.SnapAlways
                 value: Config.options.appearance.fontScale
 
                 onMoved: {
@@ -93,10 +88,35 @@ ColumnLayout {
                     console.log("Font Scale Changed to: " + value + "%");
                 }
             }
-            StyledText { text: fontSlider.value + "%"; font.pixelSize: Appearance.font.pixelSize.smaller; opacity: 0.5}
+            StyledText { text: fontSlider.value + "%"; opacity: 0.5}
         }
     }
 
+    ConfigGroup { // OSD Section
+        icon: "sliders"
+        title: "OSD"
+        ConfigSwitch {
+            buttonIcon: "preview"
+            text: "Enable"
+            description: "Displays a bar on the screen indicating current volume and (soon) brightness levels when they are changed"
+            checked: Config.options.osd.enable
+            onCheckedChanged: {
+                Config.options.osd.enable = checked;
+                console.log ("OSD: Enabled set to " + checked)
+            }
+        }
+
+        ConfigSwitch {
+            buttonIcon: Config.options.osd.showPercent ? "percent" : "adjust"
+            text: "Show Percentage"
+            description: "Replace dot at the end of the OSD"
+            checked: Config.options.osd.showPercent
+            onCheckedChanged: {
+                Config.options.osd.showPercent = checked;
+                console.log ("OSD: Percent display set to " + checked)
+            }
+        }
+    }
 
 //    Button {
 //        text: matugenProcess.running ? "Generating..." : "Refresh theme"
