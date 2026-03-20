@@ -97,11 +97,20 @@ Singleton {
             property JsonObject battery: JsonObject {
                 property bool automaticSuspend: true
                 property bool sounds: true
-                property string theme: "freedesktop"
                 property int low: 20
                 property int critical: 10
                 property int full: 101
                 property int suspend: 3
+            }
+            property JsonObject sounds: JsonObject {
+                property string theme: "freedesktop"
+            }
+            property JsonObject audio: JsonObject {
+                property JsonObject protection: JsonObject {
+                    property bool enable: false
+                    property real maxAllowedIncrease: 10
+                    property real maxAllowed: 99
+                }
             }
         }
     }

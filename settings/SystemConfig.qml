@@ -62,4 +62,18 @@ ColumnLayout {
             }
         }
     }
+    ConfigGroup { // Audio Section
+        title: "Audio"
+        icon: "volume_up"
+        ConfigSwitch {
+            buttonIcon: "hearing_aid"
+            text: "Protection"
+            description: "Disallow any sudden jumps in volume for safety"
+            checked: Config.options.audio.protection.enable
+            onCheckedChanged: {
+                Config.options.audio.protection.enable = checked;
+                console.log ("System: Audio protection set to " + checked)
+            }
+        }
+    }
 }

@@ -8,11 +8,11 @@ import qs.common
 Rectangle {
     id: root
 
-    height: 32
-    implicitHeight: 32
-    Layout.preferredHeight: 32
+    height: 30
+    implicitHeight: 30
+    Layout.preferredHeight: 30
 
-    implicitWidth: trayLayout.implicitWidth + 16
+    implicitWidth: trayLayout.implicitWidth + 18
     Behavior on implicitWidth {
         NumberAnimation { duration: 250; easing.type: Easing.OutQuart }
     }

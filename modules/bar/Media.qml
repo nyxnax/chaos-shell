@@ -33,8 +33,8 @@ RowLayout {
     // Album Art
     Rectangle {
         id: albumArt
-        Layout.preferredWidth: 32
-        Layout.preferredHeight: 32
+        Layout.preferredWidth: 30
+        Layout.preferredHeight: 30
         radius: 8
         color: Appearance.colors.m3surfaceVariant
         clip: true
@@ -90,8 +90,8 @@ RowLayout {
 
     // Play/Pause Button
     Rectangle {
-        Layout.preferredWidth: 32
-        Layout.preferredHeight: 32
+        Layout.preferredWidth: 30
+        Layout.preferredHeight: 30
         radius: 8
         color: Appearance.colors.m3surfaceVariant
         clip: true
@@ -132,7 +132,7 @@ RowLayout {
                 id: titleText
                 text: MediaService.trackTitle
                 color: Appearance.colors.m3onBackground
-                font.pixelSize: 13
+                font.pixelSize: Appearance.font.pixelSize.smaler
                 font.weight: Font.DemiBold
 
                 onTextChanged: checkScroll()
@@ -183,7 +183,7 @@ RowLayout {
                 id: artistText
                 text: MediaService.trackArtist
                 color: Appearance.colors.m3outline
-                font.pixelSize: 11
+                font.pixelSize: Appearance.font.pixelSize.smallest
 
                 onTextChanged: checkScroll()
                 onImplicitWidthChanged: checkScroll()
