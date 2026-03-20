@@ -12,13 +12,18 @@ Rectangle {
     implicitHeight: 30
     Layout.preferredHeight: 30
 
-    implicitWidth: trayLayout.implicitWidth + 18
+    implicitWidth: trayLayout.implicitWidth + 12
     Behavior on implicitWidth {
-        NumberAnimation { duration: 250; easing.type: Easing.OutQuart }
+        NumberAnimation {
+            duration: Appearance.animationCurves.expressiveDefaultSpatialDuration
+            easing.type: Appearance.animation.elementMoveFast.type
+            easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
+        }
     }
+    Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
 
     radius: 8
-    color: Appearance.colors.m3surfaceVariant
+    color: isExpanded ? Appearance.colors.m3surfaceVariant : "transparent"
 
     property bool isExpanded: hoverHandler.hovered
 
@@ -31,7 +36,7 @@ Rectangle {
         anchors.centerIn: parent
 
         spacing: (root.isExpanded && SystemTray.items.values.length > 0) ? 10 : 0
-        Behavior on spacing { NumberAnimation { duration: 250; easing.type: Easing.OutQuart } }
+        Behavior on spacing { NumberAnimation { duration: 100; easing.type: Easing.OutQuart } }
 
         //expander dot
         Rectangle {
@@ -46,7 +51,7 @@ Rectangle {
             border.width: 2
             Layout.alignment: Qt.AlignVCenter
 
-            Behavior on color { ColorAnimation { duration: 150 } }
+            Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
         }
 
         // --- THE TRAY ICONS (Sliding Drawer) ---
