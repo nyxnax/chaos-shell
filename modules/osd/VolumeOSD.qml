@@ -60,12 +60,11 @@ Scope {
                     id: osdSlider
                     from: 0; to: 1;  stepSize: Config.options.osd.showDots ? 0.0625 : 0;
                     anchors.centerIn: parent
-                    width: parent.width - 20
-                    height: parent.height - 20
+                    width: parent.width - 25
+                    height: parent.height - 30
                     value: Audio.value
-                    //enabled: false
-
-                    onMoved: {
+                    enabled: Config.options.osd.draggable
+                        onMoved: {
                         if (Audio.sink && Audio.sink.audio) {
                             Audio.sink.audio.volume = value;
                             root.triggerOsd();
@@ -102,7 +101,7 @@ Scope {
                         text: Math.round(Audio.value * 100)
                         font.pixelSize: Appearance.font.pixelSize.large
                         font.weight: 700
-                        color: (osdSlider.visualPosition * osdSlider.width) > (osdSlider.width - 20)
+                        color: (osdSlider.visualPosition * osdSlider.width) > (osdSlider.width - 39)
                                ? Qt.alpha (Appearance.colors.m3onPrimary, 0)
                                : Qt.alpha (Appearance.colors.m3onSurfaceVariant, 0.6)
                         Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}

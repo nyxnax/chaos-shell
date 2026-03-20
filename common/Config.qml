@@ -89,6 +89,7 @@ Singleton {
                 property bool enable: true
                 property bool showPercent: false
                 property bool showDots: false
+                property bool draggable: false
             }
 
             property JsonObject bar: JsonObject {

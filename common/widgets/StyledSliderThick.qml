@@ -45,7 +45,7 @@ Slider {
         id: track
         x: root.leftPadding
         y: root.topPadding + (root.availableHeight - height) / 2
-        implicitHeight: root.pressed ? 32 : 34
+        implicitHeight: root.pressed ? 38 : 34
         width: root.availableWidth
         height: implicitHeight
         radius: 8
@@ -64,7 +64,7 @@ Slider {
                 width: Math.max(0, (root.visualPosition * parent.width) - 6)
                 color: Appearance.colors.m3primary
                 radius: 2
-                Behavior on width {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
+                Behavior on width {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
             }
         }
 

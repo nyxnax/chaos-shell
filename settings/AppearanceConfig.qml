@@ -112,7 +112,17 @@ ColumnLayout {
             checked: Config.options.osd.showPercent
             onCheckedChanged: {
                 Config.options.osd.showPercent = checked;
-                console.log ("OSD: Percent display set to " + checked)
+                //console.log ("OSD: Percent display set to " + checked)
+            }
+        }
+        ConfigSwitch {
+            buttonIcon: "touch_long"
+            text: "Enable Dragging"
+            description: "Allows for mouse and touch drag inputs on the bar"
+            checked: Config.options.osd.draggable
+            onCheckedChanged: {
+                Config.options.osd.draggable = checked;
+                //console.log ("OSD: Dragging set to " + checked)
             }
         }
         ConfigSwitch {
@@ -122,7 +132,7 @@ ColumnLayout {
             checked: Config.options.osd.showDots
             onCheckedChanged: {
                 Config.options.osd.showDots = checked;
-                console.log ("OSD: Enabled set to " + checked)
+                //console.log ("OSD: Enabled set to " + checked)
             }
         }
     }
