@@ -76,11 +76,16 @@ RowLayout {
                     let classes = [];
                     for (let i = 0; i < ws.toplevels.values.length; i++) {
                         let tl = ws.toplevels.values[i];
+                        let windowClass = tl.lastIpcObject.class;
 
                         let cls = tl.title;
 
-                        if (cls !== "" && !classes.includes(cls)) {
-                            classes.push(cls);
+                        if (windowClass == ""){
+                            windowClass = cls
+                        }
+
+                        if (windowClass !== "" && !classes.includes(windowClass)) {
+                            classes.push(windowClass);
                         }
                     }
 

@@ -32,7 +32,7 @@ QtObject {
         if (lower.includes("obsidian")) return "󰠮";
 
         // Development / Terminal
-        if (lower.includes("kitty") || lower.includes("alacritty") || lower.includes("wezterm") || lower.includes("konsole")|| lower.includes("~")) return "";
+        if (lower.includes("kitty") || lower.includes("alacritty") || lower.includes("wezterm") || lower.includes("konsole")) return "";
         if (lower.includes("code") || lower.includes("codium")) return "󰨞";
 
         // If not listed dont show
