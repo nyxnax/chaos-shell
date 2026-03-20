@@ -8,6 +8,7 @@ QtObject {
     function getAppIcon(className) {
         console.log("[IconService] Hyprland reported window class:", className);
         // Sanitize the string to make matching easier
+        if (className== "Undefined"){return ""}
         const lower = className.toString().toLowerCase().trim();
 
         // Browsers
