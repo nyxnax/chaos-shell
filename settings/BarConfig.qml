@@ -44,6 +44,16 @@ ColumnLayout {
                 console.log ("Bar: Workspace icons set to " + checked)
             }
         }
+        ConfigSwitch {
+            buttonIcon: "title"
+            text: "Window title"
+            description: "Display the active window's title in the bar"
+            checked: Config.options.bar.showWindowTitle
+            onCheckedChanged: {
+                Config.options.bar.showWindowTitle = checked;
+                console.log ("Bar: Window title set to " + checked)
+            }
+        }
     }
 
     ConfigGroup{ // Clock Section

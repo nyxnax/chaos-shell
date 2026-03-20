@@ -72,6 +72,7 @@ Scope {
                     spacing: 10
 
                     Clock {}
+                    WindowTitle {}
                 }
 
                 Row {

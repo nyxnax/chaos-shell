@@ -77,7 +77,6 @@ RowLayout {
                     for (let i = 0; i < ws.toplevels.values.length; i++) {
                         let tl = ws.toplevels.values[i];
                         let windowClass = tl.lastIpcObject.class;
-
                         let cls = tl.title;
 
                         if (windowClass == "" || windowClass == undefined){
