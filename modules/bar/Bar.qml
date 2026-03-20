@@ -95,6 +95,7 @@ Scope {
                     SysTray {}
                     Media {}
                     ControlCenter {}
+                    BatteryIndicator {}
                 }
             }
         }

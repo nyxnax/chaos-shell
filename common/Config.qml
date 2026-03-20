@@ -90,9 +90,18 @@ Singleton {
                 property bool autoHide: false
                 property bool showDate: true
                 property bool showTime: true
-                property bool workspaceIcons: true // NEW: Setting for workspace icons
+                property bool workspaceIcons: true
                 property bool showCoverArt: false
                 property bool showMedia: true
+            }
+            property JsonObject battery: JsonObject {
+                property bool automaticSuspend: true
+                property bool sounds: true
+                property string theme: "freedesktop"
+                property int low: 20
+                property int critical: 10
+                property int full: 101
+                property int suspend: 3
             }
         }
     }

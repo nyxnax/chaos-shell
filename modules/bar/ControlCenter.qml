@@ -6,7 +6,7 @@ import qs.services
 Rectangle {
     id: root
     height: 30
-    width: layout.width + 10
+    width: layout.width
     color: mouse.containsMouse ? "#2affffff" : "#00000000"
     radius: 6
 
@@ -42,7 +42,6 @@ Rectangle {
                 iconSize: Appearance.font.pixelSize.larger
                 anchors.centerIn: parent
             }
-
         }
     }
 }

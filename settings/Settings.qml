@@ -38,6 +38,12 @@ ApplicationWindow {
             component: "BarConfig.qml"
         },
         {
+            name: "System",
+            icon: "tune",
+            iconRotation: 180,
+            component: "SystemConfig.qml"
+        },
+        {
             name: "About",
             icon: "info",
             iconRotation: 180,
