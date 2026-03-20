@@ -58,7 +58,7 @@ Scope {
 
                 StyledSliderThick {
                     id: osdSlider
-                    from: 0; to: 1; stepSize: 0.125;
+                    from: 0; to: 1;  stepSize: Config.options.osd.showDots ? 0.0625 : 0;
                     anchors.centerIn: parent
                     width: parent.width - 20
                     height: parent.height - 20
@@ -67,19 +67,18 @@ Scope {
 
                     onMoved: {
                         if (Audio.sink && Audio.sink.audio) {
-                            // 2. Write directly to the sink's audio volume
                             Audio.sink.audio.volume = value;
                             root.triggerOsd();
                         }
 
-                        console.log("OSD: Volume Changed to: " + value + "%");
+                        //console.log("OSD: Volume Changed to: " + value + "%");
                     }
                 }
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.leftMargin: 24
-                    anchors.rightMargin: 24
+                    anchors.leftMargin: 26
+                    anchors.rightMargin: 26
                     spacing: 0
 
                     MaterialSymbol {

@@ -88,6 +88,7 @@ Singleton {
             property JsonObject osd: JsonObject {
                 property bool enable: true
                 property bool showPercent: false
+                property bool showDots: false
             }
 
             property JsonObject bar: JsonObject {

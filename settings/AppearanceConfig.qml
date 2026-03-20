@@ -105,7 +105,6 @@ ColumnLayout {
                 console.log ("OSD: Enabled set to " + checked)
             }
         }
-
         ConfigSwitch {
             buttonIcon: Config.options.osd.showPercent ? "percent" : "adjust"
             text: "Show Percentage"
@@ -114,6 +113,16 @@ ColumnLayout {
             onCheckedChanged: {
                 Config.options.osd.showPercent = checked;
                 console.log ("OSD: Percent display set to " + checked)
+            }
+        }
+        ConfigSwitch {
+            buttonIcon: "more_horiz"
+            text: "Dots"
+            description: "Display dots on bar (WARNING! Currently broken)"
+            checked: Config.options.osd.showDots
+            onCheckedChanged: {
+                Config.options.osd.showDots = checked;
+                console.log ("OSD: Enabled set to " + checked)
             }
         }
     }
