@@ -80,7 +80,7 @@ RowLayout {
 
                         let cls = tl.title;
 
-                        if (windowClass == ""){
+                        if (windowClass == "" || windowClass == undefined){
                             windowClass = cls
                         }
 
