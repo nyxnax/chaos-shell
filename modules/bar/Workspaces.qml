@@ -79,7 +79,7 @@ RowLayout {
                         let windowClass = tl.lastIpcObject.class;
                         let cls = tl.title;
 
-                        if (windowClass == "" || windowClass == undefined){
+                        if (windowClass == "" || windowClass == undefined || windowClass == "steam_app_default"){
                             windowClass = cls
                         }
 
