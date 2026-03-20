@@ -132,7 +132,7 @@ RowLayout {
                 id: titleText
                 text: MediaService.trackTitle
                 color: Appearance.colors.m3onBackground
-                font.pixelSize: Appearance.font.pixelSize.smaler
+                font.pixelSize: Appearance.font.pixelSize.smaller
                 font.weight: Font.DemiBold
 
                 onTextChanged: checkScroll()
