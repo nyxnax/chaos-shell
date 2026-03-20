@@ -35,6 +35,7 @@ Switch {
         width: (root.pressed || root.down) ? (28 * root.scale) : root.checked ? (24 * root.scale) : (16 * root.scale)
         height: (root.pressed || root.down) ? (28 * root.scale) : root.checked ? (24 * root.scale) : (16 * root.scale)
         radius: 9999
+        color: root.checked ? Appearance.colors.m3onPrimary : Appearance.colors.m3outline
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: root.checked ? ((root.pressed || root.down) ? (22 * root.scale) : 24 * root.scale) : ((root.pressed || root.down) ? (2 * root.scale) : 6 * root.scale)
@@ -46,6 +47,7 @@ Switch {
                 easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
             }
         }
+
         Behavior on width {
             NumberAnimation {
                 duration: Appearance.animationCurves.expressiveFastSpatialDuration
@@ -53,6 +55,7 @@ Switch {
                 easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
             }
         }
+
         Behavior on height {
             NumberAnimation {
                 duration: Appearance.animationCurves.expressiveFastSpatialDuration
@@ -60,8 +63,18 @@ Switch {
                 easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
             }
         }
+
         Behavior on color {
             animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)
+        }
+
+        MaterialSymbol {
+            text: "check"
+            visible: root.checked
+            anchors.centerIn: parent
+            font.pixelSize: Appearance.font.pixelSize.normal
+            font.weight: 700
+            color: root.activeColor
         }
     }
 }

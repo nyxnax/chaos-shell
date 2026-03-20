@@ -9,9 +9,19 @@ import Qt5Compat.GraphicalEffects
 
 Slider {
     id: root
+
+    property bool showDots: true
+    property int segments
+    property color backgroundColor: Appearance.colors.m3background
+    property color trackColor: Appearance.colors.m3secondaryContainer
+
+    from: 0
+    to: 1
+    stepSize: (showDots && root.segments > 0) ? (1.0 / root.segments) : 0
     snapMode: Slider.SnapAlways
     implicitWidth: 300
     implicitHeight: 44
+
     PointingHand {}
 
     handle: Item {
@@ -29,7 +39,7 @@ Slider {
             width: parent.width + 12
             height: parent.height + 4
             radius: 6
-            color: Appearance.colors.m3background
+            color: root.backgroundColor
         }
 
         Rectangle { // Handle
@@ -37,7 +47,6 @@ Slider {
             anchors.fill: parent
             radius: 1
             color: Appearance.colors.m3primary
-
         }
     }
 
@@ -49,7 +58,7 @@ Slider {
         width: root.availableWidth
         height: implicitHeight
         radius: 8
-        color: Appearance.colors.m3surfaceContainerHighest
+        color: root.trackColor
         Behavior on implicitHeight {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
         readonly property int dotCount: (root.stepSize > 0) ? Math.round((root.to - root.from) / root.stepSize) + 1 : 0

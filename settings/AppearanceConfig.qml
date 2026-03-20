@@ -74,21 +74,14 @@ ColumnLayout {
     ConfigGroup { // Visibility / Accessibility Section
         icon: "accessibility_new"
         title: "Accessibility and Visibility"
-        ConfigRow {
-            MaterialSymbol {text: "text_fields"}
-            StyledText {text: "Font size"}
-            Item {Layout.fillWidth: true}
-            StyledSlider {
-                id: fontSlider
-                from: 80; to: 140; stepSize: 10; snapMode: Slider.SnapAlways
-                value: Config.options.appearance.fontScale
 
-                onMoved: {
-                    Config.options.appearance.fontScale = value;
-                    console.log("Font Scale Changed to: " + value + "%");
-                }
-            }
-            StyledText { text: fontSlider.value + "%"; opacity: 0.5}
+        ConfigSlider {
+            text: "Font Size"
+            buttonIcon: "text_fields"
+            liveUpdate: false
+            from: 80; to: 140; stepSize: 10
+            value: Config.options.appearance.fontScale
+            onMoved: (newValue) => {Config.options.appearance.fontScale = newValue;}
         }
     }
 

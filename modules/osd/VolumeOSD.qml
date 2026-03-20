@@ -58,7 +58,8 @@ Scope {
 
                 StyledSliderThick {
                     id: osdSlider
-                    from: 0; to: 1;  stepSize: Config.options.osd.showDots ? 0.0625 : 0;
+                    from: 0; to: 1;  segments: Config.options.osd.showDots ? 10 : 0;
+
                     anchors.centerIn: parent
                     width: parent.width - 25
                     height: parent.height - 30
