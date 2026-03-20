@@ -94,6 +94,16 @@ ColumnLayout {
                 console.log ("Bar: Media cover art set to " + checked)
             }
         }
+        ConfigSwitch {
+            buttonIcon: "album"
+            text: "Artist name"
+            description: "Display artirst name under the title"
+            checked: Config.options.bar.showArtist
+            onCheckedChanged: {
+                Config.options.bar.showArtist = checked;
+                console.log ("Bar: Media artist set to " + checked)
+            }
+        }
     }
 
     ConfigGroup { // Just here as fluff

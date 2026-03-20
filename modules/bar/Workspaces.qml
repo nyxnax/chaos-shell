@@ -52,23 +52,15 @@ RowLayout {
             Layout.preferredHeight: 16
             radius: 100
 
-            Behavior on Layout.preferredWidth {
-                NumberAnimation {
-                    duration: Appearance.animationCurves.expressiveDefaultSpatialDuration
-                    easing.type: Appearance.animation.elementMoveFast.type
-                    easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
-                }
-            }
-
-            Behavior on color {
-                animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)
-            }
 
             color: {
                 if (isFocused) return Appearance.colors.m3primary
                 if (isOccupied) return Appearance.colors.m3secondary
                 return Appearance.colors.m3outlineVariant
             }
+
+            Behavior on Layout.preferredWidth {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
+            Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
 
             // --- ICONS ---
             Row {

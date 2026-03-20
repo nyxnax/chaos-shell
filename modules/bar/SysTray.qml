@@ -12,14 +12,8 @@ Rectangle {
     implicitHeight: 30
     Layout.preferredHeight: 30
 
-    implicitWidth: trayLayout.implicitWidth + 12
-    Behavior on implicitWidth {
-        NumberAnimation {
-            duration: Appearance.animationCurves.expressiveDefaultSpatialDuration
-            easing.type: Appearance.animation.elementMoveFast.type
-            easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
-        }
-    }
+    implicitWidth: isExpanded ? trayLayout.implicitWidth + 18 : 18
+    Behavior on implicitWidth {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
     Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
 
     radius: 8

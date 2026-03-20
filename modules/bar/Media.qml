@@ -2,13 +2,13 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import qs.common
+import qs.common.widgets
 import qs.services
 import Qt5Compat.GraphicalEffects
 
 RowLayout {
     id: root
     spacing: 8
-
 
     readonly property bool shouldShow: MediaService.hasMedia && Config.options.bar.showMedia
     opacity: shouldShow ? 1 : 0
@@ -92,18 +92,26 @@ RowLayout {
     Rectangle {
         Layout.preferredWidth: 30
         Layout.preferredHeight: 30
-        radius: 8
-        color: Appearance.colors.m3surfaceVariant
+        radius: MediaService.isPlaying ? 8 : 15
+        color: MediaService.isPlaying ? Appearance.colors.m3surfaceVariant : Appearance.colors.m3secondaryContainer
+        scale: buttonArea.pressed ? 0.9 : 1.0
+        Behavior on radius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
+        Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
+        Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)}
         clip: true
 
-        Text {
+        StyledText {
             anchors.centerIn: parent
             text: MediaService.isPlaying ? "󰏤" : "󰐊"
-            color: Appearance.colors.m3onSurfaceVariant
-            font.pixelSize: 16
+            color: MediaService.isPlaying ? Appearance.colors.m3onSurfaceVariant : Appearance.colors.m3onSecondaryContainer
+            scale: buttonArea.pressed ? 0.9 : 1.0
+            Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
+            Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this) }
+            font.pixelSize: 20
         }
 
         MouseArea {
+            id: buttonArea
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
             onClicked: MediaService.togglePlayPause()
@@ -124,16 +132,17 @@ RowLayout {
             Layout.preferredWidth: titleText.implicitWidth
             Layout.preferredHeight: titleText.implicitHeight
             clip: true
+            Behavior on Layout.preferredWidth {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
             // React to layout resizing
             onWidthChanged: titleText.checkScroll()
 
-            Text {
+            StyledText {
                 id: titleText
                 text: MediaService.trackTitle
                 color: Appearance.colors.m3onBackground
-                font.pixelSize: Appearance.font.pixelSize.smaller
-                font.weight: Font.DemiBold
+                font.pixelSize: Config.options.bar.showArtist ? Appearance.font.pixelSize.smaller : Appearance.font.pixelSize.normal
+                font.weight: 500
 
                 onTextChanged: checkScroll()
                 onImplicitWidthChanged: checkScroll()
@@ -176,14 +185,18 @@ RowLayout {
             Layout.preferredWidth: artistText.implicitWidth
             Layout.preferredHeight: artistText.implicitHeight
             clip: true
+            visible: Config.options.bar.showArtist
+            Behavior on Layout.preferredWidth {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
             onWidthChanged: artistText.checkScroll()
 
-            Text {
+            StyledText {
                 id: artistText
                 text: MediaService.trackArtist
                 color: Appearance.colors.m3outline
                 font.pixelSize: Appearance.font.pixelSize.smallest
+                font.weight: 400
+
 
                 onTextChanged: checkScroll()
                 onImplicitWidthChanged: checkScroll()

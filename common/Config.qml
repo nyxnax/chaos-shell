@@ -92,6 +92,7 @@ Singleton {
                 property bool showTime: true
                 property bool workspaceIcons: true
                 property bool showCoverArt: false
+                property bool showArtist: true
                 property bool showMedia: true
             }
             property JsonObject battery: JsonObject {
