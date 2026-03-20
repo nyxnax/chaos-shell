@@ -13,6 +13,14 @@ Rectangle {
 
     Behavior on color { ColorAnimation { duration: 150 } }
 
+    Behavior on width {
+        NumberAnimation {
+            duration: Appearance.animationCurves.expressiveDefaultSpatialDuration
+            easing.type: Appearance.animation.elementMoveFast.type
+            easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
+        }
+    }
+
     MouseArea {
         id: mouse
         anchors.fill: parent
@@ -29,13 +37,8 @@ Rectangle {
 
         Item { // Input
             id: input
-            property bool reveal
-            property bool vertical: false
-            clip: true
-
             implicitHeight: root.height
             implicitWidth: root.height / 1.5
-            visible: Audio.source?.audio?.muted ?? false
 
             MaterialSymbol {
                 id: inputIcon
@@ -44,17 +47,32 @@ Rectangle {
                 anchors.centerIn: parent
                 opacity: 0.6
             }
+
+            readonly property bool shouldShow: Audio.source?.audio?.muted ?? false
+            opacity: shouldShow ? 1 : 0
+            visible: opacity > 0
+
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: Appearance.animation.elementMoveFast.duration
+                    easing.type: Appearance.animation.elementMoveFast.type
+                    easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
+                }
+            }
+
+            scale: shouldShow ? 1 : 0.95
+            Behavior on scale {
+                NumberAnimation {
+                    duration: Appearance.animation.elementMoveFast.duration
+                    easing.type: Appearance.animation.elementMoveFast.type
+                }
+            }
         }
 
         Item { // Output
             id: output
-            property bool reveal
-            property bool vertical: false
-            clip: true
-
             implicitHeight: root.height
             implicitWidth: root.height / 1.5
-            visible: Audio.sink?.audio?.muted ?? false
 
             MaterialSymbol {
                 id: outputIcon
@@ -62,6 +80,26 @@ Rectangle {
                 iconSize: Appearance.font.pixelSize.larger
                 anchors.centerIn: parent
                 opacity: 0.6
+            }
+
+            readonly property bool shouldShow: Audio.sink?.audio?.muted ?? false
+            opacity: shouldShow ? 1 : 0
+            visible: opacity > 0
+
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: Appearance.animation.elementMoveFast.duration
+                    easing.type: Appearance.animation.elementMoveFast.type
+                    easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
+                }
+            }
+
+            scale: shouldShow ? 1 : 0.95
+            Behavior on scale {
+                NumberAnimation {
+                    duration: Appearance.animation.elementMoveFast.duration
+                    easing.type: Appearance.animation.elementMoveFast.type
+                }
             }
         }
 
