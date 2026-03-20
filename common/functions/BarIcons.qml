@@ -26,7 +26,6 @@ QtObject {
         if (lower.includes("heroes")) return "";
         if (lower.includes("steam")) return "";
         if (lower.includes("mpv") || lower.includes("vlc") || lower.includes("avidemux")) return "󰿎";
-        //,
 
         // System / Files
         if (lower.includes("thunar") || lower.includes("dolphin") || lower.includes("nautilus")) return "";
