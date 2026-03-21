@@ -12,33 +12,88 @@ ColumnLayout {
     id: root
     spacing: 20
 
-    Rectangle { // Current Wallpaper
-        id: wallpaperPreview
-        width: 320
-        height: 180
-        radius: 12
-        color: Appearance.colors.m3surfaceContainer
-        clip: true
+    RowLayout {
+        Rectangle { // Current Wallpaper
+            id: wallpaperPreview
+            width: 320
+            height: 180
+            radius: 12
+            color: Appearance.colors.m3surfaceContainer
+            clip: true
 
-        Image {
-            id: previewImage
-            anchors.fill: parent
-            source: Config.options.appearance.wallpaper ? "file://" + Config.options.appearance.wallpaper : ""
-            fillMode: Image.PreserveAspectCrop
-            asynchronous: true
+            Image {
+                id: previewImage
+                anchors.fill: parent
+                source: Config.options.appearance.wallpaper ? "file://" + Config.options.appearance.wallpaper : ""
+                fillMode: Image.PreserveAspectCrop
+                asynchronous: true
 
-            opacity: status === Image.Ready ? 1 : 0
+                opacity: status === Image.Ready ? 1 : 0
 
-            Behavior on opacity {
-                NumberAnimation { duration: 400; easing.type: Easing.InOutQuad }
+                Behavior on opacity {
+                    NumberAnimation { duration: 400; easing.type: Easing.InOutQuad }
+                }
+
+                layer.enabled: true
+                layer.effect: OpacityMask {
+                    maskSource: Rectangle {
+                        width: wallpaperPreview.width
+                        height: wallpaperPreview.height
+                        radius: 12 // Same as parent
+                    }
+                }
             }
+        }
+        ColumnLayout { // Mode switcher
+            id: modeSwitcher
+            spacing: 5
+            Layout.fillWidth: true
 
-            layer.enabled: true
-            layer.effect: OpacityMask {
-                maskSource: Rectangle {
-                    width: wallpaperPreview.width
-                    height: wallpaperPreview.height
-                    radius: 12 // Same as parent
+            StyledButton { // Light Mode
+                Layout.fillHeight: true
+                Layout.fillWidth: false
+                implicitWidth: 150
+                buttonColor: "white"
+                border: Config.options.appearance.light ? 3 : 0
+
+                contentItem: Item {
+                    ColumnLayout{
+                        anchors.centerIn: parent
+                        RowLayout {Layout.alignment: Qt.AlignHCenter; MaterialSymbol {text: "brightness_7"; color: "black"; font.pixelSize: Appearance.font.pixelSize.larger} StyledText{text: "Light"; color: "black"; font.pixelSize: Appearance.font.pixelSize.larger}}
+                        Row {
+                            spacing: 5;Layout.alignment: Qt.AlignHCenter;
+                            Rectangle {color: Appearance.colors.m3primary; implicitHeight: 30 ;implicitWidth: 30; radius: 15}
+                            Rectangle {color: Appearance.colors.m3secondary; implicitHeight: 30 ;implicitWidth: 30; radius: 15}
+                            Rectangle {color: Appearance.colors.m3tertiary; implicitHeight: 30 ;implicitWidth: 30; radius: 15}
+                        }
+                    }
+                }
+                onClicked: {
+                    Config.options.appearance.light = true
+                    Theme.generate()
+                }
+            }
+            StyledButton { // Dark Mode
+                Layout.fillHeight: true
+                Layout.fillWidth: false
+                implicitWidth: 150
+                buttonColor: "black"
+                border: !Config.options.appearance.light ? 3 : 0
+
+                contentItem: Item {
+                    ColumnLayout{
+                        anchors.centerIn: parent
+                            RowLayout {Layout.alignment: Qt.AlignHCenter; MaterialSymbol {text: "moon_stars"; color: "white"; font.pixelSize: Appearance.font.pixelSize.larger} StyledText{text: "Dark"; color: "white"; font.pixelSize: Appearance.font.pixelSize.larger}}
+                        Row {spacing: 5;Layout.alignment: Qt.AlignHCenter;
+                            Rectangle {color: Appearance.colors.m3primary; implicitHeight: 30 ;implicitWidth: 30; radius: 15}
+                            Rectangle {color: Appearance.colors.m3secondary; implicitHeight: 30 ;implicitWidth: 30; radius: 15}
+                            Rectangle {color: Appearance.colors.m3tertiary; implicitHeight: 30 ;implicitWidth: 30; radius: 15}
+                        }
+                    }
+                }
+                onClicked: {
+                    Config.options.appearance.light = false
+                    Theme.generate()
                 }
             }
         }

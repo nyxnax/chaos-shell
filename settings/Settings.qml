@@ -150,7 +150,7 @@ ApplicationWindow {
                 delegate: navButtonDelegate
             }
             background:Rectangle {
-                color: Appearance.colors.m3primary
+                color: Appearance.colors.m3secondary
                 radius: 10
 
                 Rectangle {
@@ -182,7 +182,7 @@ ApplicationWindow {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.margins: 20
-            color: Appearance.colors.m3primary
+            color: Appearance.colors.m3secondary
             radius: 12
 
             Behavior on opacity { NumberAnimation { duration: 200; easing.type: Easing.InOutQuad } }
@@ -229,7 +229,7 @@ ApplicationWindow {
                     text: modelData.icon
                     color: tabButton.checked
                         ? Appearance.colors.m3onPrimaryContainer
-                        : Appearance.colors.m3onPrimary
+                        : Appearance.colors.m3onSecondary
                     iconSize: Appearance.font.pixelSize.huge
                     opacity: 0.9
                 }

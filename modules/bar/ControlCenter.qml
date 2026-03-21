@@ -34,11 +34,12 @@ Rectangle {
     RowLayout {
         id: layout
         anchors.centerIn: parent
+        spacing: -2
 
         Item { // Input
             id: input
             implicitHeight: root.height
-            implicitWidth: root.height / 1.5
+            implicitWidth: root.height
 
             MaterialSymbol {
                 id: inputIcon
@@ -72,7 +73,7 @@ Rectangle {
         Item { // Output
             id: output
             implicitHeight: root.height
-            implicitWidth: root.height / 1.5
+            implicitWidth: root.height
 
             MaterialSymbol {
                 id: outputIcon
@@ -106,7 +107,7 @@ Rectangle {
         Item { // Network
             id: network
             implicitHeight: root.height
-            implicitWidth: root.height / 1.5
+            implicitWidth: root.height
             MaterialSymbol {
                 id: networkIconBackground
                 visible: Network.wifiStatus === "connected" && !Network.ethernet
