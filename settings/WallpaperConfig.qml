@@ -177,6 +177,10 @@ ColumnLayout {
                         color: themeChip.isSelected ? Appearance.colors.m3onPrimaryContainer : Appearance.colors.m3onSurfaceVariant
                     }
 
+                    StyledToolTip {
+                        text: modelData.name
+                    }
+
                     onClicked: {
                         Config.options.appearance.scheme = modelData.value
                         Theme.generate()
