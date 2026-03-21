@@ -132,4 +132,57 @@ ColumnLayout {
             }
         }
     }
+
+    ConfigGroup{
+        icon: "colors"
+        title: "Color Scheme"
+        Flow {
+            id: schemeFlow
+            width: parent.width
+            spacing: 8
+            padding: 10
+            Layout.fillWidth: true
+
+            Repeater {
+                model: [
+                    { name: "Tonal Spot (Default)", value: "scheme-tonal-spot",  icon: "palette" },
+                    { name: "Content",              value: "scheme-content",     icon: "filter_center_focus" },
+                    { name: "Expressive",           value: "scheme-expressive",  icon: "auto_awesome" },
+                    { name: "Fidelity",             value: "scheme-fidelity",    icon: "high_quality" },
+                    { name: "Fruit Salad",          value: "scheme-fruit-salad", icon: "nutrition" },
+                    { name: "Monochrome",           value: "scheme-monochrome",  icon: "lens_blur" },
+                    { name: "Neutral",              value: "scheme-neutral",     icon: "contrast" },
+                    { name: "Rainbow",              value: "scheme-rainbow",     icon: "looks" }
+                ]
+
+                delegate: Button {
+                    id: themeChip
+
+                    implicitWidth: 60
+                    implicitHeight: 60
+
+                    property bool isSelected: Config.options.appearance.scheme === modelData.value
+
+                    background: Rectangle {
+                        color: themeChip.isSelected ? Appearance.colors.m3primaryContainer : Appearance.colors.m3surfaceVariant
+                        radius: themeChip.implicitHeight / 2
+                        border.width: themeChip.hovered ? 2 : 0
+                        border.color: Appearance.colors.m3primary
+                    }
+
+                    MaterialSymbol {
+                        anchors.centerIn: parent
+                        text: modelData.icon
+                        iconSize: 30
+                        color: themeChip.isSelected ? Appearance.colors.m3onPrimaryContainer : Appearance.colors.m3onSurfaceVariant
+                    }
+
+                    onClicked: {
+                        Config.options.appearance.scheme = modelData.value
+                        Theme.generate()
+                    }
+                }
+            }
+        }
+    }
 }

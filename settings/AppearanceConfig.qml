@@ -24,53 +24,6 @@ ColumnLayout {
         }
     }
 
-    ConfigRow {
-        ComboBox {
-            id: schemeBox
-            textRole: "label"
-
-            // 1. The Mapping (Value -> Index)
-            readonly property var indexMap: {
-                "scheme-content": 0,
-                "scheme-expressive": 1,
-                "scheme-fidelity": 2,
-                "scheme-fruit-salad": 3,
-                "scheme-monochrome": 4,
-                "scheme-neutral": 5,
-                "scheme-rainbow": 6,
-                "scheme-tonal-spot": 7,
-                "scheme-vibrant": 8
-            }
-
-            // 2. The Live Binding (Just like 'checked' in your switch)
-            currentIndex: indexMap[Config.options.appearance.scheme] ?? 0
-
-            model: ListModel {
-                ListElement { label: "Content"; value: "scheme-content" }
-                ListElement { label: "Expressive"; value: "scheme-expressive" }
-                ListElement { label: "Fidelity"; value: "scheme-fidelity" }
-                ListElement { label: "Fruit salad"; value: "scheme-fruit-salad" }
-                ListElement { label: "Monochrome"; value: "scheme-monochrome" }
-                ListElement { label: "Neutral"; value: "scheme-neutral" }
-                ListElement { label: "Rainbow"; value: "scheme-rainbow" }
-                ListElement { label: "Tonal Spot"; value: "scheme-tonal-spot" }
-                ListElement { label: "Vibrant"; value: "scheme-vibrant" }
-            }
-
-            // 3. The Action (Just like 'onToggled' in your switch)
-            onActivated: (index) => {
-                let newValue = model.get(index).value;
-                console.log("Config: Scheme changed to " + newValue);
-
-                Config.options.appearance.scheme = newValue;
-                Theme.generate();
-            }
-        }
-        StyledText {text: "Color scheme"}
-    }
-
-    Rectangle{height: 12; color:"transparent"} // Spacing
-
     ConfigGroup { // Visibility / Accessibility Section
         icon: "accessibility_new"
         title: "Accessibility and Visibility"
