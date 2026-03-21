@@ -114,6 +114,16 @@ ColumnLayout {
                 //console.log ("Bar: Media artist set to " + checked)
             }
         }
+        ConfigSwitch {
+            buttonIcon: "play_arrow"
+            text: "Control"
+            description: "Enable Play/Pause button beside the metadata"
+            checked: Config.options.bar.showMediaControl
+            onCheckedChanged: {
+                Config.options.bar.showMediaControl = checked;
+                //console.log ("Bar: Media control set to " + checked)
+            }
+        }
     }
 
     ConfigGroup { // Just here as fluff

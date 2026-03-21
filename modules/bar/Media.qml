@@ -90,6 +90,8 @@ RowLayout {
 
     // Play/Pause Button
     Rectangle {
+        opacity: Config.options.bar.showMediaControl ? 1 : 0
+        visible: opacity > 0
         Layout.preferredWidth: 30
         Layout.preferredHeight: 30
         radius: MediaService.isPlaying ? 8 : 15
@@ -98,6 +100,8 @@ RowLayout {
         Behavior on radius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
         Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
         Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)}
+        Behavior on opacity {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)}
+
         clip: true
 
         StyledText {
