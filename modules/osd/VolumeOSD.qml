@@ -18,7 +18,6 @@ Scope {
         id: osdTimeout
         interval: 3000
         repeat: false
-        running: false
         onTriggered: {
             Global.states.osdVolumeOpen = false;
         }
@@ -56,10 +55,10 @@ Scope {
                 color: Qt.alpha(Appearance.colors.m3background, 1)
                 radius: 18
 
-                StyledSliderThick {
+                StyledSlider {
                     id: osdSlider
-                    from: 0; to: 1;  segments: Config.options.osd.showDots ? 10 : 0;
-
+                    from: 0; to: 1;  segments: Config.options.osd.showDots ? 20 : 0;
+                    thick: true
                     anchors.centerIn: parent
                     width: parent.width - 25
                     height: parent.height - 30
@@ -77,8 +76,8 @@ Scope {
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.leftMargin: 26
-                    anchors.rightMargin: 26
+                    anchors.leftMargin: 24
+                    anchors.rightMargin: 24
                     spacing: 0
 
                     MaterialSymbol {
@@ -104,7 +103,7 @@ Scope {
                         font.weight: 700
                         color: (osdSlider.visualPosition * osdSlider.width) > (osdSlider.width - 39)
                                ? Qt.alpha (Appearance.colors.m3onPrimary, 0)
-                               : Qt.alpha (Appearance.colors.m3onSurfaceVariant, 0.6)
+                               : Qt.alpha (Appearance.colors.m3onSurfaceVariant, 1)
                         Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
                         }
                     Rectangle {
@@ -114,7 +113,7 @@ Scope {
                         radius: height / 2
                         color: (osdSlider.visualPosition * osdSlider.width) > (osdSlider.width - 20)
                                ? Qt.alpha (Appearance.colors.m3onPrimary, 0)
-                               : Qt.alpha (Appearance.colors.m3onSurfaceVariant, 0.6)
+                               : Qt.alpha (Appearance.colors.m3onSurfaceVariant, 1)
                         Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
                     }
                 }

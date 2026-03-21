@@ -10,10 +10,12 @@ import Qt5Compat.GraphicalEffects
 Slider {
     id: root
 
+    property bool thick: false
     property bool showDots: true
     property int segments
     property color backgroundColor: Appearance.colors.m3background
     property color trackColor: Appearance.colors.m3secondaryContainer
+    property color fillColor: Appearance.colors.m3primary
 
     from: 0
     to: 1
@@ -30,7 +32,8 @@ Slider {
         y: root.topPadding + (root.availableHeight - height) / 2
         width: root.pressed ? 2 : 4
         height: 44
-        Behavior on width {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
+        Behavior on width {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
+        Behavior on x {enabled: !root.pressed; animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
 
         Rectangle { // Handle border
             id: gapBorder
@@ -44,8 +47,8 @@ Slider {
         Rectangle { // Handle
             id: handlePill
             anchors.fill: parent
-            radius: 1
-            color: Appearance.colors.m3primary
+            radius: 2
+            color: root.fillColor
         }
     }
 
@@ -53,7 +56,7 @@ Slider {
         id: track
         x: root.leftPadding
         y: root.topPadding + (root.availableHeight - height) / 2
-        implicitHeight: root.pressed ? 24 : 16
+        implicitHeight: root.thick ? (root.pressed ? 40: 34) : (root.pressed ? 24 : 16)
         width: root.availableWidth
         height: implicitHeight
         radius: 8
@@ -89,8 +92,8 @@ Slider {
                 radius: 2
                 visible: index > 0 && index < (track.dotCount - 1)
                 color: (root.from + (index * root.stepSize)) <= (root.value + 0.001)
-                       ? Appearance.colors.m3onPrimary
-                       : Appearance.colors.m3onSurfaceVariant
+                       ? root.fillColor
+                       : Appearance.colors.m3onSecondaryContainer
 
                 opacity: 0.6
                 Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
