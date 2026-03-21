@@ -182,7 +182,7 @@ ApplicationWindow {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.margins: 20
-            color: Appearance.colors.m3primary
+            color: Appearance.colors.m3secondary
             radius: 12
 
             Behavior on opacity { NumberAnimation { duration: 200; easing.type: Easing.InOutQuad } }
