@@ -2,10 +2,12 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Widgets
 import Quickshell.Wayland
 import qs.common
 import qs.common.widgets
 import qs.common.functions
+import Qt5Compat.GraphicalEffects
 
 Rectangle {
     id: root
@@ -50,16 +52,29 @@ Rectangle {
         height: parent.height
         spacing: 6
 
+        Item {
+            implicitHeight: 26; implicitWidth: 26
+            IconImage {
+                id: appIcon
 
-        Text {
-            id: appIcon
-            text: BarIcons.getAppIcon(ClassOrTitle.excludeClass(root.windowClass, root.windowTitle))
-            font.family: Appearance.font.family.iconNerd
-            font.pixelSize: 14
-            color: Appearance.colors.m3onBackground
-            visible: text !== ""
-            opacity: 0.8
-            Layout.alignment: Qt.AlignVCenter
+                source: {
+                    let id = ToplevelManager.activeToplevel?.appId
+                    if (!id) return ""
+                    let path = Quickshell.iconPath(id)
+                    if (!path) path = Quickshell.iconPath(id.toLowerCase())
+
+                    return path || "application-x-executable"
+                }
+                implicitHeight: 26
+                implicitWidth: 26
+            }
+            ColorOverlay {
+                anchors.fill: appIcon
+                source: appIcon // Tell it which image to filter
+                color: Appearance.colors.m3onSurfaceVariant
+                opacity: 0.5
+                Behavior on color { ColorAnimation { duration: 200 } }
+            }
         }
 
         StyledText {
