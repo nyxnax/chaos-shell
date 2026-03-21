@@ -6,7 +6,7 @@ QtObject {
 
     // --- ICON MAPPING DICTIONARY ---
     function getAppIcon(className) {
-        console.log("[IconService] Hyprland reported window class:", className);
+        //console.log("[IconService] Hyprland reported window class:", className);
         // Sanitize the string to make matching easier
         const lower = className.toString().toLowerCase().trim();
 

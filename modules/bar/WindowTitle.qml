@@ -47,9 +47,10 @@ Rectangle {
         height: parent.height
         spacing: 6
 
+
         Text {
             id: appIcon
-            text: BarIcons.getAppIcon(root.windowClass)
+            text: BarIcons.getAppIcon(ClassOrTitle.excludeClass(root.windowClass, root.windowTitle))
             font.family: Appearance.font.family.iconNerd
             font.pixelSize: 14
             color: Appearance.colors.m3onBackground
@@ -62,7 +63,7 @@ Rectangle {
             id: titleText
             Layout.maximumWidth: 350
             elide: Text.ElideRight
-            text: root.windowClass
+            text: ClassOrTitle.excludeClass(root.windowClass, root.windowTitle)
             font.weight: 500
             font.pixelSize: Appearance.font.pixelSize.normal
             color: Appearance.colors.m3onBackground
