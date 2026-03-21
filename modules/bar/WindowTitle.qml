@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Wayland
 import qs.common
 import qs.common.widgets
 import qs.common.functions
@@ -15,9 +16,10 @@ Rectangle {
 
     // Using the correct property discovered from our API scan
     readonly property var activeWin: Hyprland.activeToplevel
-    readonly property string windowTitle: activeWin ? activeWin.title : ""
-    //readonly property string windowClass: activeWin && activeWin.lastIpcObject ? activeWin.lastIpcObject.class : ""
-    readonly property string windowClass: activeWin?.lastIpcObject?.class ?? ""
+    //readonly property string windowTitle: activeWin ? activeWin.title : ""
+    //readonly property string windowClass: activeWin?.lastIpcObject?.class ?? ""
+    readonly property string windowTitle: ToplevelManager.activeToplevel?.title ?? "Desktop"
+    readonly property string windowClass: ToplevelManager.activeToplevel?.appId ?? "Desktop"
 
     // Hide the module entirely if there is no window focused or the toggle is off
     property bool isShown: Config.options.bar.showWindowTitle && windowTitle !== ""

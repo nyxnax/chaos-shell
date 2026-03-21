@@ -11,7 +11,8 @@ QtObject {
         if (Wclass == undefined || Wclass == "") return Wtitle;
         const lower = Wclass.toString().toLowerCase().trim();
 
-        if (lower.includes("steam_app_default") || lower.includes("~")) return Wtitle;
+        //add rules to handle edge cases for apps here e.g. Kitty
+        if (lower.includes("steam_app_default") || lower.includes("~") || lower.includes("org.quickshell")) return Wtitle;
         return Wclass;
     }
 }
