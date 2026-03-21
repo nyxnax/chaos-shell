@@ -11,13 +11,14 @@ ApplicationWindow {
 
     width: Screen.width * 0.7
     height: Screen.height * 0.7
-    minimumWidth: 400
-    minimumHeight: 400
+    minimumWidth: 600
+    minimumHeight: 500
     visible: Global.states.settingsOpen
     title: "Chaos Settings"
     onClosing: Global.states.settingsOpen = false
     color: Appearance.colors.m3background
 
+    property bool isPortrait: root.height > root.width
     property var pages: [
         {
             name: "Wallpaper",
@@ -67,9 +68,9 @@ ApplicationWindow {
         }
     }
 
-    ColumnLayout {
+    Item {
+        id: mainContent
         anchors.fill: parent
-        anchors.margins: 20
 
         Keys.onPressed: (event) => {
             if (event.modifiers === Qt.ControlModifier) {
@@ -93,19 +94,23 @@ ApplicationWindow {
         }
 
 
-        StackLayout {
-            currentIndex: tab.currentIndex
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+        StackLayout { // Pages
+            anchors.fill: parent
+            currentIndex: root.currentPage
+            anchors.leftMargin: isPortrait ? 30 : navRail.width + 40
+            anchors.rightMargin: 20
 
             Repeater {
                 model: root.pages
-                delegate: ScrollView {
-                contentWidth: availableWidth
 
-                    ColumnLayout {
-                        width: parent.width
-                        spacing: 20
+                delegate: ScrollView {
+                    id: scroll
+                    Layout.fillWidth: true
+
+                    Column {
+                        width: scroll.availableWidth
+                        bottomPadding: isPortrait ? navBar.height + 20 : 20
+                        topPadding: 20
 
                         ConfigRow {
                             MaterialSymbol {
@@ -119,7 +124,7 @@ ApplicationWindow {
                         }
 
                         Loader {
-                            Layout.fillWidth: true
+                            width: parent.width
                             source: modelData.component
                         }
                     }
@@ -127,12 +132,23 @@ ApplicationWindow {
             }
         }
 
-        TabBar {
-            id: tab
+        TabBar { // Bottom Navigation Bar
+            id: navBar
             currentIndex: root.currentPage
-            width: contentWidth
-            Layout.alignment: Qt.AlignHCenter
+            opacity: isPortrait ? 1 : 0
+            visible: opacity > 0
+            height: 60
+            width: (60 * root.pages.length)
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 20
 
+            Behavior on opacity { NumberAnimation { duration: 200; easing.type: Easing.InOutQuad } }
+
+            Repeater {
+                model: root.pages
+                delegate: navButtonDelegate
+            }
             background:Rectangle {
                 color: Appearance.colors.m3primary
                 radius: 10
@@ -142,7 +158,7 @@ ApplicationWindow {
                     height: parent.height - 8
                     width: 60 - 8
                     y: 4
-                    x: (tab.currentItem ? tab.currentItem.x : 0) + 4
+                    x: (navBar.currentItem ? navBar.currentItem.x : 0) + 4
                     color: Appearance.colors.m3primaryContainer
                     radius: 8
 
@@ -155,61 +171,105 @@ ApplicationWindow {
                     }
                 }
             }
+        }
 
-            Repeater {
-                model: root.pages
+        Rectangle { // Navigation Rail
+            id: navRail
+            opacity: !isPortrait ? 1 : 0
+            visible: opacity > 0
+            width: 60
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.margins: 20
+            color: Appearance.colors.m3primary
+            radius: 12
 
-                StyledTabButton {
-                    id: tabButton
-                    implicitWidth: 60
-                    implicitHeight: 60
+            Behavior on opacity { NumberAnimation { duration: 200; easing.type: Easing.InOutQuad } }
 
-                    MaterialSymbol {
-                        anchors.centerIn: parent
-                        text: modelData.icon
-                        color: tabButton.checked
-                            ? Appearance.colors.m3onPrimaryContainer
-                            : Appearance.colors.m3onPrimary
-                        iconSize: Appearance.font.pixelSize.huge
-                        opacity: 0.9
+            Rectangle {
+                id: sideIndicator
+                width: parent.width - 8
+                height: 52
+                x: 4
+                y: (root.currentPage * 60) + 4
+                color: Appearance.colors.m3primaryContainer
+                radius: 10
+                Behavior on y {
+                    NumberAnimation {
+                        duration: Appearance.animationCurves.expressiveDefaultSpatialDuration
+                        easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
+                    }
+                }
+            }
+
+            Column {
+                anchors.top: parent.top
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                Repeater {
+                    model: root.pages
+                    delegate: navButtonDelegate
+                }
+            }
+        }
+
+        Component {
+            id: navButtonDelegate
+
+            StyledTabButton {
+                id: tabButton
+                implicitWidth: 60
+                implicitHeight: 60
+                checked: root.currentPage === index
+                onClicked: root.currentPage = index
+
+                MaterialSymbol {
+                    anchors.centerIn: parent
+                    text: modelData.icon
+                    color: tabButton.checked
+                        ? Appearance.colors.m3onPrimaryContainer
+                        : Appearance.colors.m3onPrimary
+                    iconSize: Appearance.font.pixelSize.huge
+                    opacity: 0.9
+                }
+
+
+                ToolTip {
+                    text: modelData.name
+                    visible: tabButton.hovered && text !== ""
+                    delay: 50
+                    timeout: 2000
+
+                    contentItem: Text {
+                        text: modelData.name
+                        color: Appearance.colors.m3onSecondaryContainer
+                        font.pixelSize: Appearance.font.pixelSize.normal
+                    }
+                    background: Rectangle {
+                        color: Appearance.colors.m3secondaryContainer
+                        radius: 6
                     }
 
-                    ToolTip {
-                        text: modelData.name
-                        visible: tabButton.hovered && text !== ""
-                        delay: 50
-                        timeout: 2000
-
-                        contentItem: Text {
-                            text: modelData.name
-                            color: Appearance.colors.m3onSecondaryContainer
-                            font.pixelSize: Appearance.font.pixelSize.normal
+                    enter: Transition {
+                        NumberAnimation {
+                            property: "opacity"
+                            from: 0.0
+                            to: 1.0
+                            duration: Appearance.animation.elementMoveFast.duration
+                            easing.type: Appearance.animation.elementMoveFast.type
+                            easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
                         }
-                        background: Rectangle {
-                            color: Appearance.colors.m3secondaryContainer
-                            radius: 6
-                        }
+                    }
 
-                        enter: Transition {
-                            NumberAnimation {
-                                property: "opacity"
-                                from: 0.0
-                                to: 1.0
-                                duration: Appearance.animation.elementMoveFast.duration
-                                easing.type: Appearance.animation.elementMoveFast.type
-                                easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
-                            }
-                        }
-
-                        exit: Transition {
-                            NumberAnimation {
-                                property: "opacity"
-                                from: 1.0
-                                to: 0.0
-                                duration: Appearance.animation.elementMoveFast.duration
-                                easing.type: Appearance.animation.elementMoveFast.type
-                                easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
-                            }
+                    exit: Transition {
+                        NumberAnimation {
+                            property: "opacity"
+                            from: 1.0
+                            to: 0.0
+                            duration: Appearance.animation.elementMoveFast.duration
+                            easing.type: Appearance.animation.elementMoveFast.type
+                            easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
                         }
                     }
                 }
