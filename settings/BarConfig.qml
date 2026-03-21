@@ -16,7 +16,7 @@ ColumnLayout {
             checked: Config.options.bar.bottom
             onCheckedChanged: {
                 Config.options.bar.bottom = checked;
-                console.log ("Bar: Bar bottom set to " + checked)
+                //console.log ("Bar: Bar bottom set to " + checked)
             }
         }
         ConfigSwitch {
@@ -26,7 +26,7 @@ ColumnLayout {
             checked: Config.options.bar.autoHide
             onCheckedChanged: {
                 Config.options.bar.autoHide = checked;
-                console.log ("Bar: Auto-hide set to " + checked)
+                //console.log ("Bar: Auto-hide set to " + checked)
             }
         }
     }
@@ -41,7 +41,7 @@ ColumnLayout {
             checked: Config.options.bar.workspaceIcons
             onCheckedChanged: {
                 Config.options.bar.workspaceIcons = checked;
-                console.log ("Bar: Workspace icons set to " + checked)
+                //console.log ("Bar: Workspace icons set to " + checked)
             }
         }
         ConfigSwitch {
@@ -51,7 +51,7 @@ ColumnLayout {
             checked: Config.options.bar.showWindowTitle
             onCheckedChanged: {
                 Config.options.bar.showWindowTitle = checked;
-                console.log ("Bar: Window title set to " + checked)
+                //console.log ("Bar: Window title set to " + checked)
             }
         }
     }
@@ -66,7 +66,7 @@ ColumnLayout {
             checked: Config.options.bar.showTime
             onCheckedChanged: {
                 Config.options.bar.showTime = checked;
-                console.log ("Bar: Time set to " + checked)
+                //console.log ("Bar: Time set to " + checked)
             }
         }
         ConfigSwitch {
@@ -76,7 +76,7 @@ ColumnLayout {
             checked: Config.options.bar.showDate
             onCheckedChanged: {
                 Config.options.bar.showDate = checked;
-                console.log ("Bar: Date set to " + checked)
+                //console.log ("Bar: Date set to " + checked)
             }
         }
     }
@@ -91,7 +91,7 @@ ColumnLayout {
             checked: Config.options.bar.showMedia
             onCheckedChanged: {
                 Config.options.bar.showMedia = checked;
-                console.log ("Bar: Media controller set to " + checked)
+                //console.log ("Bar: Media controller set to " + checked)
             }
         }
         ConfigSwitch {
@@ -101,7 +101,7 @@ ColumnLayout {
             checked: Config.options.bar.showCoverArt
             onCheckedChanged: {
                 Config.options.bar.showCoverArt = checked;
-                console.log ("Bar: Media cover art set to " + checked)
+                //console.log ("Bar: Media cover art set to " + checked)
             }
         }
         ConfigSwitch {
@@ -111,7 +111,7 @@ ColumnLayout {
             checked: Config.options.bar.showArtist
             onCheckedChanged: {
                 Config.options.bar.showArtist = checked;
-                console.log ("Bar: Media artist set to " + checked)
+                //console.log ("Bar: Media artist set to " + checked)
             }
         }
     }

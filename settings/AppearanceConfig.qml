@@ -9,20 +9,11 @@ ColumnLayout {
     id: root
     spacing: 15
 
-    ConfigGroup { // Theming Section
-        icon: "format_paint"
-        title: "Theme"
-        ConfigSwitch {
-            buttonIcon: Config.options.appearance.light ? "brightness_7" : "moon_stars"
-            text: Config.options.appearance.light ? "Light Mode" : "Dark Mode"
-            checked: Config.options.appearance.light
-            onCheckedChanged: {
-                Config.options.appearance.light = checked;
-                console.log ("Appearance: Light theme set to " + checked)
-                Theme.generate();
-            }
-        }
-    }
+//    ConfigGroup { // Theming Section
+//        icon: "format_paint"
+//        title: "Theme"
+//
+//    }
 
     ConfigGroup { // Visibility / Accessibility Section
         icon: "accessibility_new"
@@ -36,6 +27,16 @@ ColumnLayout {
             value: Config.options.appearance.fontScale
             onMoved: (newValue) => {Config.options.appearance.fontScale = newValue;}
         }
+        ConfigSwitch {
+            buttonIcon: Config.options.appearance.light ? "brightness_7" : "moon_stars"
+            text: Config.options.appearance.light ? "Light Mode" : "Dark Mode"
+            checked: Config.options.appearance.light
+            onCheckedChanged: {
+                Config.options.appearance.light = checked;
+                //console.log ("Appearance: Light theme set to " + checked)
+                Theme.generate();
+            }
+        }
     }
 
     ConfigGroup { // OSD Section
@@ -48,7 +49,7 @@ ColumnLayout {
             checked: Config.options.osd.enable
             onCheckedChanged: {
                 Config.options.osd.enable = checked;
-                console.log ("OSD: Enabled set to " + checked)
+                //console.log ("OSD: Enabled set to " + checked)
             }
         }
         ConfigSwitch {
@@ -74,7 +75,7 @@ ColumnLayout {
         ConfigSwitch {
             buttonIcon: "more_horiz"
             text: "Dots"
-            description: "Display dots on bar (WARNING! Currently broken)"
+            description: "Display dots inside the slider"
             checked: Config.options.osd.showDots
             onCheckedChanged: {
                 Config.options.osd.showDots = checked;
