@@ -62,7 +62,7 @@ Rectangle {
             id: titleText
             Layout.maximumWidth: 350
             elide: Text.ElideRight
-            text: root.windowTitle
+            text: root.windowClass
             font.weight: 500
             font.pixelSize: Appearance.font.pixelSize.normal
             color: Appearance.colors.m3onBackground
