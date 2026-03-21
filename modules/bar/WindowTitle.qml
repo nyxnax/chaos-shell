@@ -16,7 +16,8 @@ Rectangle {
     // Using the correct property discovered from our API scan
     readonly property var activeWin: Hyprland.activeToplevel
     readonly property string windowTitle: activeWin ? activeWin.title : ""
-    readonly property string windowClass: activeWin && activeWin.lastIpcObject ? activeWin.lastIpcObject.class : ""
+    //readonly property string windowClass: activeWin && activeWin.lastIpcObject ? activeWin.lastIpcObject.class : ""
+    readonly property string windowClass: activeWin?.lastIpcObject?.class ?? ""
 
     // Hide the module entirely if there is no window focused or the toggle is off
     property bool isShown: Config.options.bar.showWindowTitle && windowTitle !== ""

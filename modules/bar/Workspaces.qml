@@ -76,12 +76,15 @@ RowLayout {
                     let classes = [];
                     for (let i = 0; i < ws.toplevels.values.length; i++) {
                         let tl = ws.toplevels.values[i];
-                        let windowClass = tl.lastIpcObject.class;
-                        let cls = tl.title;
-
-                        if (windowClass == "" || windowClass == undefined || windowClass == "steam_app_default" || windowClass == "~"){
-                            windowClass = cls
-                        }
+                        //let windowClass = tl.lastIpcObject.class;
+                        //let cls = tl.title;
+//
+                        //if (windowClass == "" || windowClass == undefined || windowClass == "steam_app_default" || windowClass == "~"){
+                        //    windowClass = cls
+                        //}
+                        //let windowTitle = tl.title;
+                        let windowClass = ClassOrTitle.excludeClass(tl.lastIpcObject.class, tl.title)
+                        //console.log("[Vented Debug] Title or CLass output for Icons: ", ClassOrTitle.excludeClass(windowClass, windowTitle))
 
                         if (windowClass !== "" && !classes.includes(windowClass)) {
                             classes.push(windowClass);

@@ -6,10 +6,6 @@ QtObject {
 
     // --- exclusions for WindowClass ---
     function excludeClass(Wclass, Wtitle) {
-        console.log("[Vented Debug] class is undefined: ", Wclass == undefined );
-        console.log("[Vented Debug] title is undefined: ", Wtitle == undefined );
-        console.log("[Vented Debug] Class: ",  Wclass, ", Title: ", Wtitle);
-
 
          //Sanitize the string to make matching easier
         if (Wclass == undefined || Wclass == "") return Wtitle;
