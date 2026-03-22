@@ -1,9 +1,9 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Hyprland
-import Quickshell.Widgets
 import Quickshell.Wayland
+import Quickshell.Widgets
+import qs.services
 import qs.common
 import qs.common.widgets
 import qs.common.functions
@@ -16,15 +16,10 @@ Rectangle {
     color: "transparent"
     radius: 6
 
-    // Using the correct property discovered from our API scan
-    readonly property var activeWin: Hyprland.activeToplevel
-    //readonly property string windowTitle: activeWin ? activeWin.title : ""
-    //readonly property string windowClass: activeWin?.lastIpcObject?.class ?? ""
-    readonly property string windowTitle: ToplevelManager.activeToplevel?.title ?? "Desktop"
-    readonly property string windowClass: ToplevelManager.activeToplevel?.appId ?? "Desktop"
-
-    // Hide the module entirely if there is no window focused or the toggle is off
-    property bool isShown: Config.options.bar.showWindowTitle && windowTitle !== ""
+    property bool isShown: Config.options.bar.showWindowTitle
+    readonly property Toplevel activeWindow: ToplevelManager.activeToplevel
+    readonly property string windowTitle: ToplevelManager.activeToplevel?.title
+    property var mainAppIconSource: Quickshell.iconPath(AppSearch.guessIcon(activeWindow?.appId), "image-missing")
 
     visible: opacity > 0
     opacity: isShown ? 1 : 0
@@ -56,24 +51,16 @@ Rectangle {
             implicitHeight: 26; implicitWidth: 26
             IconImage {
                 id: appIcon
+                anchors.fill: parent
+                source: mainAppIconSource
+                visible: status === Image.Ready
 
-                source: {
-                    let id = ToplevelManager.activeToplevel?.appId
-                    if (!id) return ""
-                    let path = Quickshell.iconPath(id)
-                    if (!path) path = Quickshell.iconPath(id.toLowerCase())
-
-                    return path || "application-x-executable"
+                ColorOverlay {
+                    anchors.fill: appIcon
+                    source: appIcon
+                    color: Appearance.colors.m3onSurfaceVariant
+                    opacity: 0.4
                 }
-                implicitHeight: 26
-                implicitWidth: 26
-            }
-            ColorOverlay {
-                anchors.fill: appIcon
-                source: appIcon // Tell it which image to filter
-                color: Appearance.colors.m3onSurfaceVariant
-                opacity: 0.5
-                Behavior on color { ColorAnimation { duration: 200 } }
             }
         }
 
@@ -81,12 +68,19 @@ Rectangle {
             id: titleText
             Layout.maximumWidth: 350
             elide: Text.ElideRight
-            text: ClassOrTitle.excludeClass(root.windowClass, root.windowTitle)
+            text: activeWindow?.title || "Desktop"
             font.weight: 500
             font.pixelSize: Appearance.font.pixelSize.normal
             color: Appearance.colors.m3onBackground
             opacity: 0.8
             Layout.alignment: Qt.AlignVCenter
+            Behavior on text {
+                SequentialAnimation {
+                    NumberAnimation { target: titleText; property: "opacity"; to: 0; duration: 100 }
+                    PropertyAction { target: titleText; property: "text" }
+                    NumberAnimation { target: titleText; property: "opacity"; to: 1; duration: 100 }
+                }
+            }
         }
     }
 }
