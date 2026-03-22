@@ -12,34 +12,21 @@ import Qt5Compat.GraphicalEffects
 Rectangle {
     id: root
     height: 30
-    width: layout.width + 16
+    width: layout.width
     color: "transparent"
     radius: 6
 
     property bool isShown: Config.options.bar.showWindowTitle
     readonly property Toplevel activeWindow: ToplevelManager.activeToplevel
-    readonly property string windowTitle: ToplevelManager.activeToplevel?.title
     property var mainAppIconSource: Quickshell.iconPath(AppSearch.guessIcon(activeWindow?.appId), "image-missing")
 
     visible: opacity > 0
     opacity: isShown ? 1 : 0
     scale: isShown ? 1 : 0.95
 
-    Behavior on opacity {
-        NumberAnimation {
-            duration: Appearance.animation.elementMoveFast.duration
-            easing.type: Appearance.animation.elementMoveFast.type
-            easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
-        }
-    }
-
-    Behavior on scale {
-        NumberAnimation {
-            duration: Appearance.animation.elementMoveFast.duration
-            easing.type: Appearance.animation.elementMoveFast.type
-            easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
-        }
-    }
+    Behavior on width   {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
+    Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+    Behavior on scale   { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
 
     RowLayout {
         id: layout
@@ -48,6 +35,13 @@ Rectangle {
         spacing: 6
 
         Item {
+            visible: opacity > 0
+            opacity: Config.options.bar.showWindowIcon ? 1 : 0
+            scale: Config.options.bar.showWindowIcon ? 1 : 0.95
+
+            Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+            Behavior on scale   { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+
             implicitHeight: 26; implicitWidth: 26
             IconImage {
                 id: appIcon
@@ -76,9 +70,9 @@ Rectangle {
             Layout.alignment: Qt.AlignVCenter
             Behavior on text {
                 SequentialAnimation {
-                    NumberAnimation { target: titleText; property: "opacity"; to: 0; duration: 100 }
+                    NumberAnimation { target: titleText; property: "opacity"; to: 0; duration: 50 }
                     PropertyAction { target: titleText; property: "text" }
-                    NumberAnimation { target: titleText; property: "opacity"; to: 1; duration: 100 }
+                    NumberAnimation { target: titleText; property: "opacity"; to: 1; duration: 50 }
                 }
             }
         }

@@ -98,6 +98,7 @@ Singleton {
                 property bool showDate: true
                 property bool showTime: true
                 property bool showWindowTitle: true
+                property bool showWindowIcon: true
                 property bool workspaceIcons: true
                 property bool showCoverArt: false
                 property bool showArtist: true

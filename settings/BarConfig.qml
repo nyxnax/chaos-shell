@@ -31,27 +31,38 @@ ColumnLayout {
         }
     }
 
-    ConfigGroup { // Workspaces Section
-        icon: "view_carousel"
-        title: "Workspaces"
-        ConfigSwitch {
-            buttonIcon: "apps"
-            text: "App icons"
-            description: "Display app icons inside the workspace indicators"
-            checked: Config.options.bar.workspaceIcons
-            onCheckedChanged: {
-                Config.options.bar.workspaceIcons = checked;
-                //console.log ("Bar: Workspace icons set to " + checked)
-            }
-        }
+
+    ConfigGroup { // Focused Window and Workspace Indicator Section
+        icon: "toolbar"
+        title: "Windows and Workspaces"
         ConfigSwitch {
             buttonIcon: "title"
-            text: "Window title"
-            description: "Display the active window's title in the bar"
+            text: "Active Window Title"
+            description: "Display the focused window's title in the bar"
             checked: Config.options.bar.showWindowTitle
             onCheckedChanged: {
                 Config.options.bar.showWindowTitle = checked;
                 //console.log ("Bar: Window title set to " + checked)
+            }
+        }
+        ConfigSwitch {
+            buttonIcon: "image"
+            text: "Active Window Icon"
+            description: "Display the focused app's icon "
+            checked: Config.options.bar.showWindowIcon
+            onCheckedChanged: {
+                Config.options.bar.showWindowIcon = checked;
+                //console.log ("Bar: Window icon set to " + checked)
+            }
+        }
+        ConfigSwitch {
+            buttonIcon: "apps"
+            text: "Workspace App icons"
+            description: "Display app icons inside the occupied workspace indicators"
+            checked: Config.options.bar.workspaceIcons
+            onCheckedChanged: {
+                Config.options.bar.workspaceIcons = checked;
+                //console.log ("Bar: Workspace icons set to " + checked)
             }
         }
     }
@@ -87,7 +98,7 @@ ColumnLayout {
         ConfigSwitch {
             buttonIcon: Config.options.bar.showMedia ? "visibility" : "visibility_off"
             text: Config.options.bar.showMedia ? "Enabled" : "Disabled"
-            description: "Displays current media title and artist"
+            description: "Display current media title and artist"
             checked: Config.options.bar.showMedia
             onCheckedChanged: {
                 Config.options.bar.showMedia = checked;
