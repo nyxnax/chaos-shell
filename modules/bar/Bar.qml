@@ -90,8 +90,8 @@ Scope {
                     id: barRight
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.margins: 10
-                    spacing: 10
+                    anchors.margins: 8
+                    spacing: 6
 
                     SysTray {}
                     Media {}

@@ -59,7 +59,7 @@ RowLayout {
                 return Appearance.colors.m3outlineVariant
             }
 
-            Behavior on Layout.preferredWidth {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
+            Behavior on Layout.preferredWidth {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
             Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
 
             // --- ICONS ---

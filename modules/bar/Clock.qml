@@ -3,24 +3,10 @@ import qs.common
 import qs.common.widgets
 import qs.services
 
-Rectangle {
+BarItem {
     id: root
-    height: 30
     width: layout.width + 10
-    color: mouse.containsMouse ? "#2affffff" : "#00000000"
     radius: 6
-
-    Behavior on color { ColorAnimation { duration: 150 } }
-
-    MouseArea {
-        id: mouse
-        anchors.fill: parent
-        hoverEnabled: true
-        onClicked: {
-            Global.states.settingsOpen = true
-        }
-        PointingHand {}
-    }
 
     Row {
         id: layout
@@ -35,25 +21,14 @@ Rectangle {
             opacity: isShown ? 1 : 0
             scale: isShown ? 1 : 0.7
 
-            Behavior on opacity {
-                NumberAnimation {
-                    duration: Appearance.animation.elementMoveFast.duration
-                    easing.type: Appearance.animation.elementMoveFast.type
-                    easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
-                }
-            }
-            Behavior on scale {
-                NumberAnimation {
-                    duration: Appearance.animation.elementMoveFast.duration
-                    easing.type: Appearance.animation.elementMoveFast.type
-                    easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
-                }
-            }
+            Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+            Behavior on scale   { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+
 
             StyledText { // Hours
                 id: hours
                 text: Time.hour + ":"
-                font.weight: 500
+                font.weight: 700
             }
 
             StyledText { // Minutes
@@ -74,20 +49,8 @@ Rectangle {
             opacity: isShown ? 0.7 : 0
             scale: isShown ? 1 : 0.7
 
-            Behavior on opacity {
-                NumberAnimation {
-                    duration: Appearance.animation.elementMoveFast.duration
-                    easing.type: Appearance.animation.elementMoveFast.type
-                    easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
-                }
-            }
-            Behavior on scale {
-                NumberAnimation {
-                    duration: Appearance.animation.elementMoveFast.duration
-                    easing.type: Appearance.animation.elementMoveFast.type
-                    easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
-                }
-            }
+            Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+            Behavior on scale   { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
         }
     }
 }

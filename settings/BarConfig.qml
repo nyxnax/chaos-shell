@@ -22,11 +22,21 @@ ColumnLayout {
         ConfigSwitch {
             buttonIcon: "visibility_off"
             text: "Auto-hide"
-            description: "Hides bar when there is no cursor on it"
+            description: "Hide bar when there is no cursor on it"
             checked: Config.options.bar.autoHide
             onCheckedChanged: {
                 Config.options.bar.autoHide = checked;
                 //console.log ("Bar: Auto-hide set to " + checked)
+            }
+        }
+        ConfigSwitch {
+            buttonIcon: "gradient"
+            text: "Widget Background"
+            description: "Gives widgets a more visible background"
+            checked: Config.options.bar.showBackground
+            onCheckedChanged: {
+                Config.options.bar.showBackground = checked;
+                //console.log ("Bar: Background set to " + checked)
             }
         }
     }

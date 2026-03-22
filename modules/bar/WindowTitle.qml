@@ -9,24 +9,19 @@ import qs.common.widgets
 import qs.common.functions
 import Qt5Compat.GraphicalEffects
 
-Rectangle {
+BarItem {
     id: root
-    height: 30
+    enabled: false
     width: layout.width
     color: "transparent"
-    radius: 6
 
-    property bool isShown: Config.options.bar.showWindowTitle
     readonly property Toplevel activeWindow: ToplevelManager.activeToplevel
     property var mainAppIconSource: Quickshell.iconPath(AppSearch.guessIcon(activeWindow?.appId), "image-missing")
 
+    property bool isShown: Config.options.bar.showWindowTitle
     visible: opacity > 0
     opacity: isShown ? 1 : 0
     scale: isShown ? 1 : 0.95
-
-    Behavior on width   {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
-    Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
-    Behavior on scale   { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
 
     RowLayout {
         id: layout
@@ -70,9 +65,9 @@ Rectangle {
             Layout.alignment: Qt.AlignVCenter
             Behavior on text {
                 SequentialAnimation {
-                    NumberAnimation { target: titleText; property: "opacity"; to: 0; duration: 50 }
+                    NumberAnimation { target: titleText; property: "opacity"; to: 0; duration: 100 }
                     PropertyAction { target: titleText; property: "text" }
-                    NumberAnimation { target: titleText; property: "opacity"; to: 1; duration: 50 }
+                    NumberAnimation { target: titleText; property: "opacity"; to: 1; duration: 100 }
                 }
             }
         }

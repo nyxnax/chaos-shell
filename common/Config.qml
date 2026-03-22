@@ -104,6 +104,7 @@ Singleton {
                 property bool showArtist: true
                 property bool showMedia: true
                 property bool showMediaControl: true
+                property bool showBackground: true
             }
 
             property JsonObject battery: JsonObject {
