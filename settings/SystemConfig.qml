@@ -14,6 +14,16 @@ ColumnLayout {
         title: "Battery"
         icon: "battery_android_full"
         ConfigSwitch{
+            buttonIcon: "percent"
+            text: "Percentage"
+            description: "Show battery percentage in bar"
+            checked: Config.options.bar.showBatteryPercentage
+            onCheckedChanged: {
+                Config.options.bar.showBatteryPercentage = checked;
+                console.log ("System: Battery percentage set to " + checked)
+            }
+        }
+        ConfigSwitch{
             buttonIcon: "ear_sound"
             text: "Sounds"
             description: "Enable sounds related to power and battery (Plugged, unplugged, low, critical)"

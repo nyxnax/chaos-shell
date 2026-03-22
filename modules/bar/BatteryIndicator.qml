@@ -19,7 +19,7 @@ MouseArea {
     implicitWidth: batteryProgress.implicitWidth
     implicitHeight: 30
 
-    //hoverEnabled: !Config.options.bar.tooltips.clickToShow
+    hoverEnabled: true
 
     BatteryBar {
         id: batteryProgress
@@ -42,25 +42,28 @@ MouseArea {
 
                 MaterialSymbol {
                     id: boltIcon
+                    property bool isShown: isCharging && percentage < 1
+                    opacity : isShown ? 1 : 0
+                    visible: opacity > 0
                     Layout.alignment: Qt.AlignVCenter
                     Layout.leftMargin: -2
                     Layout.rightMargin: -2
                     fill: 1
                     text: "bolt"
-                    iconSize: batteryProgress.font.pixelSize - 2
-                    visible: isCharging && percentage < 1 // TODO: animation
+                    iconSize: !percentageText.visible ?  16 : (batteryProgress.font.pixelSize - 2)
+                    Behavior on opacity {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(root)}
                 }
                 StyledText {
+                    id: percentageText
+                    property bool isShown: Config.options.bar.showBatteryPercentage || root.containsMouse
+                    opacity : isShown ? 1 : 0
+                    visible: opacity > 0
                     Layout.alignment: Qt.AlignVCenter
                     font: batteryProgress.font
                     text: batteryProgress.text
+                    Behavior on opacity {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(root)}
                 }
             }
         }
     }
-
-    //BatteryPopup {
-    //    id: batteryPopup
-    //    hoverTarget: root
-    //}
 }
