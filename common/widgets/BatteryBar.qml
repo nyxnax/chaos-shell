@@ -9,8 +9,8 @@ import Qt5Compat.GraphicalEffects
 ProgressBar {
     id: root
     property bool vertical: false
-    property real valueBarWidth: 35
-    property real valueBarHeight: 22
+    property real valueBarWidth: Config.options.bar.showBackground ? 48 : 35
+    property real valueBarHeight: Config.options.bar.showBackground ? 28 : 22
     property color highlightColor: Appearance?.colors.m3onSecondaryContainer ?? "#29151f"
     property color trackColor: Qt.alpha(highlightColor, 0.5) ?? "#fdb0d4"
     property alias radius: contentItem.radius
@@ -27,13 +27,15 @@ ProgressBar {
 
     text: Math.round(value * 100)
     font {
-        pixelSize: 13
+        pixelSize: Config.options.bar.showBackground ? 16 : 14
         weight: text.length > 2 ? Font.Medium : Font.DemiBold
     }
 
     background: Item {
         implicitHeight: valueBarHeight
         implicitWidth: valueBarWidth
+        Behavior on implicitHeight { animation: Appearance.animation.elementResize.numberAnimation.createObject(root) }
+        Behavior on implicitWidth { animation: Appearance.animation.elementResize.numberAnimation.createObject(root) }
     }
 
     contentItem: Rectangle {

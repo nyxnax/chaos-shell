@@ -38,7 +38,7 @@ MouseArea {
                     bottom: parent.bottom
                     bottomMargin: (parent.height - height) / 2
                 }
-                spacing: 0
+                spacing: 2
 
                 MaterialSymbol {
                     id: boltIcon
@@ -47,7 +47,7 @@ MouseArea {
                     Layout.rightMargin: -2
                     fill: 1
                     text: "bolt"
-                    iconSize: Appearance.font.pixelSize.smaller
+                    iconSize: batteryProgress.font.pixelSize - 2
                     visible: isCharging && percentage < 1 // TODO: animation
                 }
                 StyledText {
