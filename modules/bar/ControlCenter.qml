@@ -6,12 +6,12 @@ import qs.services
 
 BarItem {
     id: root
-    width: layout.width + 4
+    width: layout.width + 6
 
     RowLayout {
         id: layout
         anchors.centerIn: parent
-        spacing: -1
+        spacing: -4
 
         Item { // Input
             id: input

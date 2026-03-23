@@ -9,7 +9,7 @@ import Qt5Compat.GraphicalEffects
 BarItem {
     id: root
     width: layout.implicitWidth
-    enabled: false
+    enabled: undefined
 
     readonly property bool isShown: MediaService.hasMedia && Config.options.bar.showMedia
     opacity: isShown ? 1 : 0
@@ -22,8 +22,8 @@ BarItem {
 
         Rectangle { // Album Art
             id: albumArt
-            Layout.preferredWidth: 30
-            Layout.preferredHeight: 30
+            Layout.preferredWidth: root.height
+            Layout.preferredHeight: root.height
             radius: 8
             color: Appearance.colors.m3surfaceVariant
             clip: true
@@ -68,8 +68,8 @@ BarItem {
             id: playPause
             opacity: Config.options.bar.showMediaControl ? 1 : 0
             visible: opacity > 0
-            Layout.preferredWidth: 30
-            Layout.preferredHeight: 30
+            Layout.preferredWidth: root.height
+            Layout.preferredHeight: root.height
             radius: MediaService.isPlaying ? 8 : 15
             color: MediaService.isPlaying ? Appearance.colors.m3surfaceVariant : Appearance.colors.m3secondaryContainer
             scale: buttonArea.pressed ? 0.9 : 1.0

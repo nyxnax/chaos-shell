@@ -23,9 +23,18 @@ ColumnLayout {
             text: "Font Size"
             buttonIcon: "text_fields"
             liveUpdate: false
-            from: 80; to: 140; stepSize: 10
+            from: 80; to: 120; stepSize: 5
             value: Config.options.appearance.fontScale
             onMoved: (newValue) => {Config.options.appearance.fontScale = newValue;}
+        }
+        ConfigSlider {
+            text: "Display Scale"
+            buttonIcon: "display_settings"
+            description: "Work in progress, currently only affects bar"
+            liveUpdate: false
+            from: 100; to: 140; stepSize: 5
+            value: Config.options.appearance.displayScale
+            onMoved: (newValue) => {Config.options.appearance.displayScale = newValue;}
         }
         ConfigSwitch {
             buttonIcon: Config.options.appearance.light ? "brightness_7" : "moon_stars"

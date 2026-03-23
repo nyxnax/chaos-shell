@@ -9,8 +9,8 @@ import Qt5Compat.GraphicalEffects
 ProgressBar {
     id: root
     property bool vertical: false
-    property real valueBarWidth: Config.options.bar.showBackground ? 48 : 35
-    property real valueBarHeight: Config.options.bar.showBackground ? 28 : 22
+    property real valueBarWidth: Config.options.bar.showBackground ? 48 * (Config.options.appearance.displayScale / 100 ) : 35 * (Config.options.appearance.displayScale / 100 )
+    property real valueBarHeight: Config.options.bar.showBackground ? 28 * (Config.options.appearance.displayScale / 100 ) : 22 * (Config.options.appearance.displayScale / 100 )
     property color highlightColor: Appearance?.colors.m3onSecondaryContainer ?? "#29151f"
     property color trackColor: Qt.alpha(highlightColor, 0.5) ?? "#fdb0d4"
     property alias radius: contentItem.radius

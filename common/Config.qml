@@ -73,6 +73,7 @@ Singleton {
                 property string scheme: "scheme-tonal-spot"
                 property string wallpaper: ""
                 property int fontScale : 100
+                property int displayScale : 100
 
                 property JsonObject fonts: JsonObject {
                     property string main: "Google Sans Flex"

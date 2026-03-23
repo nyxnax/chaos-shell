@@ -41,15 +41,8 @@ Scope {
             }
 
             exclusionMode: isAutoHide ? ExclusionMode.Ignore : ExclusionMode.Auto
-            implicitHeight: expanded ? 48 : 5
+            implicitHeight: expanded ? 48 * (Config.options.appearance.displayScale / 100) : 5
             color: Appearance.colors.m3background
-
-            Behavior on implicitHeight {
-                    NumberAnimation {
-                        duration: Appearance.animation.elementMoveFast.duration
-                        easing.type: Appearance.animation.elementMoveFast.type
-                    }
-                }
 
             MouseArea {
                 anchors.fill: parent
