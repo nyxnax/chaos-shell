@@ -61,7 +61,7 @@ Scope {
                     id: barLeft
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.margins: 8
+                    anchors.margins: 10
                     spacing: 6
 
                     Clock {}
@@ -83,7 +83,7 @@ Scope {
                     id: barRight
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.margins: 8
+                    anchors.margins: 10
                     spacing: 6
 
                     SysTray {}

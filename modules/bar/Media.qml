@@ -16,7 +16,7 @@ BarItem {
 
     RowLayout {
         id: layout
-        spacing: 8
+        spacing: 6
         anchors.centerIn: parent
 
         Rectangle { // Album Art
@@ -71,7 +71,7 @@ BarItem {
             Layout.preferredHeight: root.height
             radius: MediaService.isPlaying ? 8 : 15
             color: MediaService.isPlaying ? Appearance.colors.m3surfaceVariant : Appearance.colors.m3secondaryContainer
-            scale: buttonArea.pressed ? 0.9 : 1.0
+            scale: buttonArea.pressed ? 0.9 : (MediaService.isPlaying ? 1.0 : 0.95)
             Behavior on radius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
             Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
             Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)}
@@ -83,7 +83,7 @@ BarItem {
                 anchors.centerIn: parent
                 text: MediaService.isPlaying ? "󰏤" : "󰐊"
                 color: MediaService.isPlaying ? Appearance.colors.m3onSurfaceVariant : Appearance.colors.m3onSecondaryContainer
-                scale: buttonArea.pressed ? 0.9 : 1.0
+                scale: buttonArea.pressed ? 0.9 : (MediaService.isPlaying ? 1.0 : 0.98)
 
                 Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
                 Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this) }
@@ -100,6 +100,11 @@ BarItem {
 
         // Text Display with Marquee Scrolling
         ColumnLayout {
+            readonly property bool isShown: Config.options.bar.showMediaText
+            opacity: isShown ? 1 : 0
+            visible: opacity > 0
+            Behavior on opacity {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)}
+
             spacing: -2
             Layout.maximumWidth: 200
             Layout.fillWidth: true
@@ -114,8 +119,6 @@ BarItem {
                 Layout.preferredHeight: titleText.implicitHeight
                 clip: true
 
-                Behavior on Layout.preferredWidth {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
-
                 onWidthChanged: titleText.checkScroll() // React to layout resizing
 
                 StyledText {
@@ -124,7 +127,6 @@ BarItem {
                     color: Appearance.colors.m3onBackground
                     font.pixelSize: Config.options.bar.showArtist ? Appearance.font.pixelSize.smaller : Appearance.font.pixelSize.normal
                     font.weight: 500
-
                     onTextChanged: checkScroll()
                     onImplicitWidthChanged: checkScroll()
 
@@ -167,8 +169,6 @@ BarItem {
                 Layout.preferredHeight: artistText.implicitHeight
                 clip: true
                 visible: Config.options.bar.showArtist
-                Behavior on Layout.preferredWidth {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
-
                 onWidthChanged: artistText.checkScroll()
 
                 StyledText {

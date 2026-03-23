@@ -145,6 +145,16 @@ ColumnLayout {
                 //console.log ("Bar: Media control set to " + checked)
             }
         }
+        ConfigSwitch {
+            buttonIcon: "text_ad"
+            text: "Text"
+            description: "Disable to keep cover art and/or control only"
+            checked: Config.options.bar.showMediaText
+            onCheckedChanged: {
+                Config.options.bar.showMediaText = checked;
+                //console.log ("Bar: Media control set to " + checked)
+            }
+        }
     }
 
     ConfigGroup { // Just here as fluff
