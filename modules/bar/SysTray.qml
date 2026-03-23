@@ -8,58 +8,45 @@ import qs.common.widgets
 
 BarItem {
     id: root
-
-    Layout.preferredHeight: 30
-
-    implicitWidth: isExpanded ? layout.implicitWidth + 18 : 18
-    Behavior on implicitWidth {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
-    Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
-
     radius: 8
-    color: isExpanded ? Appearance.colors.m3surfaceVariant : "transparent"
 
     property bool isExpanded: hoverHandler.hovered
 
-    HoverHandler {
-        id: hoverHandler
-    }
+    color: isExpanded ? Appearance.colors.m3surfaceVariant : "transparent"
+    implicitWidth: isExpanded ? layout.implicitWidth + 18 : 18
+    Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
+    Behavior on implicitWidth {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
+
+    HoverHandler {id: hoverHandler}
 
     RowLayout {
         id: layout
         anchors.centerIn: parent
-
         spacing: (root.isExpanded && SystemTray.items.values.length > 0) ? 10 : 0
         Behavior on spacing { NumberAnimation { duration: 100; easing.type: Easing.OutQuart } }
 
-        //expander dot
-        Rectangle {
+        Rectangle { // Expander dot
             implicitWidth: 10
             implicitHeight: 10
             Layout.preferredWidth: 10
             Layout.preferredHeight: 10
-
             radius: 5
-            color: root.isExpanded ? Appearance.colors.m3onSurfaceVariant : "transparent"
             border.color: Appearance.colors.m3onSurfaceVariant
             border.width: 2
             Layout.alignment: Qt.AlignVCenter
-
+            color: root.isExpanded ? Appearance.colors.m3onSurfaceVariant : "transparent"
             Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
         }
 
-        // --- THE TRAY ICONS (Sliding Drawer) ---
-        Row {
+        Row { // Icon Row
             id: iconRow
             spacing: 10
-            clip: true // Acts as a mask, hiding icons when the width shrinks below their size
+            clip: false
 
-            // Expand to fit the icons when hovered, crush down to 0px when not
             Layout.preferredWidth: root.isExpanded ? implicitWidth : 0
             Layout.preferredHeight: 20
             Layout.alignment: Qt.AlignVCenter
-
             opacity: root.isExpanded ? 1 : 0
-
             Behavior on Layout.preferredWidth { NumberAnimation { duration: 250; easing.type: Easing.OutQuart } }
             Behavior on opacity { NumberAnimation { duration: 200; easing.type: Easing.InOutQuad } }
 
@@ -72,7 +59,6 @@ BarItem {
                     height: 20
                     property string rawIcon: modelData.icon ? modelData.icon.toString() : ""
                     property bool hasPath: rawIcon.indexOf("?path=") !== -1
-
                     property string iconName: {
                         let leftPart = rawIcon.split("?path=")[0];
                         return leftPart.split("/").pop();
@@ -111,13 +97,22 @@ BarItem {
 
                     // 3. Interaction
                     MouseArea {
+                        id: mouseArea
                         anchors.fill: parent
                         acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
                         cursorShape: Qt.PointingHandCursor
                         hoverEnabled: true
-
-                        ToolTip.text: modelData.tooltipText || modelData.title || ""
-                        ToolTip.visible: containsMouse && ToolTip.text !== ""
+                        onClicked: (mouse) => {
+                            if (mouse.button === Qt.LeftButton) modelData.activate();
+                            else if (mouse.button === Qt.RightButton) modelData.contextMenu();
+                        }
+                    }
+                    StyledToolTip {
+                        id: trayToolTip
+                        enabled: false
+                        shown: mouseArea.containsMouse && text !== ""
+                        text: (modelData.tooltipText && modelData.tooltipText !== "") ? modelData.tooltipText : modelData.title
+                        title: modelData.title || ""
                     }
                 }
             }
