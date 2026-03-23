@@ -9,7 +9,6 @@ import Qt5Compat.GraphicalEffects
 BarItem {
     id: root
     width: layout.implicitWidth
-    enabled: undefined
 
     readonly property bool isShown: MediaService.hasMedia && Config.options.bar.showMedia
     opacity: isShown ? 1 : 0
