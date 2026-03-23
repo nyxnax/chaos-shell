@@ -110,7 +110,7 @@ ItemDelegate {
 
         MaterialSymbol {
             text: "restart_alt"
-            iconSize: Appearance.font.pixelSize.large
+            iconSize: Appearance.font.pixelSize.larger
             color: Appearance.colors.m3onSurfaceVariant
             opacity: root.value !== root.defaultValue ? 0.8 : 0.3
             visible: root.value !== root.defaultValue

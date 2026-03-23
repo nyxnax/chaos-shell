@@ -26,14 +26,13 @@ BarItem {
     RowLayout {
         id: layout
         anchors.centerIn: parent
-        height: parent.height
         spacing: 6
 
         Item {
+            id: iconContainer
             visible: opacity > 0
             opacity: Config.options.bar.showWindowIcon ? 1 : 0
             scale: Config.options.bar.showWindowIcon ? 1 : 0.95
-
             Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
             Behavior on scale   { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
 
@@ -58,11 +57,8 @@ BarItem {
             Layout.maximumWidth: 350
             elide: Text.ElideRight
             text: activeWindow?.title || "Desktop"
-            font.weight: 500
-            font.pixelSize: Appearance.font.pixelSize.normal
             color: Appearance.colors.m3onBackground
             opacity: 0.8
-            Layout.alignment: Qt.AlignVCenter
             Behavior on text {
                 SequentialAnimation {
                     NumberAnimation { target: titleText; property: "opacity"; to: 0; duration: 100 }

@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import qs.common
 import qs.common.widgets
 import qs.services
@@ -8,13 +9,16 @@ BarItem {
     radius: 6
     visible: time.isShown || date.isShown
 
-    Row {
+    RowLayout {
         id: layout
-        anchors.centerIn: parent
+        anchors.centerIn:parent
         spacing: 8
 
-        Row { // Time
+        StyledText { // Time
             id: time
+            text: Time.hour + ":" + Time.minute
+            font.weight: 700
+            animateChange: true
 
             property bool isShown: Config.options.bar.showTime
             visible: opacity > 0
@@ -24,25 +28,13 @@ BarItem {
             Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
             Behavior on scale   { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
 
-
-            StyledText { // Hours
-                id: hours
-                text: Time.hour + ":"
-                font.weight: 700
-            }
-
-            StyledText { // Minutes
-                id: minutes
-                text: Time.minute
-                font: hours.font
-            }
         }
 
         StyledText { // Date
             id: date
             text: Time.date
             font.weight: 400
-            anchors.bottomMargin: 1
+            animateChange: true
 
             property bool isShown: Config.options.bar.showDate
             visible: opacity > 0

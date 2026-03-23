@@ -61,8 +61,8 @@ Scope {
                     id: barLeft
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.margins: 10
-                    spacing: 10
+                    anchors.margins: 8
+                    spacing: 6
 
                     Clock {}
                     WindowTitle {}
