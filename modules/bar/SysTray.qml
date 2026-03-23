@@ -4,15 +4,14 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Services.SystemTray
 import qs.common
+import qs.common.widgets
 
-Rectangle {
+BarItem {
     id: root
 
-    height: 30
-    implicitHeight: 30
     Layout.preferredHeight: 30
 
-    implicitWidth: isExpanded ? trayLayout.implicitWidth + 18 : 18
+    implicitWidth: isExpanded ? layout.implicitWidth + 18 : 18
     Behavior on implicitWidth {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
     Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
 
@@ -26,7 +25,7 @@ Rectangle {
     }
 
     RowLayout {
-        id: trayLayout
+        id: layout
         anchors.centerIn: parent
 
         spacing: (root.isExpanded && SystemTray.items.values.length > 0) ? 10 : 0
