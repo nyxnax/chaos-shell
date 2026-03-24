@@ -15,11 +15,23 @@ ColumnLayout {
     RowLayout {
         Rectangle { // Current Wallpaper
             id: wallpaperPreview
-            width: 320
-            height: 180
+            Layout.fillWidth: true
+            Layout.maximumWidth: 800
+            Layout.minimumWidth: 300
+            implicitHeight: width * (9 / 18.5)
             radius: 12
             color: Appearance.colors.m3surfaceContainer
-            clip: true
+            border.color: Appearance.colors.m3scrim
+            border.width: 2
+
+            layer.enabled: true
+            layer.effect: OpacityMask {
+                maskSource: Rectangle {
+                    width: wallpaperPreview.width
+                    height: wallpaperPreview.height
+                    radius: wallpaperPreview.radius
+                }
+            }
 
             Image {
                 id: previewImage
@@ -27,23 +39,15 @@ ColumnLayout {
                 source: Config.options.appearance.wallpaper ? "file://" + Config.options.appearance.wallpaper : ""
                 fillMode: Image.PreserveAspectCrop
                 asynchronous: true
+                anchors.margins: wallpaperPreview.border.width
 
                 opacity: status === Image.Ready ? 1 : 0
-
                 Behavior on opacity {
                     NumberAnimation { duration: 400; easing.type: Easing.InOutQuad }
                 }
-
-                layer.enabled: true
-                layer.effect: OpacityMask {
-                    maskSource: Rectangle {
-                        width: wallpaperPreview.width
-                        height: wallpaperPreview.height
-                        radius: 12 // Same as parent
-                    }
-                }
             }
         }
+
         ColumnLayout { // Mode switcher
             id: modeSwitcher
             spacing: 5
@@ -51,10 +55,9 @@ ColumnLayout {
 
             StyledButton { // Light Mode
                 Layout.fillHeight: true
-                Layout.fillWidth: false
-                implicitWidth: 150
+                Layout.fillWidth: true
                 buttonColor: "white"
-                border: Config.options.appearance.light ? 3 : 0
+                border: Config.options.appearance.light ? 2 : 0
 
                 contentItem: Item {
                     ColumnLayout{
@@ -75,10 +78,9 @@ ColumnLayout {
             }
             StyledButton { // Dark Mode
                 Layout.fillHeight: true
-                Layout.fillWidth: false
-                implicitWidth: 150
+                Layout.fillWidth: true
                 buttonColor: "black"
-                border: !Config.options.appearance.light ? 3 : 0
+                border: !Config.options.appearance.light ? 2 : 0
 
                 contentItem: Item {
                     ColumnLayout{
@@ -121,11 +123,6 @@ ColumnLayout {
                 });
             }
         }
-    }
-
-    StyledText {
-        text: "Select Wallpaper"
-        font.pixelSize: 18
     }
 
     ScrollView { // Wallpaper Selector

@@ -124,6 +124,7 @@ ApplicationWindow {
                             width: Math.min(scroll.availableWidth, 1000)
                             anchors.horizontalCenter: parent.horizontalCenter
                             bottomPadding: isPortrait ? navBar.height + 40 : 20
+                            spacing: 5
                             topPadding: 20
                             Behavior on bottomPadding {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
