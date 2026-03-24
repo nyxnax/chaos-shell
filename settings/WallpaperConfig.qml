@@ -21,8 +21,6 @@ ColumnLayout {
             implicitHeight: width * (9 / 18.5)
             radius: 12
             color: Appearance.colors.m3surfaceContainer
-            border.color: Appearance.colors.m3scrim
-            border.width: 2
 
             layer.enabled: true
             layer.effect: OpacityMask {
@@ -39,12 +37,20 @@ ColumnLayout {
                 source: Config.options.appearance.wallpaper ? "file://" + Config.options.appearance.wallpaper : ""
                 fillMode: Image.PreserveAspectCrop
                 asynchronous: true
-                anchors.margins: wallpaperPreview.border.width
 
                 opacity: status === Image.Ready ? 1 : 0
                 Behavior on opacity {
                     NumberAnimation { duration: 400; easing.type: Easing.InOutQuad }
                 }
+            }
+
+            Rectangle {
+                anchors.fill: parent
+                color: "transparent"
+                border.color: Appearance.colors.m3scrim
+                border.width: 5
+                radius: parent.radius
+                z: 1
             }
         }
 
