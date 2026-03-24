@@ -16,7 +16,8 @@ BarItem {
     color: "transparent"
 
     readonly property Toplevel activeWindow: ToplevelManager.activeToplevel
-    property var mainAppIconSource: Quickshell.iconPath(AppSearch.guessIcon(activeWindow?.appId), "image-missing")
+    property var mainAppIconSource: Quickshell.iconPath(AppSearch.guessIcon(ClassOrTitle.excludeClass(activeWindow?.appId, activeWindow?.title)), "image-missing")
+
 
     property bool isShown: Config.options.bar.showWindowTitle
     visible: opacity > 0
@@ -56,7 +57,7 @@ BarItem {
             id: titleText
             Layout.maximumWidth: 350
             elide: Text.ElideRight
-            text: activeWindow?.title || "Desktop"
+            text: ClassOrTitle?.excludeClass(activeWindow?.appId, activeWindow?.title) || "Desktop"
             color: Appearance.colors.m3onBackground
             opacity: 0.8
             Behavior on text {

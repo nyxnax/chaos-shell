@@ -4,15 +4,18 @@ import QtQuick
 QtObject {
     id: root
 
-    // --- exclusions for WindowClass ---
-    function excludeClass(Wclass, Wtitle) {
+    function excludeClass(Wclass, Wtitle, combiner) {
+        if (!Wclass) return Wtitle;
 
-         //Sanitize the string to make matching easier
-        if (Wclass == undefined || Wclass == "") return Wtitle;
         const lower = Wclass.toString().toLowerCase().trim();
+        //add exclusions for title here
+        const isExcluded = lower.includes("steam_app_default") ||
+                           lower.includes("~") ||
+                           lower.includes("org.quickshell") ||
+                           lower.includes("steam");
 
-        //add rules to handle edge cases for apps here e.g. Kitty
-        if (lower.includes("steam_app_default") || lower.includes("~") || lower.includes("org.quickshell")) return Wtitle;
-        return Wclass;
+        if (isExcluded) return Wtitle;
+
+        return (arguments.length === 3) ? `${Wclass}: ${Wtitle}` : Wclass;
     }
 }
