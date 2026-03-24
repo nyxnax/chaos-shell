@@ -19,7 +19,7 @@ ColumnLayout {
             Layout.maximumWidth: 800
             Layout.minimumWidth: 300
             implicitHeight: width * (9 / 18.5)
-            radius: 12
+            radius: 24
             color: Appearance.colors.m3surfaceContainer
 
             layer.enabled: true
@@ -50,7 +50,6 @@ ColumnLayout {
                 border.color: Appearance.colors.m3scrim
                 border.width: 5
                 radius: parent.radius
-                z: 1
             }
         }
 
@@ -63,7 +62,8 @@ ColumnLayout {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 buttonColor: "white"
-                border: Config.options.appearance.light ? 2 : 0
+                border: Config.options.appearance.light ? 5 : 0
+                radius: 24
 
                 contentItem: Item {
                     ColumnLayout{
@@ -86,7 +86,8 @@ ColumnLayout {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 buttonColor: "black"
-                border: !Config.options.appearance.light ? 2 : 0
+                border: !Config.options.appearance.light ? 5 : 0
+                radius: 24
 
                 contentItem: Item {
                     ColumnLayout{
@@ -131,51 +132,83 @@ ColumnLayout {
         }
     }
 
-    ScrollView { // Wallpaper Selector
+    Rectangle { // Wallpaper Selector
+        id: carouselContainer
         Layout.fillWidth: true
         Layout.fillHeight: true
-        clip: true
+        height: 225
+        color: Appearance.colors.m3secondaryContainer
+        radius: 24
 
-        padding: 20
-        background: Rectangle {
-            color: Appearance.colors.m3secondaryContainer
-            radius: 12
-        }
-
-        GridView {
-            id: grid
-            width: parent.width
-            height: contentHeight
-            cellWidth: width / 5
-            cellHeight: 180
+        ListView {
+            id: carousel
+            anchors.fill: parent
+            orientation: ListView.Horizontal
             model: wallpaperModel
+            snapMode: ListView.SnapToItem
+            boundsBehavior: Flickable.StopAtBounds
+            preferredHighlightBegin: 20
+            preferredHighlightEnd: parent.width - 20
+            anchors.margins: 12
+            clip: true
 
             delegate: Item {
-                width: grid.cellWidth
-                height: grid.cellHeight
+                id: wallpapers
+                readonly property bool isSelected: Config.options.appearance.wallpaper === model.path
 
-                Rectangle {
-                    id: frame
+                width: isSelected ? 320 : 140
+                height: parent.height
+                Behavior on width {animation: Appearance.animation.elementMove.numberAnimation.createObject(root)}
+
+                Item { // Frame / Background
+                    id: wallpaperFrame
                     anchors.fill: parent
-                    anchors.margins: 5
-                    radius: 12
-                    color: "transparent"
-                    clip: true
+                    anchors.margins: 6
+                    width: parent.width
+                    height: parent.height
 
-                    Image {
+                    layer.enabled: true
+                    layer.effect: OpacityMask {
+                        maskSource: Rectangle {
+                            width: wallpaperFrame.width
+                            height: wallpaperFrame.height
+                            radius: 12
+                        }
+                    }
+
+                    Image { // Image
+                        id: wallpapersImage
                         anchors.fill: parent
                         source: model.path
                         fillMode: Image.PreserveAspectCrop
                         asynchronous: true
+                        sourceSize.width: 320
+                        sourceSize.height: 180
+                        smooth: true
+                        cache: true
+                    }
 
-                        layer.enabled: true
-                        layer.effect: OpacityMask {
-                            maskSource: Rectangle {
-                                width: frame.width
-                                height: frame.height
-                                radius: 12 // Same as parent
-                            }
-                        }
+                    Desaturate { // Desaturation
+                        anchors.fill: parent
+                        source: wallpapersImage
+                        desaturation: wallpapers.isSelected ? 0.0 : 0.7
+                        Behavior on desaturation {NumberAnimation {duration: 500}}
+                    }
+
+                    Rectangle { // Darkening
+                        anchors.fill: parent
+                        color: "black"
+                        opacity: wallpapers.isSelected ? 0 : 0.1
+                        Behavior on opacity {NumberAnimation {duration: 500}}
+                    }
+
+                    Rectangle { // Border
+                        anchors.fill: wallpaperFrame
+                        color: "transparent"
+                        border.color: Appearance.colors.m3primary
+                        border.width: wallpapers.isSelected ? 3 : 0
+                        radius: 12
+                        Behavior on border.width { NumberAnimation { duration: 200 } }
                     }
 
                     MouseArea {
