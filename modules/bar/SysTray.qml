@@ -65,7 +65,6 @@ BarItem {
                     }
                     property string iconDir: hasPath ? rawIcon.split("?path=")[1] : ""
 
-                    // 2. Fallback Image Chain
                     Image {
                         anchors.fill: parent
                         sourceSize: Qt.size(24, 24)
@@ -95,25 +94,39 @@ BarItem {
                         visible: source.toString() !== ""
                     }
 
-                    // 3. Interaction
+                    QsMenuAnchor {
+                        id: menuAnchor
+                        menu: modelData.menu
+                        anchor.window: bar
+                        anchor.item: iconContainer
+                        anchor.edges: Quickshell.Bottom | Quickshell.Right
+                    }
+
                     MouseArea {
                         id: mouseArea
                         anchors.fill: parent
                         acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
                         cursorShape: Qt.PointingHandCursor
                         hoverEnabled: true
-                        onClicked: (mouse) => {
-                            if (mouse.button === Qt.LeftButton) modelData.activate();
-                            else if (mouse.button === Qt.RightButton) modelData.contextMenu();
+
+                        onPressed: (mouse) => {
+                            if (mouse.button === Qt.RightButton) {
+                                if (menuAnchor.anchor.window && menuAnchor.anchor.window.visible) {
+                                    menuAnchor.open();
+                                } else {
+                                    modelData.secondaryActivate();
+                                }
+                            }
                         }
                     }
-                    StyledToolTip {
-                        id: trayToolTip
-                        enabled: false
-                        shown: mouseArea.containsMouse && text !== ""
-                        text: (modelData.tooltipText && modelData.tooltipText !== "") ? modelData.tooltipText : modelData.title
-                        title: modelData.title || ""
-                    }
+
+                    //StyledToolTip {
+                    //    id: trayToolTip
+                    //    enabled: false
+                    //    shown: mouseArea.containsMouse && text !== ""
+                    //    text: (modelData.tooltipText && modelData.tooltipText !== "") ? modelData.tooltipText : modelData.title
+                    //    //title: modelData.title || ""
+                    //}
                 }
             }
         }
