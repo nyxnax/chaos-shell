@@ -95,10 +95,12 @@ ApplicationWindow {
 
 
         StackLayout { // Pages
+            id: pagesStack
             anchors.fill: parent
             currentIndex: root.currentPage
             anchors.leftMargin: isPortrait ? 30 : navRail.width + 40
             anchors.rightMargin: 20
+            Behavior on anchors.leftMargin {animation: Appearance.animation.elementResize.numberAnimation.createObject(this)}
 
             Repeater {
                 model: root.pages
@@ -106,26 +108,34 @@ ApplicationWindow {
                 delegate: ScrollView {
                     id: scroll
                     Layout.fillWidth: true
+                    contentHeight: pageColumn.height
+                    readonly property bool isActive: StackLayout.isCurrentItem
+                    opacity: isActive ? 1 : 0
+                    verticalPadding: isActive ? 0 : 20
+                    Behavior on opacity {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
+                    Behavior on verticalPadding {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
-                    Column {
+                    Item {
+                        height: pageColumn.height
                         width: scroll.availableWidth
-                        bottomPadding: isPortrait ? navBar.height + 20 : 20
-                        topPadding: 20
 
-                        ConfigRow {
-                            MaterialSymbol {
-                                text: modelData.icon
-                                font.pixelSize: Appearance.font.pixelSize.title * 1.2
-                            }
-                            StyledText {
-                                text: modelData.name
-                                font.pixelSize: Appearance.font.pixelSize.title * 1.2
-                            }
-                        }
+                        Column {
+                            id: pageColumn
+                            width: Math.min(scroll.availableWidth, 1000)
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            bottomPadding: isPortrait ? navBar.height + 40 : 20
+                            topPadding: 20
+                            Behavior on bottomPadding {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
-                        Loader {
-                            width: parent.width
-                            source: modelData.component
+                            ConfigRow {
+                                MaterialSymbol {text: modelData.icon; font.pixelSize: Appearance.font.pixelSize.title * 1.2}
+                                StyledText {text: modelData.name; font.pixelSize: Appearance.font.pixelSize.title * 1.2}
+                            }
+
+                            Loader {
+                                width: parent.width
+                                source: modelData.component
+                            }
                         }
                     }
                 }

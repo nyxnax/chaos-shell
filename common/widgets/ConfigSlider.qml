@@ -92,6 +92,7 @@ ItemDelegate {
             trackColor: Appearance.colors.m3secondaryContainer
             backgroundColor: background.color
             Layout.alignment: Qt.AlignVCenter
+            implicitWidth: 225
 
             onMoved: {
                 if (root.liveUpdate) {
