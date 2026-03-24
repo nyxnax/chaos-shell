@@ -38,6 +38,9 @@ ColumnLayout {
                 fillMode: Image.PreserveAspectCrop
                 asynchronous: true
 
+                sourceSize.width: 800
+                sourceSize.height: 450
+
                 opacity: status === Image.Ready ? 1 : 0
                 Behavior on opacity {
                     NumberAnimation { duration: 400; easing.type: Easing.InOutQuad }
