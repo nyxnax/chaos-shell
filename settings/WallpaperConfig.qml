@@ -154,13 +154,15 @@ ColumnLayout {
             preferredHighlightEnd: parent.width - 20
             anchors.margins: 12
             clip: true
+            cacheBuffer: 100
+            reuseItems: true
 
             delegate: Item {
                 id: wallpapers
                 readonly property bool isSelected: Config.options.appearance.wallpaper === model.path
 
                 width: isSelected ? 320 : 140
-                height: parent.height
+                height: carouselContainer.height - carouselContainer.radius
                 Behavior on width {animation: Appearance.animation.elementMove.numberAnimation.createObject(root)}
 
                 Item { // Frame / Background
