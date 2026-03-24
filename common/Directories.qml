@@ -16,8 +16,8 @@ Singleton {
     property string shellConfig: FileUtils.trimFileProtocol(`${Directories.config}/chaos-labs`)
     property string shellConfigName: "/config.json"
     property string shellConfigPath: `${Directories.shellConfig}/config/${Directories.shellConfigName}`
-    readonly property string themeJson: shellConfig + "/theme.json"
-    readonly property string wallpapers: home + "/Pictures/Wallpapers"
+    property string themeJson: shellConfig + "/theme.json"
+    property string wallpapers: FileUtils.trimFileProtocol(`${Directories.home}/Pictures/Wallpapers`)
 
     Component.onCompleted: {
         Quickshell.execDetached(["mkdir", "-p", `${shellConfig}`])

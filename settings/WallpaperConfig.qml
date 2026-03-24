@@ -115,22 +115,27 @@ ColumnLayout {
 
     Process {
         id: wallpaperScanner
-        command: ["ls", "-1", "-p", Quickshell.env("HOME") + "/Pictures/Wallpapers"]
-        running: true // Run on startup
+        command: ["find", Directories.wallpapers, "-type", "f"]
+        running: true
 
         stdout: StdioCollector {
             onStreamFinished: {
+                if (!text || text.trim().length === 0) return;
                 wallpaperModel.clear();
-                let lines = text.split("\n");
+                let lines = text.trim().split("\n");
 
                 lines.forEach(line => {
-                    if (line && !line.endsWith("/") && line.match(/\.(jpg|jpeg|png|webp)$/i)) {
+
+                    if (line.match(/\.(jpg|jpeg|png|webp)$/i)) {
+                        let fileName = line.substring(line.lastIndexOf('/') + 1);
+
                         wallpaperModel.append({
-                            "name": line,
-                            "path": Quickshell.env("HOME") + "/Pictures/Wallpapers/" + line
+                            "name": fileName,
+                            "path": line
                         });
                     }
                 });
+                console.info(`: Loaded ${wallpaperModel.count} wallpapers from ${Directories.wallpapers}`);
             }
         }
     }
