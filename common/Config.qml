@@ -72,6 +72,7 @@ Singleton {
                 property bool light: false
                 property string scheme: "scheme-tonal-spot"
                 property string wallpaper: ""
+                property int transitionDuration: 1
                 property int fontScale : 100
                 property int displayScale : 100
 

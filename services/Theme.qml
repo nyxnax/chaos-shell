@@ -104,7 +104,7 @@ Singleton {
             command = [
                 "awww", "img", Config.options.appearance.wallpaper,
                 "--transition-type", "grow",        // Options: grow, outer, any, wipe, wave, etc.
-                "--transition-duration", "0.8",     // Seconds
+                "--transition-duration", Config.options.appearance.transitionDuration,     // Seconds
                 "--transition-fps", "240",
                 //"--transition-pos", "0.5,0.5",    // Center of the screen
                 "--transition-bezier", ".1,1,.1,1"

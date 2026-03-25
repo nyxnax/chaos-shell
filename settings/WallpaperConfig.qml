@@ -289,5 +289,16 @@ ColumnLayout {
                 }
             }
         }
+        ConfigSlider {
+            text: "Transition duration"
+            buttonIcon: "transition_fade"
+            //description: "Control how long it takes to switch the wallpaper"
+            //liveUpdate: false
+            defaultValue: 1
+            valueSuffix: "s"
+            from: 0; to: 10; stepSize: 1
+            value: Config.options.appearance.transitionDuration
+            onMoved: (newValue) => {Config.options.appearance.transitionDuration = newValue;}
+        }
     }
 }

@@ -13,6 +13,7 @@ ItemDelegate {
     property real defaultValue: 100
     property string buttonIcon
     property string description
+    property string valueSuffix: "%"
     property alias iconSize: iconWidget.iconSize
     property real value
     property real from
@@ -107,14 +108,14 @@ ItemDelegate {
             }
         }
 
-        StyledText { text: root.value + "%"; opacity: 0.7}
+        StyledText { text: root.value + valueSuffix; opacity: 0.7}
 
         MaterialSymbol {
             text: "restart_alt"
             iconSize: Appearance.font.pixelSize.larger
             color: Appearance.colors.m3onSurfaceVariant
-            opacity: root.value !== root.defaultValue ? 0.8 : 0.3
-            visible: root.value !== root.defaultValue
+            opacity: (root.value !== root.defaultValue && !switchWidget.pressed) ? 0.8 : 0.0
+            visible: root.value !== root.defaultValue && !switchWidget.pressed
 
             MouseArea {
                 anchors.fill: parent
@@ -124,7 +125,7 @@ ItemDelegate {
                 PointingHand {}
             }
 
-            Behavior on opacity { NumberAnimation { duration: 200 } }
+            Behavior on opacity {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
         }
 
         Item {} // margin
