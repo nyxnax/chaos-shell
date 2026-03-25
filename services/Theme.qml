@@ -92,7 +92,7 @@ Singleton {
         id: swwwStart
         function run() {
             command = [
-                "swww-daemon",
+                "awww-daemon",
             ];
             running = true
         }
@@ -102,7 +102,7 @@ Singleton {
         id: swwwProc
         function run() {
             command = [
-                "swww", "img", Config.options.appearance.wallpaper,
+                "awww", "img", Config.options.appearance.wallpaper,
                 "--transition-type", "grow",        // Options: grow, outer, any, wipe, wave, etc.
                 "--transition-duration", "0.8",     // Seconds
                 "--transition-fps", "240",

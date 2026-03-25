@@ -126,7 +126,7 @@ ColumnLayout {
 
                 lines.forEach(line => {
 
-                    if (line.match(/\.(jpg|jpeg|png|webp)$/i)) {
+                    if (line.match(/\.(jpg|jpeg|png|webp|gif)$/i)) {
                         let fileName = line.substring(line.lastIndexOf('/') + 1);
 
                         wallpaperModel.append({
@@ -135,7 +135,7 @@ ColumnLayout {
                         });
                     }
                 });
-                console.info(`: Loaded ${wallpaperModel.count} wallpapers from ${Directories.wallpapers}`);
+                console.info(`Chaos: Loaded ${wallpaperModel.count} wallpapers from ${Directories.wallpapers}`);
             }
         }
     }
