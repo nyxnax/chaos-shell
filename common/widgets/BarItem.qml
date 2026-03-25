@@ -1,5 +1,6 @@
 import QtQuick
 import qs.common
+import Quickshell.Io
 
 Rectangle {
     id: root
@@ -22,7 +23,21 @@ Rectangle {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: Global.states.settingsOpen = !Global.states.settingsOpen
+        //onClicked: Global.states.settingsOpen = !Global.states.settingsOpen
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        onPressed: (mouse) => {
+            if (mouse.button === Qt.RightButton) {
+                powerToggle.running = true
+            } else {
+                Global.states.settingsOpen = !Global.states.settingsOpen;
+            }
+
+        }
         cursorShape: Qt.PointingHandCursor
+    }
+    Process {
+        id: powerToggle
+        command: ["poweroff"]
+        running: false
     }
 }
