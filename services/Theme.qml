@@ -103,7 +103,7 @@ Singleton {
         function run() {
             command = [
                 "awww", "img", Config.options.appearance.wallpaper,
-                "--transition-type", "grow",        // Options: grow, outer, any, wipe, wave, etc.
+                "--transition-type", Config.options.appearance.transitionType,
                 "--transition-duration", Config.options.appearance.transitionDuration,     // Seconds
                 "--transition-fps", "240",
                 //"--transition-pos", "0.5,0.5",    // Center of the screen

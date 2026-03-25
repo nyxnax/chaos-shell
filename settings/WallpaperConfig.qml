@@ -234,8 +234,8 @@ ColumnLayout {
     }
 
     ConfigGroup{
-        //icon: "colors"
-        //title: "Color Scheme"
+        icon: "colors"
+        title: "Color Scheme"
 
         Flow {
             id: schemeFlow
@@ -278,6 +278,10 @@ ColumnLayout {
                 }
             }
         }
+    }
+    ConfigGroup {
+        icon: "settings"
+        title: "Preferences"
         ConfigSlider {
             text: "Transition duration"
             buttonIcon: "transition_fade"
@@ -288,6 +292,49 @@ ColumnLayout {
             from: 0; to: 10; stepSize: 1
             value: Config.options.appearance.transitionDuration
             onMoved: (newValue) => {Config.options.appearance.transitionDuration = newValue;}
+        }
+    }
+    ConfigGroup {
+        icon: "transition_chop"
+        title: "Transiton Types"
+
+        Flow {
+            id: transitionTypes
+            width: parent.width
+            spacing: 5
+            padding: 10
+            Layout.fillWidth: true
+
+            Repeater {
+                model: [
+                    { name: "Grow",   value: "grow",    icon: "arrows_outward" },
+                    { name: "Outer",  value: "outer",   icon: "filter_center_focus" },
+                    { name: "Any",    value: "any",     icon: "shuffle" },
+                    { name: "Wipe",   value: "wipe",    icon: "south_west" },
+                    { name: "Wave",   value: "wave",    icon: "waves" },
+                    { name: "Center", value: "center",  icon: "align_center" },
+                ]
+
+                delegate: StyledButton {
+
+                    id: transitionChip
+                    size: StyledButton.Size.L
+                    text: modelData.name
+                    property bool isSelected: Config.options.appearance.transitionType === modelData.value
+                    buttonIcon: modelData.icon
+                    buttonColor: isSelected ? Appearance.colors.m3primaryContainer
+                            : Appearance.colors.m3secondaryContainer
+                    border: isSelected ? 2 : 0
+
+                    StyledToolTip {
+                        text: modelData.name
+                    }
+
+                    onClicked: {
+                        Config.options.appearance.transitionType = modelData.value
+                    }
+                }
+            }
         }
     }
 }
