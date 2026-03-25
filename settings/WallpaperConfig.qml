@@ -16,8 +16,8 @@ ColumnLayout {
         Rectangle { // Current Wallpaper
             id: wallpaperPreview
             Layout.fillWidth: true
-            Layout.maximumWidth: 800
-            Layout.minimumWidth: 300
+            Layout.maximumWidth: 700
+            Layout.minimumWidth: 100
             implicitHeight: width * (9 / 18.5)
             radius: 24
             color: Appearance.colors.m3surfaceContainer
@@ -59,7 +59,6 @@ ColumnLayout {
         ColumnLayout { // Mode switcher
             id: modeSwitcher
             spacing: 5
-            Layout.fillWidth: true
 
             StyledButton { // Light Mode
                 Layout.fillHeight: true
@@ -235,8 +234,9 @@ ColumnLayout {
     }
 
     ConfigGroup{
-        icon: "colors"
-        title: "Color Scheme"
+        //icon: "colors"
+        //title: "Color Scheme"
+
         Flow {
             id: schemeFlow
             width: parent.width
@@ -256,27 +256,16 @@ ColumnLayout {
                     { name: "Rainbow",              value: "scheme-rainbow",     icon: "looks" }
                 ]
 
-                delegate: Button {
+                delegate: StyledButton {
+
                     id: themeChip
-
-                    implicitWidth: 60
-                    implicitHeight: 60
-
+                    size: StyledButton.Size.L
+                    text: modelData.name
                     property bool isSelected: Config.options.appearance.scheme === modelData.value
-
-                    background: Rectangle {
-                        color: themeChip.isSelected ? Appearance.colors.m3primaryContainer : Appearance.colors.m3surfaceVariant
-                        radius: themeChip.implicitHeight / 2
-                        border.width: themeChip.hovered ? 2 : 0
-                        border.color: Appearance.colors.m3primary
-                    }
-
-                    MaterialSymbol {
-                        anchors.centerIn: parent
-                        text: modelData.icon
-                        iconSize: 30
-                        color: themeChip.isSelected ? Appearance.colors.m3onPrimaryContainer : Appearance.colors.m3onSurfaceVariant
-                    }
+                    buttonIcon: modelData.icon
+                    buttonColor: isSelected ? Appearance.colors.m3primaryContainer
+                            : Appearance.colors.m3secondaryContainer
+                    border: isSelected ? 2 : 0
 
                     StyledToolTip {
                         text: modelData.name

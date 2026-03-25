@@ -5,53 +5,97 @@ import QtQuick.Controls
 Button {
     id: root
 
-    scale: 1
-    implicitHeight: 48 * scale
-    implicitWidth: Math.max(120, layoutWrapper.implicitWidth + 40)
+    enum Size {
+        XS, // 24px - Tiny/Icon-only style
+        S,  // 32px - Compact
+        M,  // 40px - Standard MD3
+        L,  // 48px - Comfortable/Touch
+        XL  // 56px - Prominent
+    }
 
+    property int size: StyledButton.Size.M
+
+    readonly property real targetHeight: {
+        switch(size) {
+            case StyledButton.Size.XS: return 24;
+            case StyledButton.Size.S:  return 32;
+            case StyledButton.Size.M:  return 40;
+            case StyledButton.Size.L:  return 48;
+            case StyledButton.Size.XL: return 56;
+            default: return 40;
+        }
+    }
+
+    readonly property real hPadding: {
+        switch(size) {
+            case StyledButton.Size.XS: return 8;
+            case StyledButton.Size.S:  return 12;
+            case StyledButton.Size.M:  return 16;
+            case StyledButton.Size.L:  return 20;
+            case StyledButton.Size.XL: return 24;
+            default: return 16;
+        }
+    }
+
+    readonly property real fontSize: {
+        switch(size) {
+            case StyledButton.Size.XS: return Appearance.font.pixelSize.small;
+            case StyledButton.Size.S:  return Appearance.font.pixelSize.normal;
+            case StyledButton.Size.M:  return Appearance.font.pixelSize.large;
+            case StyledButton.Size.L:  return Appearance.font.pixelSize.larger;
+            case StyledButton.Size.XL: return Appearance.font.pixelSize.huge;
+            default: return Appearance.font.pixelSize.large;
+        }
+    }
+
+    scale: 1
+    implicitHeight: targetHeight
+    implicitWidth: isIconOnly ? targetHeight : (layoutWrapper.implicitWidth + (hPadding * 2))
+
+    readonly property bool isIconOnly: root.text === "" && root.buttonIcon !== ""
     property string buttonColor: Appearance.colors.m3surfaceVariant
     property string buttonIcon: ""
     property int border: 0
-    property int radius: 12
-
-    PointingHand{}
+    property int radius: size <= StyledButton.Size.S ? 8 : 12
 
     background: Rectangle {
-        color: {
-            if (root.pressed) return Qt.alpha(Appearance.colors.m3primary, 0.4)
-            return root.buttonColor
-        }
+        color: root.pressed ? Qt.darker(root.buttonColor, 1.1) :
+               root.hovered ? Qt.lighter(root.buttonColor, 1.1) : root.buttonColor
 
-        radius: root.pressed ? 6 : root.radius
+        radius: root.radius
         scale: root.pressed ? 0.95 : 1.0
-        Behavior on color { ColorAnimation { duration: 150 } }
-        Behavior on scale { NumberAnimation { duration: 100; easing.type: Easing.OutBack } }
         border.width: root.hovered ? Math.max(root.border, 2) : root.border
-        border.color: Appearance.colors.m3outline
+        border.color: Appearance.colors.m3primary
 
-        Behavior on border.width {NumberAnimation {duration: 200; easing.type: Easing.InOutQuad}}
+        Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
+        Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this) }
+        Behavior on border.width {animation: Appearance.animation.elementMove.numberAnimation.createObject(root)}
     }
 
     contentItem: Item {
         id: layoutWrapper
+        implicitWidth: contentRow.implicitWidth
         Row {
+            id: contentRow
             anchors.centerIn: parent
-            spacing: 4
+            spacing: size <= StyledButton.Size.S ? 4 : 8
 
             MaterialSymbol {
                 id: icon
-                anchors.verticalCenter: parent.verticalCenter
-                visible: text !== ""
                 text: root.buttonIcon
-                font.pixelSize: Appearance.font.pixelSize.large * root.scale
+                visible: text !== ""
+                font.pixelSize: fontSize * 1.1
+                color: Appearance.colors.m3onSurface
+                anchors.verticalCenter: parent.verticalCenter
             }
             StyledText {
                 id: text
-                scale: root.pressed ? 0.95 : 1.0
-                anchors.verticalCenter: parent.verticalCenter
-                visible: text !== ""
                 text: root.text
-                font.pixelSize: Appearance.font.pixelSize.large * root.scale
+                visible: text !== ""
+                scale: root.pressed ? 0.95 : 1.0
+                font.pixelSize: fontSize
+                color: Appearance.colors.m3onSurface
+                anchors.verticalCenter: parent.verticalCenter
             }
         }
     }
