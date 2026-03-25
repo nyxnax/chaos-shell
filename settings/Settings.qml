@@ -16,8 +16,8 @@ ApplicationWindow {
     visible: Global.states.settingsOpen
     title: "Chaos Settings"
     onClosing: Global.states.settingsOpen = false
-    color: Appearance.colors.m3background
-
+    color: Config.options.appearance.opacity <= 0 ? "transparent" :
+           Qt.alpha(Appearance.colors.m3background, Config.options.appearance.opacity / 100.0)
     property bool isPortrait: root.height > root.width
     property var pages: [
         {

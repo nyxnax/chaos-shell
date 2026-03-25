@@ -52,7 +52,8 @@ Scope {
             Rectangle {
                 id: background
                 anchors.fill: parent
-                color: Qt.alpha(Appearance.colors.m3background, 1)
+                color: Config.options.appearance.opacity <= 0 ? "transparent" :
+                       Qt.alpha(Appearance.colors.m3background, Config.options.appearance.opacity / 100.0)
                 radius: 18
 
                 StyledSlider {

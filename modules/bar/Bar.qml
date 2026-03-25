@@ -42,7 +42,14 @@ Scope {
 
             exclusionMode: isAutoHide ? ExclusionMode.Ignore : ExclusionMode.Auto
             implicitHeight: expanded ? 48 * (Config.options.appearance.displayScale / 100) : 5
-            color: Appearance.colors.m3background
+            color: "transparent"
+
+            Rectangle { // Background
+                id: barBackground
+                anchors.fill: parent
+                color: Config.options.appearance.opacity <= 0 ? "transparent" :
+                        Qt.alpha(Appearance.colors.m3background, Config.options.appearance.opacity / 100.0)
+            }
 
             MouseArea {
                 anchors.fill: parent

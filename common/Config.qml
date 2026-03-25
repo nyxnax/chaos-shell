@@ -77,6 +77,7 @@ Singleton {
                 property string transitionType: "grow" // Options: grow, outer, any, wipe, wave, etc.
                 property int fontScale : 100
                 property int displayScale : 100
+                property int opacity: 100
 
                 property JsonObject fonts: JsonObject {
                     property string main: "Google Sans Flex"

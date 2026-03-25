@@ -52,11 +52,12 @@ Button {
     implicitHeight: targetHeight
     implicitWidth: isIconOnly ? targetHeight : (layoutWrapper.implicitWidth + (hPadding * 2))
 
+    property bool isRound: false
     readonly property bool isIconOnly: root.text === "" && root.buttonIcon !== ""
     property string buttonColor: Appearance.colors.m3surfaceVariant
     property string buttonIcon: ""
     property int border: 0
-    property int radius: size <= StyledButton.Size.S ? 8 : 12
+    property int radius: isRound ? targetHeight / 2 : (size <= StyledButton.Size.S ? 8 : 12)
 
     background: Rectangle {
         color: root.pressed ? Qt.darker(root.buttonColor, 1.1) :

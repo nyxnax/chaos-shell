@@ -9,12 +9,6 @@ ColumnLayout {
     id: root
     spacing: 15
 
-//    ConfigGroup { // Theming Section
-//        icon: "format_paint"
-//        title: "Theme"
-//
-//    }
-
     ConfigGroup { // Visibility / Accessibility Section
         icon: "accessibility_new"
         title: "Accessibility and Visibility"
@@ -36,6 +30,18 @@ ColumnLayout {
             value: Config.options.appearance.displayScale
             onMoved: (newValue) => {Config.options.appearance.displayScale = newValue;}
         }
+        ConfigSlider {
+            text: "Opacity"
+            buttonIcon: "blur_medium"
+            //description: ""
+            //liveUpdate: false
+            defaultValue: 100
+            valueSuffix: "%"
+            from: 0; to: 100; stepSize: 10
+            value: Config.options.appearance.opacity
+            onMoved: (newValue) => {Config.options.appearance.opacity = newValue;}
+        }
+
         ConfigSwitch {
             buttonIcon: Config.options.appearance.light ? "brightness_7" : "moon_stars"
             text: Config.options.appearance.light ? "Light Mode" : "Dark Mode"
@@ -49,8 +55,8 @@ ColumnLayout {
     }
 
     ConfigGroup { // OSD Section
-        icon: "sliders"
-        title: "OSD"
+        icon: "instant_mix"
+        title: "On-Screen Display"
         ConfigSwitch {
             buttonIcon: "preview"
             text: "Enable"
@@ -62,16 +68,6 @@ ColumnLayout {
             }
         }
         ConfigSwitch {
-            buttonIcon: Config.options.osd.showPercent ? "percent" : "adjust"
-            text: "Show Percentage"
-            description: "Replace dot at the end of the OSD"
-            checked: Config.options.osd.showPercent
-            onCheckedChanged: {
-                Config.options.osd.showPercent = checked;
-                //console.log ("OSD: Percent display set to " + checked)
-            }
-        }
-        ConfigSwitch {
             buttonIcon: "touch_long"
             text: "Enable Dragging"
             description: "Allows for mouse and touch drag inputs on the bar"
@@ -79,6 +75,16 @@ ColumnLayout {
             onCheckedChanged: {
                 Config.options.osd.draggable = checked;
                 //console.log ("OSD: Dragging set to " + checked)
+            }
+        }
+        ConfigSwitch {
+            buttonIcon: Config.options.osd.showPercent ? "percent" : "adjust"
+            text: "Show Percentage"
+            description: "Replace dot at the end of the OSD"
+            checked: Config.options.osd.showPercent
+            onCheckedChanged: {
+                Config.options.osd.showPercent = checked;
+                //console.log ("OSD: Percent display set to " + checked)
             }
         }
         ConfigSwitch {
