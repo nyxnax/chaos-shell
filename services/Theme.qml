@@ -104,10 +104,10 @@ Singleton {
             command = [
                 "awww", "img", Config.options.appearance.wallpaper,
                 "--transition-type", Config.options.appearance.transitionType,
-                "--transition-duration", Config.options.appearance.transitionDuration,     // Seconds
-                "--transition-fps", "240",
+                "--transition-duration", Config.options.appearance.transitionDuration,
+                "--transition-fps", Config.options.appearance.transitionFPS,
                 //"--transition-pos", "0.5,0.5",    // Center of the screen
-                "--transition-bezier", ".1,1,.1,1"
+                //"--transition-bezier", ".1,1,.1,1"
             ];
             running = true;
         }

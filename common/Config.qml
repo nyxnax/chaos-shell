@@ -72,7 +72,8 @@ Singleton {
                 property bool light: false
                 property string wallpaper: ""
                 property string scheme: "scheme-tonal-spot"
-                property int transitionDuration: 1
+                property int transitionDuration: 1 // Seconds
+                property int transitionFPS: 120
                 property string transitionType: "grow" // Options: grow, outer, any, wipe, wave, etc.
                 property int fontScale : 100
                 property int displayScale : 100

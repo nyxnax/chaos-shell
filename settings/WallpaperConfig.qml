@@ -293,6 +293,17 @@ ColumnLayout {
             value: Config.options.appearance.transitionDuration
             onMoved: (newValue) => {Config.options.appearance.transitionDuration = newValue;}
         }
+        ConfigSlider {
+            text: "Transition framerate"
+            buttonIcon: "blur_linear"
+            //description: ""
+            //liveUpdate: false
+            defaultValue: 120
+            valueSuffix: "fps"
+            from: 20; to: 240; stepSize: 10
+            value: Config.options.appearance.transitionFPS
+            onMoved: (newValue) => {Config.options.appearance.transitionFPS = newValue;}
+        }
     }
     ConfigGroup {
         icon: "transition_chop"
@@ -307,9 +318,9 @@ ColumnLayout {
 
             Repeater {
                 model: [
+                    { name: "Any",    value: "any",     icon: "shuffle" },
                     { name: "Grow",   value: "grow",    icon: "arrows_outward" },
                     { name: "Outer",  value: "outer",   icon: "filter_center_focus" },
-                    { name: "Any",    value: "any",     icon: "shuffle" },
                     { name: "Wipe",   value: "wipe",    icon: "south_west" },
                     { name: "Wave",   value: "wave",    icon: "waves" },
                     { name: "Center", value: "center",  icon: "align_center" },
