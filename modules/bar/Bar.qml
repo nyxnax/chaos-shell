@@ -97,6 +97,7 @@ Scope {
                     Media {}
                     ControlCenter {}
                     BatteryIndicator {}
+                    SessionButton {}
                 }
             }
         }

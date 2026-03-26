@@ -7,6 +7,7 @@ Rectangle {
     height: 30 * (Config.options.appearance.displayScale / 100 )
     width: (layout.width) + (14 * Config.options.appearance.displayScale / 100)
     property bool background: Config.options.bar.showBackground
+    signal clicked(var mouse)
 
     color: (mouseArea.containsMouse && root.enabled) ? Appearance.colors.m3surfaceContainerHighest : (root.background ? Appearance.colors.m3surfaceContainerHigh : "transparent")
     enabled: true
@@ -24,15 +25,15 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         //onClicked: Global.states.settingsOpen = !Global.states.settingsOpen
+        onClicked: (mouse) => root.clicked(mouse)
         acceptedButtons: Qt.LeftButton | Qt.RightButton
-        onPressed: (mouse) => {
-            if (mouse.button === Qt.RightButton) {
-                powerToggle.running = true
-            } else {
-                Global.states.settingsOpen = !Global.states.settingsOpen;
-            }
-
-        }
+        //onPressed: (mouse) => {
+        //    if (mouse.button === Qt.RightButton) {
+        //        powerToggle.running = true
+        //    } else {
+        //        Global.states.settingsOpen = !Global.states.settingsOpen;
+        //    }
+        //}
         cursorShape: Qt.PointingHandCursor
     }
     Process {

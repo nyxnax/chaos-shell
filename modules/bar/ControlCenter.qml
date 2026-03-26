@@ -7,6 +7,7 @@ import qs.services
 BarItem {
     id: root
     width: layout.width + 6
+    onClicked: Global.states.settingsOpen = !Global.states.settingsOpen
 
     RowLayout {
         id: layout
