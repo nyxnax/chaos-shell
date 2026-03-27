@@ -23,6 +23,7 @@ Variants {
             exclusionMode: ExclusionMode.Ignore
             WlrLayershell.namespace: "quickshell:screenCorners"
             color: "transparent"
+            mask: Region {}
 
             anchors {
                 top: (cornerType === RoundCorner.CornerEnum.TopLeft || cornerType === RoundCorner.CornerEnum.TopRight)
