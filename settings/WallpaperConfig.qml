@@ -19,7 +19,7 @@ ColumnLayout {
             Layout.maximumWidth: 700
             Layout.minimumWidth: 100
             implicitHeight: width * (9 / 18.5)
-            radius: 24
+            radius: Appearance.rounding.large
             color: Appearance.colors.m3surfaceContainer
 
             layer.enabled: true
@@ -65,7 +65,7 @@ ColumnLayout {
                 Layout.fillWidth: true
                 buttonColor: "white"
                 border: Config.options.appearance.light ? 5 : 0
-                radius: 24
+                radius: Appearance.rounding.large
 
                 contentItem: Item {
                     ColumnLayout{
@@ -89,7 +89,7 @@ ColumnLayout {
                 Layout.fillWidth: true
                 buttonColor: "black"
                 border: !Config.options.appearance.light ? 5 : 0
-                radius: 24
+                radius: Appearance.rounding.large
 
                 contentItem: Item {
                     ColumnLayout{
@@ -145,7 +145,7 @@ ColumnLayout {
         Layout.fillHeight: true
         height: 225
         color: Appearance.colors.m3secondaryContainer
-        radius: 24
+        radius: Appearance.rounding.large
 
         ListView {
             id: carousel
@@ -181,7 +181,7 @@ ColumnLayout {
                         maskSource: Rectangle {
                             width: wallpaperFrame.width
                             height: wallpaperFrame.height
-                            radius: 12
+                            radius: Appearance.rounding.small
                         }
                     }
 
@@ -216,7 +216,7 @@ ColumnLayout {
                         color: "transparent"
                         border.color: Appearance.colors.m3primary
                         border.width: wallpapers.isSelected ? 3 : 0
-                        radius: 12
+                        radius: Appearance.rounding.small
                         Behavior on border.width { NumberAnimation { duration: 200 } }
                     }
 

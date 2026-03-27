@@ -26,8 +26,8 @@ ItemDelegate {
     font.pixelSize: Appearance.font.pixelSize.large
 
     property int position: 0 // 0: mid, 1: top, 2: bottom, 3: both
-    property int smallRadius: 4
-    property int outerRadius: 14
+    property int smallRadius: Appearance.rounding.unsharpen
+    property int outerRadius: Appearance.rounding.normal
     background: Rectangle {
         id: background
         topLeftRadius: (root.position === 1 || root.position === 3) ? outerRadius : smallRadius

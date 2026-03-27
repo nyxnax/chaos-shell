@@ -8,10 +8,8 @@ import qs.common.widgets
 
 BarItem {
     id: root
-    radius: 8
 
     property bool isExpanded: hoverHandler.hovered
-
     color: isExpanded ? Appearance.colors.m3surfaceVariant : "transparent"
     implicitWidth: isExpanded ? layout.implicitWidth + 18 : 18
     Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}

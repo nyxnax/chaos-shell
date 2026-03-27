@@ -44,8 +44,8 @@ Scope {
             id: volumeOSD
             anchors.bottom: true
             exclusiveZone: 0
-            implicitWidth: 325
-            implicitHeight: 60
+            implicitWidth: 325 * (Config.options.appearance.displayScale / 100)
+            implicitHeight: 60 * (Config.options.appearance.displayScale / 100)
             color: "transparent"
             margins.bottom: 40
 
@@ -54,7 +54,7 @@ Scope {
                 anchors.fill: parent
                 color: Config.options.appearance.opacity <= 0 ? "transparent" :
                        Qt.alpha(Appearance.colors.m3background, Config.options.appearance.opacity / 100.0)
-                radius: 18
+                radius: Appearance.rounding.normal
 
                 StyledSlider {
                     id: osdSlider

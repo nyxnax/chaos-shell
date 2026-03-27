@@ -11,7 +11,7 @@ Rectangle {
 
     color: (mouseArea.containsMouse && root.enabled) ? Appearance.colors.m3surfaceContainerHighest : (root.background ? Appearance.colors.m3surfaceContainerHigh : "transparent")
     enabled: true
-    radius: mouseArea.pressed ? 15 : (mouseArea.containsMouse ? 10 : 8)
+    radius: mouseArea.pressed ? Appearance.rounding.normal : (mouseArea.containsMouse ? Appearance.rounding.small : Appearance.rounding.verysmall)
     scale: mouseArea.pressed ? 0.9 : 1.0
 
     Behavior on width { animation: Appearance.animation.elementResize.numberAnimation.createObject(root) }
@@ -27,13 +27,6 @@ Rectangle {
         //onClicked: Global.states.settingsOpen = !Global.states.settingsOpen
         onClicked: (mouse) => root.clicked(mouse)
         acceptedButtons: Qt.LeftButton | Qt.RightButton
-        //onPressed: (mouse) => {
-        //    if (mouse.button === Qt.RightButton) {
-        //        powerToggle.running = true
-        //    } else {
-        //        Global.states.settingsOpen = !Global.states.settingsOpen;
-        //    }
-        //}
         cursorShape: Qt.PointingHandCursor
     }
     Process {

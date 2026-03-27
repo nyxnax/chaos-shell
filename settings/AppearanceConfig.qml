@@ -24,7 +24,7 @@ ColumnLayout {
         ConfigSlider {
             text: "Display Scale"
             buttonIcon: "display_settings"
-            description: "Work in progress, currently only affects bar"
+            //description: "Work in progress, currently only affects bar"
             liveUpdate: false
             from: 100; to: 140; stepSize: 5
             value: Config.options.appearance.displayScale
@@ -40,6 +40,17 @@ ColumnLayout {
             from: 0; to: 100; stepSize: 10
             value: Config.options.appearance.opacity
             onMoved: (newValue) => {Config.options.appearance.opacity = newValue;}
+        }
+        ConfigSlider {
+            text: "Rounding"
+            buttonIcon: "rounded_corner"
+            //description: ""
+            //liveUpdate: false
+            defaultValue: 100
+            valueSuffix: "%"
+            from: 0; to: 200; stepSize: 10
+            value: Config.options.appearance.rounding
+            onMoved: (newValue) => {Config.options.appearance.rounding = newValue;}
         }
 
         ConfigSwitch {

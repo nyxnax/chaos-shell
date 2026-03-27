@@ -6,8 +6,8 @@ import qs.services
 
 BarItem {
     id: root
-    radius: 6
     visible: time.isShown || date.isShown
+    enabled: false
 
     RowLayout {
         id: layout

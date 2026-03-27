@@ -31,7 +31,7 @@ ToolTip {
             opacity: shown ? 1 : 0
             implicitWidth: shown ? (textColumn.implicitWidth + 2 * root.horizontalPadding) : 0
             implicitHeight: shown ? (textColumn.implicitHeight + 2 * root.verticalPadding) : 0
-            radius: 7
+            radius: Appearance.rounding.verysmall
 
             Behavior on implicitWidth {animation: Appearance?.animation.elementMoveFast.numberAnimation.createObject(this)}
             Behavior on implicitHeight {animation: Appearance?.animation.elementMoveFast.numberAnimation.createObject(this)}

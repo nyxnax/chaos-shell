@@ -28,7 +28,7 @@ ColumnLayout {
 
     ColumnLayout {
         id: column
-        spacing: 5
+        spacing: 4
 
         Component.onCompleted: {
             let items = [];

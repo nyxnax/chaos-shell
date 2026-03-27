@@ -45,10 +45,10 @@ PanelWindow {
     Rectangle { // Rectangle background / Dialog
         id: background
         anchors.centerIn: parent
-        height: 150
-        width: 600
+        height: 150 * (Config.options.appearance.displayScale / 100)
+        width: 600 * (Config.options.appearance.displayScale / 100)
         color: Appearance.colors.m3background
-        radius: 30
+        radius: Appearance.rounding.verylarge
         focus: root.visible
         Keys.onEscapePressed: Global.states.sessionManagerOpen = false
 
@@ -56,7 +56,7 @@ PanelWindow {
             id:buttonRow
             anchors.margins: 10
             anchors.fill: parent
-            spacing: 5
+            spacing: 6
 
             Repeater {
                 model: [
@@ -67,7 +67,7 @@ PanelWindow {
                 ]
 
                 delegate: StyledButton {
-                    radius: 20
+                    radius: Appearance.rounding.verylarge - buttonRow.anchors.margins
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     size: StyledButton.Size.XL

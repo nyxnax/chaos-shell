@@ -7,6 +7,7 @@ Singleton {
     id: root
 
     property QtObject colors
+    property QtObject rounding
     property QtObject font
     property QtObject animationCurves
     property QtObject animation
@@ -131,6 +132,19 @@ Singleton {
     Behavior on m3outlineVariant { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
     Behavior on m3shadow { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
     Behavior on m3scrim { animation: root.animation.elementMoveFast.colorAnimation.createObject(this) }
+    }
+
+    rounding: QtObject {
+        property int unsharpen: 2 * (Config.options.appearance.rounding / 100)
+        property int tiny: 6 * (Config.options.appearance.rounding / 100)
+        property int verysmall: 8 * (Config.options.appearance.rounding / 100)
+        property int small: 12 * (Config.options.appearance.rounding / 100)
+        property int normal: 17 * (Config.options.appearance.rounding / 100)
+        property int large: 23 * (Config.options.appearance.rounding / 100)
+        property int verylarge: 30 * (Config.options.appearance.rounding / 100)
+        property int full: 9999 * (Config.options.appearance.rounding / 100)
+        property int screenRounding: large * (Config.options.appearance.rounding / 100)
+        property int windowRounding: 18 * (Config.options.appearance.rounding / 100)
     }
 
     font: QtObject {

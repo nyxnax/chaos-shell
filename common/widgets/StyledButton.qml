@@ -48,6 +48,19 @@ Button {
         }
     }
 
+    readonly property real targetRadius: {
+        if (isRound || isIconOnly) return Appearance.rounding.full;
+
+        switch(size) {
+            case StyledButton.Size.XS: return Appearance.rounding.tiny;
+            case StyledButton.Size.S:  return Appearance.rounding.verysmall;
+            case StyledButton.Size.M:  return Appearance.rounding.small;
+            case StyledButton.Size.L:  return Appearance.rounding.normal;
+            case StyledButton.Size.XL: return Appearance.rounding.large;
+            default: return Appearance.rounding.small;
+        }
+    }
+
     scale: 1
     implicitHeight: targetHeight
     implicitWidth: isIconOnly ? targetHeight : (layoutWrapper.implicitWidth + (hPadding * 2))
@@ -57,7 +70,7 @@ Button {
     property string buttonColor: Appearance.colors.m3surfaceVariant
     property string buttonIcon: ""
     property int border: 0
-    property int radius: isRound ? targetHeight / 2 : (size <= StyledButton.Size.S ? 8 : 12)
+    property int radius: targetRadius
 
     background: Rectangle {
         color: root.pressed ? Qt.darker(root.buttonColor, 1.1) :
@@ -71,6 +84,7 @@ Button {
         Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
         Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this) }
         Behavior on border.width {animation: Appearance.animation.elementMove.numberAnimation.createObject(root)}
+        Behavior on radius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
     }
 
     contentItem: Item {
