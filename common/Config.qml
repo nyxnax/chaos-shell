@@ -79,6 +79,7 @@ Singleton {
                 property int displayScale : 100
                 property int opacity: 100
                 property int rounding: 100
+                property bool showScreenRounding: false
 
                 property JsonObject fonts: JsonObject {
                     property string main: "Google Sans Flex"

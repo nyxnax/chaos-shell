@@ -143,8 +143,8 @@ Singleton {
         property int large: 23 * (Config.options.appearance.rounding / 100)
         property int verylarge: 30 * (Config.options.appearance.rounding / 100)
         property int full: 9999 * (Config.options.appearance.rounding / 100)
-        property int screenRounding: large * (Config.options.appearance.rounding / 100)
-        property int windowRounding: 18 * (Config.options.appearance.rounding / 100)
+        property int screenRounding: small
+        property int windowRounding: verysmall
     }
 
     font: QtObject {

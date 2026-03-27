@@ -54,12 +54,21 @@ ColumnLayout {
         }
 
         ConfigSwitch {
+            buttonIcon: "orbit"
+            text: "Display Corners"
+            checked: Config.options.appearance.showScreenRounding
+            onCheckedChanged: {
+                Config.options.appearance.showScreenRounding = checked;
+                //console.info ("Appearance: Screen rounding set to " + checked)
+            }
+        }
+        ConfigSwitch {
             buttonIcon: Config.options.appearance.light ? "brightness_7" : "moon_stars"
             text: Config.options.appearance.light ? "Light Mode" : "Dark Mode"
             checked: Config.options.appearance.light
             onCheckedChanged: {
                 Config.options.appearance.light = checked;
-                //console.log ("Appearance: Light theme set to " + checked)
+                //console.info ("Appearance: Light theme set to " + checked)
                 Theme.generate();
             }
         }
