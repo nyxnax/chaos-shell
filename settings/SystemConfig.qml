@@ -53,7 +53,7 @@ ColumnLayout {
             RowLayout {
                 MaterialSymbol{text: "percent"}
                 StyledText {text: "Battery Percentage: "}
-                BatteryIndicator {}
+                StyledText {text: `${Math.round(Battery.percentage * 100)}%`}
             }
             RowLayout {
                 MaterialSymbol{text: "bolt"}

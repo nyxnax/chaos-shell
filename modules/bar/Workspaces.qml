@@ -6,9 +6,13 @@ import qs.common
 import qs.services
 import qs.common.functions
 
-RowLayout {
+GridLayout {
     id: root
-    spacing: 4
+
+    columns: isVertical ? 1 : -1
+    rows: isVertical ? -1 : 1
+    columnSpacing: isVertical ? 0 : 4
+    rowSpacing: isVertical ? 4 : 0
 
     property int workspaceOffset: 0
     property string targetMonitorName: ""
@@ -40,19 +44,21 @@ RowLayout {
             readonly property bool exists: ws !== undefined
             readonly property bool isOccupied: exists && ws.toplevels.values.length > 0
             readonly property bool isFocused: exists && ws.active
-
             readonly property bool showIcons: isOccupied && Config.options.bar.workspaceIcons
 
-            // Expand the width of the pill to fit the icons inside!
             Layout.preferredWidth: {
+                if (isVertical) return 16;
                 if (!showIcons) return isFocused ? 28 : 16;
-                return Math.max(isFocused ? 28 : 16, iconRow.width + 12);
+                return Math.max(isFocused ? 28 : 16, iconContainer.width + 12);
             }
 
-            Layout.preferredHeight: 16
+            Layout.preferredHeight: {
+                if (!isVertical) return 16;
+                if (!showIcons) return isFocused ? 28 : 16;
+                return Math.max(isFocused ? 28 : 16, iconContainer.height + 12);
+            }
+
             radius: 100
-
-
             color: {
                 if (isFocused) return Appearance.colors.m3primary
                 if (isOccupied) return Appearance.colors.m3secondary
@@ -60,14 +66,15 @@ RowLayout {
             }
 
             Behavior on Layout.preferredWidth {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
+            Behavior on Layout.preferredHeight { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
             Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
 
             // --- ICONS ---
-            Row {
-                id: iconRow
+            Flow {
+                id: iconContainer
                 anchors.centerIn: parent
                 spacing: 5
-
+                flow: isVertical ? Flow.TopToBottom : Flow.LeftToRight
                 visible: showIcons
 
                 // Get all running apps on this workspace, filtering out duplicates
@@ -78,7 +85,6 @@ RowLayout {
                         let tl = ws.toplevels.values[i];
                         //let windowClass = tl.lastIpcObject.class;
                         //let cls = tl.title;
-//
                         //if (windowClass == "" || windowClass == undefined || windowClass == "steam_app_default" || windowClass == "~"){
                         //    windowClass = cls
                         //}
@@ -96,14 +102,13 @@ RowLayout {
                 }
 
                 Repeater {
-                    model: iconRow.uniqueClasses
+                    model: iconContainer.uniqueClasses
 
                     delegate: Text {
                         text: BarIcons.getAppIcon(modelData)
                         font.family: Appearance.font.family.iconNerd
                         font.pixelSize: 11
                         color: isFocused ? Appearance.colors.m3onPrimary : Appearance.colors.m3onSecondary
-                        anchors.verticalCenter: parent.verticalCenter
                     }
                 }
             }

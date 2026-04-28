@@ -12,21 +12,16 @@ import Qt5Compat.GraphicalEffects
 BarItem {
     id: root
     enabled: false
-    width: layout.width
     color: "transparent"
 
     readonly property Toplevel activeWindow: ToplevelManager.activeToplevel
     property var mainAppIconSource: Quickshell.iconPath(AppSearch.guessIcon(ClassOrTitle.excludeClass(activeWindow?.appId, activeWindow?.title, false , true)), "image-missing")
 
-
-    property bool isShown: Config.options.bar.showWindowTitle
-    visible: opacity > 0
-    opacity: isShown ? 1 : 0
-    scale: isShown ? 1 : 0.95
+    property bool isShown: Config.options.bar.showWindowTitle || Config.options.bar.showWindowIcon
+    visible: isShown
 
     RowLayout {
         id: layout
-        anchors.centerIn: parent
         spacing: 6
 
         Item {
@@ -59,7 +54,8 @@ BarItem {
             elide: Text.ElideRight
             text: ClassOrTitle?.excludeClass(activeWindow?.appId, activeWindow?.title, false, false) || "Desktop"
             color: Appearance.colors.m3onBackground
-            opacity: 0.8
+            property bool isShown: Config.options.bar.showWindowTitle && !isVertical
+            visible: isShown
             Behavior on text {
                 SequentialAnimation {
                     NumberAnimation { target: titleText; property: "opacity"; to: 0; duration: 100 }

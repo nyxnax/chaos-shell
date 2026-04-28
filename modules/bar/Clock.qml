@@ -8,11 +8,10 @@ BarItem {
     id: root
     visible: time.isShown || date.isShown
     enabled: false
+    usePadding: true
 
-    RowLayout {
-        id: layout
-        anchors.centerIn:parent
-        spacing: 8
+    RowLayout { // Horozontal
+        visible: !isVertical
 
         StyledText { // Time
             id: time
@@ -43,6 +42,28 @@ BarItem {
 
             Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
             Behavior on scale   { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+        }
+    }
+
+    ColumnLayout { // Vertical
+        visible: isVertical
+        spacing: 0
+
+        StyledText {
+            visible: isVertical
+            text: Time.hour
+            font.weight: 800
+            horizontalAlignment: Text.AlignHCenter
+            Layout.alignment: Qt.AlignHCenter
+        }
+
+        StyledText {
+            visible: isVertical
+            text: Time.minute
+            font.weight: 800
+            opacity: 0.8
+            horizontalAlignment: Text.AlignHCenter
+            Layout.alignment: Qt.AlignHCenter
         }
     }
 }

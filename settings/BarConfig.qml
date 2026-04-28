@@ -9,16 +9,58 @@ ColumnLayout {
     spacing: 15
 
     ConfigGroup {// Main Section
-        ConfigSwitch {
-            buttonIcon: "screen_rotation_alt"
-            text: "Bar position"
-            description: "Switches the bar's position from top to bottom"
-            checked: Config.options.bar.bottom
-            onCheckedChanged: {
-                Config.options.bar.bottom = checked;
-                //console.log ("Bar: Bar bottom set to " + checked)
+
+        ConfigGroup {
+            icon: "shelf_position"
+            title: "Position"
+
+            Flow {
+                id: position
+                width: parent.width
+                spacing: 5
+                padding: 10
+                Layout.fillWidth: true
+
+                Repeater {
+                    model: [
+                        { name: "Top",      value: "top",       icon: "top_panel_close" },
+                        { name: "Bottom",   value: "bottom",    icon: "bottom_panel_close" },
+                        { name: "Left",     value: "left",      icon: "left_panel_close" },
+                        { name: "Right",    value: "right",     icon: "right_panel_close" },
+                    ]
+
+                    delegate: StyledButton {
+                        id: positonChip
+                        size: StyledButton.Size.L
+                        text: modelData.name
+                        property bool isSelected: Config.options.bar.position === modelData.value
+                        buttonIcon: modelData.icon
+                        buttonColor: isSelected ? Appearance.colors.m3primaryContainer
+                                : Appearance.colors.m3secondaryContainer
+                        border: isSelected ? 2 : 0
+
+                        StyledToolTip {
+                            text: modelData.name
+                        }
+
+                        onClicked: {
+                            Config.options.bar.position = modelData.value
+                        }
+                    }
+                }
             }
         }
+
+        //ConfigSwitch {
+        //    buttonIcon: "screen_rotation_alt"
+        //    text: "Bar position"
+        //    description: "Switches the bar's position from top to bottom"
+        //    checked: Config.options.bar.bottom
+        //    onCheckedChanged: {
+        //        Config.options.bar.bottom = checked;
+        //        //console.log ("Bar: Bar bottom set to " + checked)
+        //    }
+        //}
         ConfigSwitch {
             buttonIcon: "visibility_off"
             text: "Auto-hide"

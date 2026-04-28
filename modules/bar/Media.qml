@@ -14,21 +14,20 @@ BarItem {
     opacity: isShown ? 1 : 0
     visible: opacity > 0
 
-    RowLayout {
+    GridLayout {
         id: layout
-        spacing: 6
-        anchors.centerIn: parent
+        columns: isVertical ? 1 : 10
+        flow: isVertical ? Grid.TopToBottom : Grid.LeftToRight
 
         Rectangle { // Album Art
             id: albumArt
-            Layout.preferredWidth: root.height
-            Layout.preferredHeight: root.height
+            width: root.cellSize
+            height: root.cellSize
             radius: 8
             color: Appearance.colors.m3surfaceVariant
             clip: true
 
             readonly property bool isShown: MediaService.trackArtUrl !== "" && Config.options.bar.showCoverArt
-
             visible: opacity > 0
             opacity: isShown ? 1 : 0
             scale: isShown ? 1 : 0.7
@@ -47,8 +46,8 @@ BarItem {
                 layer.enabled: true
                 layer.effect: OpacityMask {
                     maskSource: Rectangle {
-                        width: coverArt.width
-                        height: coverArt.height
+                        width: root.cellSize
+                        height: root.cellSize
                         radius: albumArt.radius
                     }
                 }
@@ -67,8 +66,8 @@ BarItem {
             id: playPause
             opacity: Config.options.bar.showMediaControl ? 1 : 0
             visible: opacity > 0
-            Layout.preferredWidth: root.height
-            Layout.preferredHeight: root.height
+            width: root.cellSize
+            height: root.cellSize
             radius: MediaService.isPlaying ? 8 : 15
             color: MediaService.isPlaying ? Appearance.colors.m3surfaceVariant : Appearance.colors.m3secondaryContainer
             scale: buttonArea.pressed ? 0.9 : (MediaService.isPlaying ? 1.0 : 0.95)
@@ -100,7 +99,7 @@ BarItem {
 
         // Text Display with Marquee Scrolling
         ColumnLayout {
-            readonly property bool isShown: Config.options.bar.showMediaText
+            readonly property bool isShown: Config.options.bar.showMediaText && !isVertical
             opacity: isShown ? 1 : 0
             visible: opacity > 0
             Behavior on opacity {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)}
@@ -162,7 +161,6 @@ BarItem {
             }
 
             Item { // Scrolling Artist Container
-
                 id: artistContainer
                 Layout.fillWidth: true
                 Layout.preferredWidth: artistText.implicitWidth

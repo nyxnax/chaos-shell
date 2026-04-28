@@ -100,7 +100,8 @@ Singleton {
             }
 
             property JsonObject bar: JsonObject {
-                property bool bottom: true
+                //property bool bottom: true
+                property string position: "top"
                 property bool autoHide: false
                 property bool showDate: true
                 property bool showTime: true

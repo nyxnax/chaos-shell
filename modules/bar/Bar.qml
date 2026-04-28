@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import qs.settings
@@ -23,25 +24,28 @@ Scope {
 
         PanelWindow {
             id: bar
+            property alias window: bar
             required property var modelData
             screen: modelData
 
             readonly property int screenIndex: screenList.indexOf(modelData.name)
-
             readonly property bool isAutoHide: Config.options.bar.autoHide
+            readonly property string position: (Config.options && Config.options.bar) ? Config.options.bar.position : "top"
+            readonly property bool isVertical: position === "left" || position === "right"
+            property real barThickness: 48 * (Config.options.appearance.displayScale / 100)
             property bool mouseOver: false
             readonly property bool expanded: !isAutoHide || mouseOver
 
             anchors {
-                // Primary monitor (index 0) uses the global config, secondary monitors (index > 0) are forced to the bottom
-                top: screenIndex === 0 ? !Config.options.bar.bottom : false
-                bottom: screenIndex === 0 ? Config.options.bar.bottom : true
-                left: true
-                right: true
+                top: screenIndex === 0 ? (position === "top" || isVertical) : false
+                bottom: screenIndex === 0 ? (position === "bottom" || isVertical) : true
+                left: position === "left" || !isVertical
+                right: position === "right" || !isVertical
             }
 
             exclusionMode: isAutoHide ? ExclusionMode.Ignore : ExclusionMode.Auto
-            implicitHeight: expanded ? 48 * (Config.options.appearance.displayScale / 100) : 5
+            implicitHeight: isVertical ? -1 : (expanded ? barThickness : 5)
+            implicitWidth: isVertical ? (expanded ? barThickness : 5) : -1
             color: "transparent"
 
             Rectangle { // Background
@@ -56,29 +60,38 @@ Scope {
                 hoverEnabled: true
                 onEntered: bar.mouseOver = true
                 onExited: bar.mouseOver = false
-                // Allows you to click items inside the bar
                 propagateComposedEvents: true
             }
 
             Item {
                 anchors.fill: parent
-
+                anchors.margins: 8
                 opacity: bar.expanded ? 1 : 0
-                Row {
+
+                RowLayout { // Left
                     id: barLeft
+                    visible: !isVertical
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.margins: 10
                     spacing: 6
 
                     Clock {}
                     WindowTitle {}
                 }
 
-                Row {
-                    id: barCenter
+                ColumnLayout { // Top
+                    id: barTop
+                    visible: isVertical
+                    anchors.top: parent.top
+                    spacing: 6
+
+                    Clock {}
+                    WindowTitle {}
+                }
+
+                RowLayout { // Center
                     anchors.centerIn: parent
-                    spacing: 5
+                    spacing: 6
 
                     Workspaces {
                         workspaceOffset: Math.max(0, screenIndex) * workspacesPerScreen
@@ -86,11 +99,24 @@ Scope {
                     }
                 }
 
-                Row {
+                RowLayout { // Right
                     id: barRight
+                    visible: !isVertical
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.margins: 10
+                    spacing: 4
+
+                    SysTray {}
+                    Media {}
+                    ControlCenter {}
+                    BatteryIndicator {}
+                    SessionButton {}
+                }
+
+                ColumnLayout { // Bottom
+                    id: barBottom
+                    visible: isVertical
+                    anchors.bottom: parent.bottom
                     spacing: 6
 
                     SysTray {}

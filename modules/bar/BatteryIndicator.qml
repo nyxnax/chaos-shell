@@ -23,14 +23,14 @@ BarItem {
         hoverEnabled: true
 
         implicitWidth: batteryProgress.width
-        implicitHeight: 30
-        anchors.centerIn: parent
+        implicitHeight: isVertical ? 50 : 30
 
         BatteryBar {
             id: batteryProgress
             anchors.centerIn: parent
             value: percentage
             highlightColor: (isLow && !isCharging) ? Appearance.colors.m3error : Appearance.colors.m3onSecondaryContainer
+            rotation: isVertical ? 270 : 0
 
             Item {
                 anchors.centerIn: parent
