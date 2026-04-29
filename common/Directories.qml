@@ -16,6 +16,8 @@ Singleton {
     property string shellConfig: FileUtils.trimFileProtocol(`${Directories.config}/chaos-labs`)
     property string shellConfigName: "/config.json"
     property string shellConfigPath: `${Directories.shellConfig}/config/${Directories.shellConfigName}`
+    property string shellStateName: "/state.json"
+    property string shellStatePath: `${Directories.shellConfig}/config/${Directories.shellStateName}`
     property string themeJson: shellConfig + "/theme.json"
     property string wallpapers: FileUtils.trimFileProtocol(`${Directories.home}/Pictures/Wallpapers`)
 

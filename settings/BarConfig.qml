@@ -2,17 +2,80 @@ import QtQuick
 import QtQuick.Layouts
 import qs.common
 import qs.common.widgets
+import qs.services
 
 ColumnLayout {
     id: root
     width: 500
     spacing: 15
 
-    ConfigGroup {// Main Section
+    ConfigGroup { // Main Section
 
         ConfigGroup {
             icon: "shelf_position"
-            title: "Position"
+            title: "Positions"
+
+            ColumnLayout {
+                width: parent.width
+                spacing: 10
+
+                Repeater {
+                    model: Display.activeScreens
+
+                    delegate: ConfigGroup {
+                        id: displaySection
+                        icon: "tv"
+                        title: "Display: " + modelData
+                        property string displayName: String(modelData)
+
+                        Flow {
+                            width: parent.width
+                            spacing: 5
+                            padding: 10
+                            Layout.fillWidth: true
+
+                            Repeater {
+                                model: [
+                                    { name: "Top",      value: "top",       icon: "top_panel_close" },
+                                    { name: "Bottom",   value: "bottom",    icon: "bottom_panel_close" },
+                                    { name: "Left",     value: "left",      icon: "left_panel_close" },
+                                    { name: "Right",    value: "right",     icon: "right_panel_close" },
+                                ]
+
+                                delegate: StyledButton {
+                                    id: positonChip
+                                    size: StyledButton.Size.L
+                                    text: modelData.name
+
+                                    property bool isSelected: {
+                                        const data = ShellState.values.bar;
+                                        const name = displaySection.displayName;
+                                        if (ShellState.ready && data && data[name]) {
+                                            return data[name].position === modelData.value;
+                                        }
+                                        return Config.options.bar.position === modelData.value;
+                                    }
+
+                                    buttonIcon: modelData.icon
+                                    buttonColor: isSelected ? Appearance.colors.m3primaryContainer
+                                                            : Appearance.colors.m3secondaryContainer
+                                    border: isSelected ? 2 : 0
+
+                                    onClicked: {
+                                        console.info("Display Service: Updating " + displaySection.displayName + " position to " + modelData.value);
+                                        ShellState.setDisplayValue(displaySection.displayName, "position", modelData.value);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        ConfigGroup {
+            icon: "refresh"
+            title: "Global Position (Fallback / Default)"
 
             Flow {
                 id: position
@@ -38,10 +101,6 @@ ColumnLayout {
                         buttonColor: isSelected ? Appearance.colors.m3primaryContainer
                                 : Appearance.colors.m3secondaryContainer
                         border: isSelected ? 2 : 0
-
-                        StyledToolTip {
-                            text: modelData.name
-                        }
 
                         onClicked: {
                             Config.options.bar.position = modelData.value

@@ -15,7 +15,12 @@ Rectangle {
     readonly property real horizontalPadding: usePadding ? padding * 2 : 0
     readonly property real verticalPadding: usePadding ? padding * 2 : 0
 
-    readonly property string position: Config.options.bar.position
+    readonly property string position: {
+        if (typeof bar !== "undefined" && bar.position !== undefined) {
+            return bar.position;
+        }
+        return Config.options.bar.position;
+    }
     readonly property bool isVertical: position === "left" || position === "right"
     property bool background: Config.options.bar.showBackground
     signal clicked(var mouse)

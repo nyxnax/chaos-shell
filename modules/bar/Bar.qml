@@ -8,9 +8,17 @@ import qs.common
 import qs.common.widgets
 
 Scope {
+    id: root
     readonly property int workspacesPerScreen: 10
 
-    // Dynamically create an array of names like ["DP-1", "DP-2"]
+    function getPositionForScreen(screenName) {
+        const barData = ShellState.values.bar;
+        if (ShellState.ready && barData && barData[screenName]) {
+            return barData[screenName].position || "top";
+        }
+        return (Config.options && Config.options.bar) ? Config.options.bar.position : "top";
+    }
+
     readonly property var screenList: {
         const names = [];
         for (let i = 0; i < Quickshell.screens.length; i++) {
@@ -30,15 +38,15 @@ Scope {
 
             readonly property int screenIndex: screenList.indexOf(modelData.name)
             readonly property bool isAutoHide: Config.options.bar.autoHide
-            readonly property string position: (Config.options && Config.options.bar) ? Config.options.bar.position : "top"
+            readonly property string position: root.getPositionForScreen(modelData.name)
             readonly property bool isVertical: position === "left" || position === "right"
             property real barThickness: 48 * (Config.options.appearance.displayScale / 100)
             property bool mouseOver: false
             readonly property bool expanded: !isAutoHide || mouseOver
 
             anchors {
-                top: screenIndex === 0 ? (position === "top" || isVertical) : false
-                bottom: screenIndex === 0 ? (position === "bottom" || isVertical) : true
+                top: position === "top" || isVertical
+                bottom: position === "bottom" || isVertical
                 left: position === "left" || !isVertical
                 right: position === "right" || !isVertical
             }
