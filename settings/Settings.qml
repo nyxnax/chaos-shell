@@ -27,10 +27,10 @@ ApplicationWindow {
             component: "WallpaperConfig.qml"
         },
         {
-            name: "Appearance",
-            icon: "palette",
+            name: "Display",
+            icon: "display_settings",
             iconRotation: 180,
-            component: "AppearanceConfig.qml"
+            component: "DisplayConfig.qml"
         },
         {
             name: "Bar",

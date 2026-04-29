@@ -50,7 +50,7 @@ ColumnLayout {
         }
         ConfigSlider {
             text: "Display Scale"
-            buttonIcon: "display_settings"
+            buttonIcon: "linear_scale"
             //description: "Work in progress, currently only affects bar"
             liveUpdate: false
             from: 100; to: 140; stepSize: 5
