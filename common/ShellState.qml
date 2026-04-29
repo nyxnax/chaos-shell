@@ -22,6 +22,15 @@ Singleton {
         fileWriteTimer.restart();
     }
 
+    function setDisplayInfo(monitorName, key, value) {
+        if (!monitorName || monitorName === "undefined") return;
+        let info = shellStateJsonAdapter.displayInfo ? JSON.parse(JSON.stringify(shellStateJsonAdapter.displayInfo)) : {};
+        if (!info[monitorName]) info[monitorName] = {};
+        info[monitorName][key] = value;
+        shellStateJsonAdapter.displayInfo = info;
+        fileWriteTimer.restart();
+    }
+
     Timer { id: fileReloadTimer; interval: root.readWriteDelay; repeat: false; onTriggered: configFileView.reload() }
     Timer { id: fileWriteTimer; interval: root.readWriteDelay; repeat: false; onTriggered: configFileView.writeAdapter() }
 
@@ -39,6 +48,7 @@ Singleton {
         JsonAdapter {
             id: shellStateJsonAdapter
             property var bar: ({})
+            property var displayInfo: ({})
         }
     }
 }

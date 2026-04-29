@@ -9,6 +9,33 @@ ColumnLayout {
     id: root
     spacing: 15
 
+    ConfigGroup {
+        title: "Brightness"
+        icon: "brightness_7"
+
+        Repeater {
+            model: Display.activeScreens
+
+            delegate: ConfigSlider {
+                readonly property string screenName: modelData
+                readonly property var info: Display.displayInfo[screenName] || {}
+
+                text: info.model || screenName
+                buttonIcon: info.backend === "backlight" ? "laptop_chromebook" : "monitor"
+                //description: ""
+                //liveUpdate: false
+                defaultValue: 100
+                valueSuffix: "%"
+                from: 0; to: 100; stepSize: 10
+                value: {
+                    const state = ShellState.values.displayInfo[screenName];
+                    return (state && state.brightness !== undefined) ? state.brightness : 100;
+                }
+                onMoved: (newValue) => Brightness.setBrightness(screenName, newValue)
+            }
+        }
+    }
+
     ConfigGroup { // Visibility / Accessibility Section
         icon: "accessibility_new"
         title: "Accessibility and Visibility"
