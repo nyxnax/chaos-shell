@@ -18,6 +18,7 @@ ShellRoot {
     ScreenCorners {}
     Ipc {}
     VolumeOSD {}
+    BrightnessOSD {}
     SessionManager {}
 
     Component.onCompleted: {

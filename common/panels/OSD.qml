@@ -10,6 +10,7 @@ Item {
 
     property string icon: "question_mark"
     property real value: 0
+    property alias window: osdWindow
 
     signal moved(real newValue)
 

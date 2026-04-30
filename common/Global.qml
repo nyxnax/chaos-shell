@@ -11,6 +11,7 @@ Singleton {
     states: QtObject {
         property bool settingsOpen: false
         property bool osdVolumeOpen: false
+        property bool osdBrightnessOpen: false
         property bool sessionManagerOpen: false
     }
 }
