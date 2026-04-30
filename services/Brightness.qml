@@ -2,6 +2,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import Quickshell.Hyprland
 import qs.services
 import qs.common
 
@@ -43,5 +44,19 @@ Singleton {
             ddcProc.val = roundedVal;
             ddcDebounce.restart();
         }
+    }
+
+    function increaseBrightness() {
+        let target = Hyprland.focusedMonitor.name;
+        if (!target || !ShellState.values.displayInfo[target]) return;
+        let current = ShellState.values.displayInfo[target].brightness;
+        root.setBrightness(target, Math.min(current + 10, 100));
+    }
+
+    function decreaseBrightness() {
+        let target = Hyprland.focusedMonitor.name;
+        if (!target || !ShellState.values.displayInfo[target]) return;
+        let current = ShellState.values.displayInfo[target].brightness;
+        root.setBrightness(target, Math.max(current - 10, 0));
     }
 }
