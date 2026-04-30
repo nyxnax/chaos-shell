@@ -20,6 +20,11 @@ ConfigTile {
     control: RowLayout {
         spacing: 16
 
+        StyledText { // Suffix
+            text: value + valueSuffix
+            opacity: 0.7
+        }
+
         StyledSlider { // Slider
             id: sliderWidget
             implicitWidth: 225
@@ -45,10 +50,6 @@ ConfigTile {
             }
         }
 
-        StyledText { // Suffix
-            text: value + valueSuffix
-            opacity: 0.7
-        }
 
         MaterialSymbol {
             text: "restart_alt"
