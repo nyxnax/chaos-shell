@@ -9,6 +9,8 @@ import qs.common
 Singleton {
     id: root
 
+    signal brightnessChanged()
+
     Process {
         id: backlightProc
         property int val: 0
@@ -44,6 +46,7 @@ Singleton {
             ddcProc.val = roundedVal;
             ddcDebounce.restart();
         }
+        root.brightnessChanged();
     }
 
     function increaseBrightness() {
