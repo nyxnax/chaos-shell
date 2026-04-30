@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Io
 import qs.settings
+import qs.services
 
 Scope {
     id: root
@@ -35,6 +36,20 @@ Scope {
         function close() {
             Global.states.sessionManagerOpen = false;
             return "Session manager closed";
+        }
+    }
+
+    IpcHandler {
+        target: "brightness"
+
+        function increase() {
+            Brightness.increaseBrightness();
+            return "Increasing brightness";
+        }
+
+        function decrease() {
+            Brightness.decreaseBrightness();
+            return "Decreasing brightness";
         }
     }
 }
