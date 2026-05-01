@@ -66,8 +66,17 @@ Button {
     implicitWidth: isIconOnly ? targetHeight : (layoutWrapper.implicitWidth + (hPadding * 2))
 
     property bool isRound: false
+    property bool isSelected: false
     readonly property bool isIconOnly: root.text === "" && root.buttonIcon !== ""
-    property string buttonColor: Appearance.colors.m3surfaceVariant
+    property string fontColor: root.pressed ? Appearance.colors.m3onPrimaryContainer :
+                               isSelected ? Appearance.colors.m3onPrimary :
+                               root.hovered ? Appearance.colors.m3onSurfaceVariant
+                               : Appearance.colors.m3onSurface
+    property string buttonColor: pressed ? Appearance.colors.m3primaryContainer :
+                                 isSelected && hovered ? Qt.darker(Appearance.colors.m3primary, 1.25) :
+                                 isSelected ? Appearance.colors.m3primary :
+                                 hovered ? Appearance.colors.m3surfaceContainerHigh
+                                 : Appearance.colors.m3surfaceContainerLow
     property string buttonIcon: ""
     property int border: 0
 
@@ -81,17 +90,14 @@ Button {
         topRightRadius: (root.position === 2 || root.position === 3) ? outerRadius : innerRadius
         bottomLeftRadius: (root.position === 1 || root.position === 3) ? outerRadius : innerRadius
         bottomRightRadius: (root.position === 2 || root.position === 3) ? outerRadius : innerRadius
-
-        color: root.pressed ? Qt.darker(root.buttonColor, 1.1) :
-               root.hovered ? Qt.lighter(root.buttonColor, 1.1) : root.buttonColor
-
+        color: buttonColor
         scale: root.pressed ? 0.95 : 1.0
         border.width: root.hovered ? Math.max(root.border, 2) : root.border
-        border.color: Appearance.colors.m3primary
+        border.color: Appearance.colors.m3outlineVariant
 
         Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
         Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this) }
-        Behavior on border.width {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(root)}
+        Behavior on border.width {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
         Behavior on topLeftRadius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
         Behavior on bottomLeftRadius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
         Behavior on topRightRadius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
@@ -111,7 +117,7 @@ Button {
                 text: root.buttonIcon
                 visible: text !== ""
                 font.pixelSize: fontSize * 1.1
-                color: Appearance.colors.m3onSurface
+                color: fontColor
                 anchors.verticalCenter: parent.verticalCenter
             }
             StyledText {
@@ -120,7 +126,7 @@ Button {
                 visible: text !== ""
                 scale: root.pressed ? 0.95 : 1.0
                 font.pixelSize: fontSize
-                color: Appearance.colors.m3onSurface
+                color: fontColor
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
