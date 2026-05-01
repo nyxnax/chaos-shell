@@ -50,7 +50,7 @@ ColumnLayout {
             Rectangle {
                 anchors.fill: parent
                 color: "transparent"
-                border.color: Appearance.colors.m3scrim
+                border.color: Appearance.colors.m3outline
                 border.width: 5
                 radius: parent.radius
             }
