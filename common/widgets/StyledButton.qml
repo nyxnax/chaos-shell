@@ -63,7 +63,14 @@ Button {
 
     scale: 1
     implicitHeight: targetHeight
-    implicitWidth: isIconOnly ? targetHeight : (layoutWrapper.implicitWidth + (hPadding * 2))
+    implicitWidth: {
+        let baseWidth = isIconOnly ? targetHeight : (layoutWrapper.implicitWidth + (hPadding * 2))
+        return pressed ? baseWidth * 0.9 :
+               hovered ? baseWidth * 1.2 :
+               baseWidth
+    }
+
+    Behavior on implicitWidth {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)}
 
     property bool isRound: false
     property bool isSelected: false
@@ -91,8 +98,7 @@ Button {
         bottomLeftRadius: (root.position === 1 || root.position === 3) ? outerRadius : innerRadius
         bottomRightRadius: (root.position === 2 || root.position === 3) ? outerRadius : innerRadius
         color: buttonColor
-        scale: root.pressed ? 0.95 : 1.0
-        border.width: root.hovered ? Math.max(root.border, 2) : root.border
+        border.width: 0
         border.color: Appearance.colors.m3outlineVariant
 
         Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
