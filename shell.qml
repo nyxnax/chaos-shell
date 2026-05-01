@@ -13,7 +13,14 @@ import qs.common
 import qs.services
 
 ShellRoot {
-    Settings {}
+
+    LazyLoader {
+        id: settingsLoader
+        active: Global.states.settingsOpen
+        loading: Global.states.settingsOpen
+        Settings {}
+    }
+
     Bar {}
     ScreenCorners {}
     Ipc {}
