@@ -70,21 +70,32 @@ Button {
     property string buttonColor: Appearance.colors.m3surfaceVariant
     property string buttonIcon: ""
     property int border: 0
+
     property int radius: targetRadius
+    property int outerRadius: radius
+    property int innerRadius: Appearance.rounding.unsharpen
+    property int position: 3 // 0: mid, 1: left, 2: right, 3: single
 
     background: Rectangle {
+        topLeftRadius: (root.position === 1 || root.position === 3) ? outerRadius : innerRadius
+        topRightRadius: (root.position === 2 || root.position === 3) ? outerRadius : innerRadius
+        bottomLeftRadius: (root.position === 1 || root.position === 3) ? outerRadius : innerRadius
+        bottomRightRadius: (root.position === 2 || root.position === 3) ? outerRadius : innerRadius
+
         color: root.pressed ? Qt.darker(root.buttonColor, 1.1) :
                root.hovered ? Qt.lighter(root.buttonColor, 1.1) : root.buttonColor
 
-        radius: root.radius
         scale: root.pressed ? 0.95 : 1.0
         border.width: root.hovered ? Math.max(root.border, 2) : root.border
         border.color: Appearance.colors.m3primary
 
         Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
         Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this) }
-        Behavior on border.width {animation: Appearance.animation.elementMove.numberAnimation.createObject(root)}
-        Behavior on radius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
+        Behavior on border.width {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(root)}
+        Behavior on topLeftRadius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
+        Behavior on bottomLeftRadius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
+        Behavior on topRightRadius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
+        Behavior on bottomRightRadius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
     }
 
     contentItem: Item {
