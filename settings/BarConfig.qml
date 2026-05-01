@@ -9,107 +9,65 @@ ColumnLayout {
     width: 500
     spacing: 15
 
+    ConfigGroup {
+        id: arrangementGroup
+        icon: "responsive_layout"
+        title: "Arrangement"
+
+        readonly property var positionsModel: [
+            { name: "Top",      value: "top",       icon: "top_panel_close" },
+            { name: "Bottom",   value: "bottom",    icon: "bottom_panel_close" },
+            { name: "Left",     value: "left",      icon: "left_panel_close" },
+            { name: "Right",    value: "right",     icon: "right_panel_close" },
+        ]
+
+        ConfigButtonGroup {
+            id: globalArrangement
+            text: "Global (Default)"
+            buttonIcon: "globe"
+            model: arrangementGroup.positionsModel
+            currentValue: Config.options.bar.position
+            onChoiceSelected: (value) => Config.options.bar.position = value
+        }
+
+        Repeater {
+            model: Display.activeScreens
+
+            ConfigButtonGroup {
+                id: displayArrangement
+                text: "Display: " + modelData
+                buttonIcon: info.backend === "backlight" ? "laptop_chromebook" : "monitor"
+                model: arrangementGroup.positionsModel
+
+                property string displayName: String(modelData)
+                readonly property var info: Display.displayInfo[displayName] || {}
+
+                currentValue: {
+                    const data = ShellState.values.bar;
+                    const name = displayArrangement.displayName;
+                    if (ShellState.ready && data && data[name]) {
+                        return data[name].position;
+                    }
+                    return Config.options.bar.position;
+                }
+                onChoiceSelected: (value) => {
+                    ShellState.setDisplayValue(displayArrangement.displayName, "position", value);
+                }
+
+                position: {
+                    if (Display.activeScreens.length === 1) return 3;
+                    if (index === 0) return 1;
+                    if (index === Display.activeScreens.length - 1) return 2;
+                    return 0;
+                }
+
+            }
+        }
+    }
+
     ConfigGroup { // Main Section
-
-        ConfigGroup {
-            icon: "shelf_position"
-            title: "Positions"
-
-            ColumnLayout {
-                width: parent.width
-                spacing: 10
-
-                Repeater {
-                    model: Display.activeScreens
-
-                    delegate: ConfigGroup {
-                        id: displaySection
-                        icon: "tv"
-                        title: "Display: " + modelData
-                        property string displayName: String(modelData)
-
-                        Flow {
-                            width: parent.width
-                            spacing: 5
-                            padding: 10
-                            Layout.fillWidth: true
-
-                            Repeater {
-                                model: [
-                                    { name: "Top",      value: "top",       icon: "top_panel_close" },
-                                    { name: "Bottom",   value: "bottom",    icon: "bottom_panel_close" },
-                                    { name: "Left",     value: "left",      icon: "left_panel_close" },
-                                    { name: "Right",    value: "right",     icon: "right_panel_close" },
-                                ]
-
-                                delegate: StyledButton {
-                                    id: positonChip
-                                    size: StyledButton.Size.L
-                                    text: modelData.name
-
-                                    property bool isSelected: {
-                                        const data = ShellState.values.bar;
-                                        const name = displaySection.displayName;
-                                        if (ShellState.ready && data && data[name]) {
-                                            return data[name].position === modelData.value;
-                                        }
-                                        return Config.options.bar.position === modelData.value;
-                                    }
-
-                                    buttonIcon: modelData.icon
-                                    buttonColor: isSelected ? Appearance.colors.m3primaryContainer
-                                                            : Appearance.colors.m3secondaryContainer
-                                    border: isSelected ? 2 : 0
-
-                                    onClicked: {
-                                        console.info("Display Service: Updating " + displaySection.displayName + " position to " + modelData.value);
-                                        ShellState.setDisplayValue(displaySection.displayName, "position", modelData.value);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        ConfigGroup {
-            icon: "refresh"
-            title: "Global Position (Fallback / Default)"
-
-            Flow {
-                id: position
-                width: parent.width
-                spacing: 5
-                padding: 10
-                Layout.fillWidth: true
-
-                Repeater {
-                    model: [
-                        { name: "Top",      value: "top",       icon: "top_panel_close" },
-                        { name: "Bottom",   value: "bottom",    icon: "bottom_panel_close" },
-                        { name: "Left",     value: "left",      icon: "left_panel_close" },
-                        { name: "Right",    value: "right",     icon: "right_panel_close" },
-                    ]
-
-                    delegate: StyledButton {
-                        id: positonChip
-                        size: StyledButton.Size.L
-                        text: modelData.name
-                        property bool isSelected: Config.options.bar.position === modelData.value
-                        buttonIcon: modelData.icon
-                        buttonColor: isSelected ? Appearance.colors.m3primaryContainer
-                                : Appearance.colors.m3secondaryContainer
-                        border: isSelected ? 2 : 0
-
-                        onClicked: {
-                            Config.options.bar.position = modelData.value
-                        }
-                    }
-                }
-            }
-        }
-
+        icon: "menu"
+        title: "Main"
         //ConfigSwitch {
         //    buttonIcon: "screen_rotation_alt"
         //    text: "Bar position"

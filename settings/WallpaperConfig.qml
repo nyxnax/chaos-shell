@@ -234,54 +234,42 @@ ColumnLayout {
     }
 
     ConfigGroup{
-        icon: "colors"
-        title: "Color Scheme"
+        id: scheme
 
-        Flow {
-            id: schemeFlow
-            width: parent.width
-            spacing: 8
-            padding: 10
-            Layout.fillWidth: true
+        readonly property var schemeModel: [
+            { name: "Tonal Spot",   value: "scheme-tonal-spot",  icon: "palette" },
+            { name: "Content",      value: "scheme-content",     icon: "filter_center_focus" },
+            { name: "Expressive",   value: "scheme-expressive",  icon: "auto_awesome" },
+            { name: "Fidelity",     value: "scheme-fidelity",    icon: "high_quality" },
+            { name: "Fruit Salad",  value: "scheme-fruit-salad", icon: "nutrition" },
+            { name: "Monochrome",   value: "scheme-monochrome",  icon: "lens_blur" },
+            { name: "Neutral",      value: "scheme-neutral",     icon: "contrast" },
+            { name: "Rainbow",      value: "scheme-rainbow",     icon: "looks" }
+        ]
 
-            Repeater {
-                model: [
-                    { name: "Tonal Spot (Default)", value: "scheme-tonal-spot",  icon: "palette" },
-                    { name: "Content",              value: "scheme-content",     icon: "filter_center_focus" },
-                    { name: "Expressive",           value: "scheme-expressive",  icon: "auto_awesome" },
-                    { name: "Fidelity",             value: "scheme-fidelity",    icon: "high_quality" },
-                    { name: "Fruit Salad",          value: "scheme-fruit-salad", icon: "nutrition" },
-                    { name: "Monochrome",           value: "scheme-monochrome",  icon: "lens_blur" },
-                    { name: "Neutral",              value: "scheme-neutral",     icon: "contrast" },
-                    { name: "Rainbow",              value: "scheme-rainbow",     icon: "looks" }
-                ]
-
-                delegate: StyledButton {
-
-                    id: themeChip
-                    size: StyledButton.Size.L
-                    text: modelData.name
-                    property bool isSelected: Config.options.appearance.scheme === modelData.value
-                    buttonIcon: modelData.icon
-                    buttonColor: isSelected ? Appearance.colors.m3primaryContainer
-                            : Appearance.colors.m3secondaryContainer
-                    border: isSelected ? 2 : 0
-
-                    StyledToolTip {
-                        text: modelData.name
-                    }
-
-                    onClicked: {
-                        Config.options.appearance.scheme = modelData.value
-                        Theme.generate()
-                    }
-                }
+        ConfigButtonGroup {
+            text: "Color Scheme"
+            buttonIcon: "colors"
+            model: scheme.schemeModel
+            currentValue: Config.options.appearance.scheme
+            onChoiceSelected: (value) => {
+                Config.options.appearance.scheme = value;
+                Theme.generate();
             }
         }
     }
     ConfigGroup {
-        icon: "settings"
-        title: "Preferences"
+        id: transition
+
+        readonly property var transitionTypeModel: [
+            { name: "Any",    value: "any",     icon: "shuffle" },
+            { name: "Grow",   value: "grow",    icon: "arrows_outward" },
+            { name: "Outer",  value: "outer",   icon: "filter_center_focus" },
+            { name: "Wipe",   value: "wipe",    icon: "south_west" },
+            { name: "Wave",   value: "wave",    icon: "waves" },
+            { name: "Center", value: "center",  icon: "align_center" },
+        ]
+
         ConfigSlider {
             text: "Transition duration"
             buttonIcon: "transition_fade"
@@ -293,6 +281,7 @@ ColumnLayout {
             value: Config.options.appearance.transitionDuration
             onMoved: (newValue) => {Config.options.appearance.transitionDuration = newValue;}
         }
+
         ConfigSlider {
             text: "Transition framerate"
             buttonIcon: "blur_linear"
@@ -304,48 +293,13 @@ ColumnLayout {
             value: Config.options.appearance.transitionFPS
             onMoved: (newValue) => {Config.options.appearance.transitionFPS = newValue;}
         }
-    }
-    ConfigGroup {
-        icon: "transition_chop"
-        title: "Transiton Types"
 
-        Flow {
-            id: transitionTypes
-            width: parent.width
-            spacing: 5
-            padding: 10
-            Layout.fillWidth: true
-
-            Repeater {
-                model: [
-                    { name: "Any",    value: "any",     icon: "shuffle" },
-                    { name: "Grow",   value: "grow",    icon: "arrows_outward" },
-                    { name: "Outer",  value: "outer",   icon: "filter_center_focus" },
-                    { name: "Wipe",   value: "wipe",    icon: "south_west" },
-                    { name: "Wave",   value: "wave",    icon: "waves" },
-                    { name: "Center", value: "center",  icon: "align_center" },
-                ]
-
-                delegate: StyledButton {
-
-                    id: transitionChip
-                    size: StyledButton.Size.L
-                    text: modelData.name
-                    property bool isSelected: Config.options.appearance.transitionType === modelData.value
-                    buttonIcon: modelData.icon
-                    buttonColor: isSelected ? Appearance.colors.m3primaryContainer
-                            : Appearance.colors.m3secondaryContainer
-                    border: isSelected ? 2 : 0
-
-                    StyledToolTip {
-                        text: modelData.name
-                    }
-
-                    onClicked: {
-                        Config.options.appearance.transitionType = modelData.value
-                    }
-                }
-            }
+        ConfigButtonGroup {
+            text: "Transition type"
+            buttonIcon: "transition_chop"
+            model: transition.transitionTypeModel
+            currentValue: Config.options.appearance.transitionType
+            onChoiceSelected: (value) => Config.options.appearance.transitionType = value
         }
     }
 }
