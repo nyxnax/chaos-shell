@@ -76,8 +76,8 @@ Singleton {
 
         if (barData[name] === undefined) {
             console.info("Display Service: Registering " + name + " for the first time.");
-            let defaultPos = (Config.options && Config.options.bar) ? Config.options.bar.position : "top";
-            ShellState.setDisplayValue(name, "position", defaultPos);
+            let defaultPos = Config.options?.bar?.position ?? "top";
+            ShellState.setStateValue("bar", name, "position", defaultPos);
         } else {
             console.log("Display Service: " + name + " is already in state.");
         }

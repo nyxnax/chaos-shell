@@ -12,23 +12,13 @@ Singleton {
     property bool ready: false
     property int readWriteDelay: 50
 
-    function setDisplayValue(monitorName, key, value) {
-        if (!monitorName || monitorName === "undefined") return;
-        let currentBarData = JSON.parse(JSON.stringify(shellStateJsonAdapter.bar || {}));
-        let monitorSettings = currentBarData[monitorName] || {};
-        monitorSettings[key] = value;
-        currentBarData[monitorName] = monitorSettings;
-        shellStateJsonAdapter.bar = currentBarData;
-        fileWriteTimer.restart();
-    }
-
-    function setDisplayInfo(monitorName, key, value) {
-        if (!monitorName || monitorName === "undefined") return;
-        let info = shellStateJsonAdapter.displayInfo ? JSON.parse(JSON.stringify(shellStateJsonAdapter.displayInfo)) : {};
-        if (!info[monitorName]) info[monitorName] = {};
-        info[monitorName][key] = value;
-        shellStateJsonAdapter.displayInfo = info;
-        fileWriteTimer.restart();
+    function setStateValue(table, key, subKey, value) {
+        if(!key || key === "undefined") return;
+        let data = shellStateJsonAdapter[table] ? JSON.parse(JSON.stringify(shellStateJsonAdapter[table])) : {};
+        if (!data[key]) data[key] = {};
+        data[key][subKey] = value;
+        shellStateJsonAdapter[table] = data;
+        fileWriteTimer.restart
     }
 
     Timer { id: fileReloadTimer; interval: root.readWriteDelay; repeat: false; onTriggered: configFileView.reload() }

@@ -66,7 +66,7 @@ ColumnLayout {
                     return Config.options.bar.position;
                 }
                 onChoiceSelected: (value) => {
-                    ShellState.setDisplayValue(displayArrangement.displayName, "position", value);
+                    ShellState.setStateValue("bar", displayArrangement.displayName, "position", value);
                 }
 
                 position: {

@@ -36,7 +36,7 @@ Singleton {
         let info = Display.displayInfo[screenName];
         if (!info) return;
 
-        ShellState.setDisplayInfo(screenName, "brightness", roundedVal);
+        ShellState.setStateValue("displayInfo", screenName, "brightness", roundedVal);
 
         if (info.backend === "backlight") { // Laptops and integrated displays
             backlightProc.val = roundedVal;
