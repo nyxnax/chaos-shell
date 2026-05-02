@@ -6,6 +6,7 @@ import qs.settings
 import qs.services
 import qs.common
 import qs.common.widgets
+import qs.modules.bar.widgets
 
 Scope {
     id: root
