@@ -12,11 +12,12 @@ Scope {
     readonly property int workspacesPerScreen: 10
 
     function getPositionForScreen(screenName) {
+        const perDisplayEnabled = Config.options?.bar?.enablePerDisplayPosition;
         const barData = ShellState.values.bar;
-        if (ShellState.ready && barData && barData[screenName]) {
-            return barData[screenName].position || "top";
+        if (perDisplayEnabled && ShellState.ready) {
+            return ShellState.values.bar?.[screenName]?.position;
         }
-        return (Config.options && Config.options.bar) ? Config.options.bar.position : "top";
+        return Config.options?.bar?.position ?? "top";
     }
 
     readonly property var screenList: {

@@ -29,7 +29,22 @@ ColumnLayout {
             currentValue: Config.options.bar.position
             onChoiceSelected: (value) => Config.options.bar.position = value
         }
+    }
 
+    ConfigGroup{
+        ConfigSwitch {
+            buttonIcon: "splitscreen"
+            text: "Per Display Position"
+            description: ""
+            checked: Config.options.bar.enablePerDisplayPosition
+            onCheckedChanged: {
+                Config.options.bar.enablePerDisplayPosition = checked;
+            }
+        }
+    }
+
+    ConfigGroup {
+        visible: Config.options.bar.enablePerDisplayPosition
         Repeater {
             model: Display.activeScreens
 
