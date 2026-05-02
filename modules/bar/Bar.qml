@@ -11,15 +11,6 @@ Scope {
     id: root
     readonly property int workspacesPerScreen: 10
 
-    function getPositionForScreen(screenName) {
-        const perDisplayEnabled = Config.options?.bar?.enablePerDisplayPosition;
-        const barData = ShellState.values.bar;
-        if (perDisplayEnabled && ShellState.ready) {
-            return ShellState.values.bar?.[screenName]?.position;
-        }
-        return Config.options?.bar?.position ?? "top";
-    }
-
     readonly property var screenList: {
         const names = [];
         for (let i = 0; i < Quickshell.screens.length; i++) {
@@ -39,7 +30,7 @@ Scope {
 
             readonly property int screenIndex: screenList.indexOf(modelData.name)
             readonly property bool isAutoHide: Config.options.bar.autoHide
-            readonly property string position: root.getPositionForScreen(modelData.name)
+            readonly property string position: BarService.getPosition(modelData.name)
             readonly property bool isVertical: position === "left" || position === "right"
             property real barThickness: 48 * (Config.options.appearance.displayScale / 100)
             property bool mouseOver: false

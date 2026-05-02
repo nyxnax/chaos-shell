@@ -57,17 +57,8 @@ ColumnLayout {
                 property string displayName: String(modelData)
                 readonly property var info: Display.displayInfo[displayName] || {}
 
-                currentValue: {
-                    const data = ShellState.values.bar;
-                    const name = displayArrangement.displayName;
-                    if (ShellState.ready && data && data[name]) {
-                        return data[name].position;
-                    }
-                    return Config.options.bar.position;
-                }
-                onChoiceSelected: (value) => {
-                    ShellState.setStateValue("bar", displayArrangement.displayName, "position", value);
-                }
+                currentValue: BarService.getPosition(displayArrangement.displayName)
+                onChoiceSelected: (value) => BarService.setPosition(displayArrangement.displayName, value)
 
                 position: {
                     if (Display.activeScreens.length === 1) return 3;
@@ -75,7 +66,6 @@ ColumnLayout {
                     if (index === Display.activeScreens.length - 1) return 2;
                     return 0;
                 }
-
             }
         }
     }
