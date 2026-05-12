@@ -12,7 +12,7 @@ ItemDelegate {
     property alias iconSize: iconWidget.iconSize
     property alias control: controlContainer.data
 
-    property int position: 0 // 0: mid, 1: top, 2: bottom, 3: both
+    property int position: 3 // 0: mid, 1: top, 2: bottom, 3: both
     property int smallRadius: Appearance.rounding.unsharpen
     property int outerRadius: Appearance.rounding.normal
 
