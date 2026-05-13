@@ -30,21 +30,39 @@ ColumnLayout {
         id: column
         spacing: 4
 
-        Component.onCompleted: {
+        function updatePositions() {
             let items = [];
             for (let i = 0; i < column.children.length; i++) {
                 let child = column.children[i];
-                if (child.hasOwnProperty("position")) { // Check if it's a ConfigSwitch (has the position property)
+                if (child.hasOwnProperty("position") && child.visible) {
                     items.push(child);
                 }
             }
 
             for (let i = 0; i < items.length; i++) {
-                if (items.length === 1) items[i].position = 3;          // Only
+                if (items.length === 1) items[i].position = 3;          // Single
                 else if (i === 0) items[i].position = 1;                // Top
                 else if (i === items.length - 1) items[i].position = 2; // Bottom
                 else items[i].position = 0;                             // Mid
             }
         }
+
+        Timer {
+            id: debounceTimer
+            interval: 1
+            onTriggered: column.updatePositions()
+        }
+
+        onChildrenChanged: {
+            for (let i = 0; i < column.children.length; i++) {
+                let child = column.children[i];
+                if (child.hasOwnProperty("position")) {
+                    child.visibleChanged.connect(updatePositions);
+                }
+            }
+            debounceTimer.restart()
+        }
+
+        Component.onCompleted: debounceTimer.restart()
     }
 }
