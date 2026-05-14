@@ -9,6 +9,7 @@ ConfigTile {
     property alias model: group.model
     property alias currentValue: group.currentValue
     property alias buttonSize: group.buttonSize
+    property alias fullWidth: group.fullWidth
 
     signal choiceSelected(var value)
 
