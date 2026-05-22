@@ -158,8 +158,29 @@ ApplicationWindow {
 
             Repeater {
                 model: root.pages
-                delegate: navButtonDelegate
+                delegate: StyledTabButton {
+                    id: tabButton
+                    implicitWidth: 60
+                    implicitHeight: 60
+                    checked: root.currentPage === index
+                    onClicked: root.currentPage = index
+
+                    MaterialSymbol {
+                        anchors.centerIn: parent
+                        text: modelData.icon
+                        color: tabButton.checked
+                            ? Appearance.colors.m3onPrimaryContainer
+                            : Appearance.colors.m3onSecondary
+                        iconSize: Appearance.font.pixelSize.huge
+                        opacity: 0.9
+                    }
+
+                    StyledToolTip {
+                        text: modelData.name
+                    }
+                }
             }
+
             background:Rectangle {
                 color: Appearance.colors.m3secondary
                 radius: 10
@@ -186,68 +207,60 @@ ApplicationWindow {
 
         Rectangle { // Navigation Rail
             id: navRail
+            property bool isExpanded: false
             opacity: !isPortrait ? 1 : 0
             visible: opacity > 0
-            width: 60
+            width: isExpanded ? 220 : 80
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.margins: 20
-            color: Appearance.colors.m3secondary
+            color: isExpanded ? Appearance.colors.m3surfaceContainer : Appearance.colors.m3surfaceContainerLow
             radius: 12
 
-            Behavior on opacity { NumberAnimation { duration: 200; easing.type: Easing.InOutQuad } }
+            Behavior on width {animation: Appearance.animation.elementResize.numberAnimation.createObject(root)}
+            Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
+            Behavior on opacity {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
 
-            Rectangle {
-                id: sideIndicator
-                width: parent.width - 8
-                height: 52
-                x: 4
-                y: (root.currentPage * 60) + 4
-                color: Appearance.colors.m3primaryContainer
-                radius: 10
-                Behavior on y {
-                    NumberAnimation {
-                        duration: Appearance.animationCurves.expressiveDefaultSpatialDuration
-                        easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
-                    }
-                }
+            StyledButton {
+                size: StyledButton.Size.L
+                buttonIcon: navRail.isExpanded ? "menu_open" : "menu"
+                //text: navRail.isExpanded ? "Retract" : ""
+                onPressed: navRail.isExpanded = !navRail.isExpanded
+                x: 16
+                y: 8
+                buttonColor: "transparent"
+                fontColor: Appearance.colors.m3onSurface
             }
 
             Column {
-                anchors.top: parent.top
-                anchors.horizontalCenter: parent.horizontalCenter
+                id: buttonColumn
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: 4
+                leftPadding: 16
+                rightPadding: 16
 
                 Repeater {
                     model: root.pages
-                    delegate: navButtonDelegate
-                }
-            }
-        }
-
-        Component {
-            id: navButtonDelegate
-
-            StyledTabButton {
-                id: tabButton
-                implicitWidth: 60
-                implicitHeight: 60
-                checked: root.currentPage === index
-                onClicked: root.currentPage = index
-
-                MaterialSymbol {
-                    anchors.centerIn: parent
-                    text: modelData.icon
-                    color: tabButton.checked
-                        ? Appearance.colors.m3onPrimaryContainer
-                        : Appearance.colors.m3onSecondary
-                    iconSize: Appearance.font.pixelSize.huge
-                    opacity: 0.9
-                }
-
-
-                StyledToolTip {
-                    text: modelData.name
+                    delegate: StyledButton {
+                        size: StyledButton.Size.L
+                        text: navRail.isExpanded ? modelData.name : ""
+                        buttonIcon: modelData.icon
+                        isSelected: root.currentPage === index
+                        onReleased: root.currentPage = index
+                        clip: true
+                        buttonColor: pressed ? Appearance.colors.m3primaryContainer :
+                                     isSelected && hovered ? Qt.darker(Appearance.colors.m3primary, 1.25) :
+                                     isSelected ? Appearance.colors.m3primary :
+                                     hovered ? Appearance.colors.m3surfaceContainerHigh
+                                     : "transparent"
+                        StyledToolTip {
+                            text: modelData.name
+                            shown: parent.hovered && !navRail.isExpanded && text !== ""
+                        }
+                    }
                 }
             }
         }
