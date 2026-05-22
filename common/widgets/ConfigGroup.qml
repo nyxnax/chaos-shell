@@ -7,11 +7,63 @@ ColumnLayout {
 
     property string title
     property string icon
+    property bool shouldShow: true
     default property alias content: column.data
 
     Layout.fillWidth: true
     implicitHeight: column.implicitHeight
+    visible: opacity > 0
 
+    states: [
+        State {
+            name: "visible"
+            when: root.shouldShow
+            PropertyChanges { target: root; opacity: 1.0 }
+            PropertyChanges { target: root; Layout.preferredHeight: root.implicitHeight }
+        },
+        State {
+            name: "hidden"
+            when: !root.shouldShow
+            PropertyChanges { target: root; opacity: 0.0 }
+            PropertyChanges { target: root; Layout.preferredHeight: 0 }
+        }
+    ]
+
+    transitions: [
+        Transition {
+            from: "hidden"; to: "visible"
+
+            NumberAnimation {
+                properties: "Layout.preferredHeight"
+                duration: Appearance.animation.elementResize.duration
+                easing.type: Appearance.animation.elementResize.type
+                easing.bezierCurve: Appearance.animation.elementResize.bezierCurve
+            }
+
+            NumberAnimation {
+                properties: "opacity"
+                duration: Appearance.animation.elementMoveEnter.duration
+                easing.type: Appearance.animation.elementMoveEnter.type
+                easing.bezierCurve: Appearance.animation.elementMoveEnter.bezierCurve
+            }
+        },
+        Transition {
+            from: "visible"; to: "hidden"
+
+            NumberAnimation {
+                properties: "Layout.preferredHeight"
+                duration: Appearance.animation.elementResize.duration
+                easing.type: Appearance.animation.elementResize.type
+                easing.bezierCurve: Appearance.animation.elementResize.bezierCurve
+            }
+            NumberAnimation {
+                properties: "opacity"
+                duration: Appearance.animation.elementMoveExit.duration
+                easing.type: Appearance.animation.elementMoveExit.type
+                easing.bezierCurve: Appearance.animation.elementMoveExit.bezierCurve
+            }
+        }
+    ]
 
     ConfigRow {
         MaterialSymbol {
