@@ -12,13 +12,22 @@ Singleton {
     property bool ready: false
     property int readWriteDelay: 50
 
-    function setStateValue(table, key, subKey, value) {
-        if(!key || key === "undefined") return;
+    function setStateValue(table, key, subKey, value, subSubKey = null) {
+        if (!key || key === "undefined") return;
         let data = shellStateJsonAdapter[table] ? JSON.parse(JSON.stringify(shellStateJsonAdapter[table])) : {};
         if (!data[key]) data[key] = {};
-        data[key][subKey] = value;
+        if (subSubKey !== null && !data[key][subKey]) data[key][subKey] = {};
+        let targetObj = (subSubKey !== null) ? data[key][subKey] : data[key];
+        let targetKey = (subSubKey !== null) ? subSubKey : subKey;
+        if (value === null) {
+            delete targetObj[targetKey];
+            if (subSubKey !== null && Object.keys(data[key][subKey]).length === 0) delete data[key][subKey];
+            if (Object.keys(data[key]).length === 0) delete data[key];
+        } else {
+            targetObj[targetKey] = value;
+        }
         shellStateJsonAdapter[table] = data;
-        fileWriteTimer.restart
+        fileWriteTimer.restart();
     }
 
     Timer { id: fileReloadTimer; interval: root.readWriteDelay; repeat: false; onTriggered: configFileView.reload() }

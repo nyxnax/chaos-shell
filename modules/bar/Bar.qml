@@ -12,14 +12,6 @@ Scope {
     id: root
     readonly property int workspacesPerScreen: 10
 
-    readonly property var screenList: {
-        const names = [];
-        for (let i = 0; i < Quickshell.screens.length; i++) {
-            names.push(Quickshell.screens[i].name);
-        }
-        return names;
-    }
-
     Variants {
         model: Quickshell.screens;
 
@@ -29,7 +21,6 @@ Scope {
             required property var modelData
             screen: modelData
 
-            readonly property int screenIndex: screenList.indexOf(modelData.name)
             readonly property bool isAutoHide: Config.options.bar.autoHide
             readonly property string position: BarService.getPosition(modelData.name)
             readonly property bool isVertical: position === "left" || position === "right"
@@ -76,8 +67,10 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 6
 
-                    Clock {}
-                    WindowTitle {}
+                    Repeater {
+                        model: BarService.getWidgetsFor(modelData.name, "left")
+                        delegate: BarWidgetLoader { widgetScreen: bar.screen }
+                    }
                 }
 
                 ColumnLayout { // Top
@@ -86,17 +79,31 @@ Scope {
                     anchors.top: parent.top
                     spacing: 6
 
-                    Clock {}
-                    WindowTitle {}
+                    Repeater {
+                        model: BarService.getWidgetsFor(modelData.name, "left")
+                        delegate: BarWidgetLoader { widgetScreen: bar.screen }
+                    }
                 }
 
                 RowLayout { // Center
                     anchors.centerIn: parent
                     spacing: 6
+                    visible: !isVertical
 
-                    Workspaces {
-                        workspaceOffset: Math.max(0, screenIndex) * workspacesPerScreen
-                        targetMonitorName: bar.screen.name
+                    Repeater {
+                        model: BarService.getWidgetsFor(modelData.name, "center")
+                        delegate: BarWidgetLoader { widgetScreen: bar.screen }
+                    }
+                }
+
+                ColumnLayout { // Vertical Center
+                    anchors.centerIn: parent
+                    spacing: 6
+                    visible: isVertical
+
+                    Repeater {
+                        model: BarService.getWidgetsFor(modelData.name, "center")
+                        delegate: BarWidgetLoader { widgetScreen: bar.screen }
                     }
                 }
 
@@ -107,11 +114,10 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 4
 
-                    SysTray {}
-                    Media {}
-                    ControlCenter {}
-                    BatteryIndicator {}
-                    SessionButton {}
+                    Repeater {
+                        model: BarService.getWidgetsFor(modelData.name, "right")
+                        delegate: BarWidgetLoader { widgetScreen: bar.screen }
+                    }
                 }
 
                 ColumnLayout { // Bottom
@@ -120,11 +126,10 @@ Scope {
                     anchors.bottom: parent.bottom
                     spacing: 6
 
-                    SysTray {}
-                    Media {}
-                    ControlCenter {}
-                    BatteryIndicator {}
-                    SessionButton {}
+                    Repeater {
+                        model: BarService.getWidgetsFor(modelData.name, "right")
+                        delegate: BarWidgetLoader { widgetScreen: bar.screen }
+                    }
                 }
             }
         }

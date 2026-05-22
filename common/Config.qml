@@ -103,6 +103,7 @@ Singleton {
                 //property bool bottom: true
                 property string position: "top"
                 property bool enablePerDisplayPosition: true
+                property bool enablePerDisplayWidgets: true
                 property bool autoHide: false
                 property bool showDate: true
                 property bool showTime: true

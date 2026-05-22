@@ -44,7 +44,7 @@ ColumnLayout {
     }
 
     ConfigGroup {
-        visible: Config.options.bar.enablePerDisplayPosition
+        shouldShow: Config.options.bar.enablePerDisplayPosition
         Repeater {
             model: Display.activeScreens
 
@@ -59,12 +59,192 @@ ColumnLayout {
 
                 currentValue: BarService.getPosition(displayArrangement.displayName)
                 onChoiceSelected: (value) => BarService.setPosition(displayArrangement.displayName, value)
+            }
+        }
+    }
 
-                position: {
-                    if (Display.activeScreens.length === 1) return 3;
-                    if (index === 0) return 1;
-                    if (index === Display.activeScreens.length - 1) return 2;
-                    return 0;
+    ConfigGroup { // Globbal Widgets Section
+        id: globalWidgetGroup
+        icon: "extension"
+        title: "Global Widgets"
+
+        property string selectedArea: "left"
+
+        ConfigButtonGroup {
+            text: "Target Area"
+            model: [
+                { name: "Left", value: "left", icon: "align_horizontal_left" },
+                { name: "Center", value: "center", icon: "align_horizontal_center" },
+                { name: "Right", value: "right", icon: "align_horizontal_right" }
+            ]
+            currentValue: globalWidgetGroup.selectedArea
+            onChoiceSelected: (val) => globalWidgetGroup.selectedArea = val
+        }
+
+        ConfigGroup {
+            Repeater {
+                id: globalRepeater
+                model: BarService.getWidgetsFor("default", globalWidgetGroup.selectedArea)
+
+                delegate: ConfigButtonGroup {
+                    readonly property var info: BarService.getWidgetInfo(modelData)
+                    text: info.name
+                    buttonIcon: info.icon
+                    currentValue: null
+                    fullWidth: false
+
+                    model: [
+                        { name: "", icon: "arrow_upward", value: "up", action: () => BarService.moveWidget("default", globalWidgetGroup.selectedArea, index, index - 1) },
+                        { name: "", icon: "arrow_downward", value: "down", action: () => BarService.moveWidget("default", globalWidgetGroup.selectedArea, index, index + 1) },
+                        { name: "", icon: "delete", value: "remove", action: () => BarService.removeWidget("default", globalWidgetGroup.selectedArea, index) }
+                    ]
+
+                    onChoiceSelected: (val) => {
+                        const item = model.find(i => i.value === val);
+                        if (item && item.action) item.action();
+                    }
+                }
+            }
+        }
+
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 8
+
+            ConfigButtonGroup {
+                id: globalPicker
+                text: "Add Widget"
+                Layout.fillWidth: true
+                model: BarService.availableWidgets
+                property string toAdd: ""
+                currentValue: toAdd
+                onChoiceSelected: (val) => toAdd = val
+            }
+
+            StyledButton {
+                buttonIcon: "add"
+                Layout.fillHeight: true
+                enabled: globalPicker.toAdd !== ""
+                onClicked: {
+                    BarService.addWidget("default", globalWidgetGroup.selectedArea, globalPicker.toAdd);
+                    globalPicker.toAdd = "";
+                }
+            }
+        }
+
+        ColumnLayout {
+            StyledButton {
+                text: "Reset to Default"
+                buttonIcon: "restore"
+                Layout.fillWidth: true
+                onClicked: BarService.resetGlobal(globalWidgetGroup.selectedArea);
+            }
+        }
+    }
+
+    ConfigGroup { // Per Display Widgets section
+        id: displayWidgetGroup
+        icon: "extension"
+        title: "Per Display Widgets"
+
+        property string selectedArea: "left"
+        property string selectedDisplay: Display.activeScreens[0] || ""
+
+        ConfigSwitch {
+            buttonIcon: ""
+            text: "Enable"
+            description: ""
+            checked: Config.options.bar.enablePerDisplayWidgets
+            onCheckedChanged: {
+                Config.options.bar.enablePerDisplayWidgets = checked;
+            }
+        }
+
+        ConfigGroup {
+            shouldShow: Config.options.bar.enablePerDisplayWidgets
+
+            ConfigButtonGroup {
+                text: "Select Display"
+                model: Display.activeScreens.map((displayName) => ({
+                        name: displayName,
+                        value: displayName,
+                        icon: (Display.displayInfo[displayName] || {}).backend === "backlight"
+                            ? "laptop_chromebook"
+                            : "monitor"
+                }))
+                currentValue: displayWidgetGroup.selectedDisplay
+                onChoiceSelected: (val) => displayWidgetGroup.selectedDisplay = val
+            }
+
+            ConfigButtonGroup {
+                text: "Target Area"
+                model: [
+                    { name: "Left", value: "left", icon: "align_horizontal_left" },
+                    { name: "Center", value: "center", icon: "align_horizontal_center" },
+                    { name: "Right", value: "right", icon: "align_horizontal_right" }
+                ]
+                currentValue: displayWidgetGroup.selectedArea
+                onChoiceSelected: (val) => displayWidgetGroup.selectedArea = val
+            }
+
+            ConfigGroup {
+                Repeater {
+                    id:widgetRepeater
+                    model: BarService.getWidgetsFor(displayWidgetGroup.selectedDisplay, displayWidgetGroup.selectedArea)
+
+                    delegate: ConfigButtonGroup {
+                        readonly property var info: BarService.getWidgetInfo(modelData)
+                        text: info.name
+                        buttonIcon: info.icon
+                        currentValue: null
+                        fullWidth: false
+
+                        model: [
+                            { name: "", icon: "arrow_upward", value: "up", action: () => BarService.moveWidget(displayWidgetGroup.selectedDisplay, displayWidgetGroup.selectedArea, index, index - 1) },
+                            { name: "", icon: "arrow_downward", value: "down", action: () => BarService.moveWidget(displayWidgetGroup.selectedDisplay, displayWidgetGroup.selectedArea, index, index + 1) },
+                            { name: "", icon: "delete", value: "remove", action: () => BarService.removeWidget(displayWidgetGroup.selectedDisplay, displayWidgetGroup.selectedArea, index) }
+                        ]
+
+                        onChoiceSelected: (val) => {
+                            const item = model.find(i => i.value === val);
+                            if (item && item.action) item.action();
+                        }
+                    }
+                }
+            }
+
+            RowLayout{
+                ConfigButtonGroup {
+                    id: availableWidgetPicker
+                    text: "Add Widget"
+                    Layout.fillWidth: true
+                    model: BarService.availableWidgets
+                    property string toAdd: ""
+                    currentValue: toAdd
+                    onChoiceSelected: (val) => toAdd = val
+
+                }
+
+                StyledButton {
+                    buttonIcon: "add"
+                    Layout.fillHeight: true
+
+                    onClicked: {
+                        BarService.addWidget(
+                            displayWidgetGroup.selectedDisplay,
+                            displayWidgetGroup.selectedArea,
+                            availableWidgetPicker.toAdd
+                        )
+                        availableWidgetPicker.toAdd = ""
+                    }
+                }
+            }
+            ColumnLayout {
+                StyledButton {
+                    text: "Follow Global"
+                    buttonIcon: "copy_all"
+                    Layout.fillWidth: true
+                    onClicked: BarService.copyGlobal(displayWidgetGroup.selectedDisplay, displayWidgetGroup.selectedArea);
                 }
             }
         }

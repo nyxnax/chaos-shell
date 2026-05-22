@@ -14,8 +14,8 @@ GridLayout {
     columnSpacing: isVertical ? 0 : 4
     rowSpacing: isVertical ? 4 : 0
 
-    property int workspaceOffset: 0
-    property string targetMonitorName: ""
+    property int workspaceOffset: Math.max(0, bar.screenIndex) * workspacesPerScreen
+    property string targetMonitorName: bar.screen.name
 
     // Dynamically calculate the number of workspaces to show
     readonly property int workspaceCount: {
