@@ -107,6 +107,7 @@ Singleton {
                 property bool autoHide: false
                 property string chaosCommand: ""
                 property string chaosIcon: "apps"
+                property bool chaosAccent: true
                 property bool showDate: true
                 property bool showTime: true
                 property bool showWindowTitle: true

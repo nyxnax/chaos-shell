@@ -21,8 +21,11 @@ BarItem {
 
         MaterialSymbol {
             anchors.centerIn: parent
+            color: Config.options.bar.chaosAccent ? Appearance.colors.m3primary : Appearance?.colors.m3onBackground
             text: Config.options.bar.chaosIcon
             iconSize: Appearance.font.pixelSize.larger
+
+            Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
         }
     }
 }

@@ -295,7 +295,7 @@ ColumnLayout {
             control: StyledTextField {
                 outlined: true
                 placeholderText: ""
-                text: Config.options.bar.startCommand
+                text: Config.options.bar.chaosCommand
                 onTextChanged: {
                     if (Config.options.bar.chaosCommand !== text) {
                         Config.options.bar.chaosCommand = text
@@ -316,6 +316,14 @@ ColumnLayout {
                         Config.options.bar.chaosIcon = text
                     }
                 }
+            }
+        }
+        ConfigSwitch {
+            buttonIcon: "format_color_fill"
+            text: "Accent Color"
+            checked: Config.options.bar.chaosAccent
+            onCheckedChanged: {
+                Config.options.bar.chaosAccent = checked;
             }
         }
     }
