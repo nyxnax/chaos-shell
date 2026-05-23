@@ -52,4 +52,23 @@ Scope {
             return "Decreasing brightness";
         }
     }
+
+    IpcHandler {
+        target: "theme"
+
+        function toggle() {
+            Config.options.appearance.light = !Config.options.appearance.light
+            Theme.generate()
+        }
+
+        function dark() {
+            Config.options.appearance.light = false
+            Theme.generate()
+        }
+
+        function light() {
+            Config.options.appearance.light = true
+            Theme.generate()
+        }
+    }
 }
