@@ -14,19 +14,40 @@ GridLayout {
     columnSpacing: isVertical ? 0 : 4
     rowSpacing: isVertical ? 4 : 0
 
-    property int workspaceOffset: Math.max(0, bar.screenIndex) * workspacesPerScreen
-    property string targetMonitorName: bar.screen.name
+    // Defined locally to prevent scope shadowing from Bar.qml
+    readonly property int workspacesPerScreen: 10
+
+    // Safely get the target monitor name using the passed widgetScreen property
+    property string targetMonitorName: {
+        if (typeof widgetScreen !== "undefined" && widgetScreen) return widgetScreen.name;
+        if (typeof bar !== "undefined" && bar.screen) return bar.screen.name;
+        return "";
+    }
+
+    // Dynamically get the index of the monitor from Hyprland to create a reliable offset
+    property int screenIndex: {
+        if (!targetMonitorName) return 0;
+
+        const monitors = Hyprland.monitors.values;
+        if (!monitors) return 0;
+
+        const idx = monitors.findIndex(m => m && m.name === targetMonitorName);
+        return Math.max(0, idx);
+    }
+
+    property int workspaceOffset: screenIndex * workspacesPerScreen
 
     // Dynamically calculate the number of workspaces to show
     readonly property int workspaceCount: {
         let maxIdx = 5;
         const monitorWorkspaces = Hyprland.workspaces.values;
-        for (let i = 0; i < monitorWorkspaces.length; i++) {
-            const ws = monitorWorkspaces[i];
-
-            if (ws && ws.monitor && ws.monitor.name === targetMonitorName) {
-                const relativeId = ws.id - workspaceOffset;
-                if (relativeId > maxIdx) maxIdx = relativeId;
+        if (monitorWorkspaces) {
+            for (let i = 0; i < monitorWorkspaces.length; i++) {
+                const ws = monitorWorkspaces[i];
+                if (ws && ws.monitor && ws.monitor.name === targetMonitorName) {
+                    const relativeId = ws.id - workspaceOffset;
+                    if (relativeId > maxIdx) maxIdx = relativeId;
+                }
             }
         }
         return Math.min(10, Math.max(5, maxIdx));
@@ -37,9 +58,11 @@ GridLayout {
 
         delegate: Rectangle {
             readonly property int wsId: workspaceOffset + index + 1
-            readonly property var ws: Hyprland.workspaces.values.find(w =>
-                w.id === wsId && w.monitor && w.monitor.name === targetMonitorName
-            )
+            readonly property var ws: {
+                const workspaces = Hyprland.workspaces.values;
+                if (!workspaces) return undefined;
+                return workspaces.find(w => w.id === wsId && w.monitor && w.monitor.name === targetMonitorName);
+            }
 
             readonly property bool exists: ws !== undefined
             readonly property bool isOccupied: exists && ws.toplevels.values.length > 0
@@ -83,14 +106,7 @@ GridLayout {
                     let classes = [];
                     for (let i = 0; i < ws.toplevels.values.length; i++) {
                         let tl = ws.toplevels.values[i];
-                        //let windowClass = tl.lastIpcObject.class;
-                        //let cls = tl.title;
-                        //if (windowClass == "" || windowClass == undefined || windowClass == "steam_app_default" || windowClass == "~"){
-                        //    windowClass = cls
-                        //}
-                        //let windowTitle = tl.title;
                         let windowClass = ClassOrTitle.excludeClass(tl.lastIpcObject.class, tl.title)
-                        //console.log("[Vented Debug] Title or CLass output for Icons: ", ClassOrTitle.excludeClass(windowClass, windowTitle))
 
                         if (windowClass !== "" && !classes.includes(windowClass)) {
                             classes.push(windowClass);
