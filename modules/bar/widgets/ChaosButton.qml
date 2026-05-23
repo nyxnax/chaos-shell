@@ -24,6 +24,7 @@ BarItem {
             color: Config.options.bar.chaosAccent ? Appearance.colors.m3primary : Appearance?.colors.m3onBackground
             text: Config.options.bar.chaosIcon
             iconSize: Appearance.font.pixelSize.larger
+            fill: root.hovered ? 0 : 1
 
             Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
         }
