@@ -120,7 +120,6 @@ Singleton {
                 property bool showMediaControl: true
                 property bool showBackground: true
                 property bool showBatteryPercentage: true
-                property bool showPowerButton: false
             }
 
             property JsonObject battery: JsonObject {

@@ -361,16 +361,6 @@ ColumnLayout {
                 //console.log ("Bar: Workspace icons set to " + checked)
             }
         }
-        ConfigSwitch {
-            buttonIcon: "power_settings_new"
-            text: "Power Button"
-            description: "Launches session manager when clicked"
-            checked: Config.options.bar.showPowerButton
-            onCheckedChanged: {
-                Config.options.bar.showPowerButton = checked;
-                //console.log ("Bar: Workspace icons set to " + checked)
-            }
-        }
     }
 
     ConfigGroup{ // Clock Section

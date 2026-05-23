@@ -6,9 +6,6 @@ BarItem {
     id: root
 
     onClicked: Global.states.sessionManagerOpen = !Global.states.sessionManagerOpen
-    property bool isShown: Config.options.bar.showPowerButton
-    opacity: isShown ? 1 : 0
-    visible: opacity > 0
 
     Item {
         implicitHeight: root.cellSize
