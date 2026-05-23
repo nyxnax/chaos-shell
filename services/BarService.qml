@@ -20,7 +20,7 @@ Singleton {
     }
 
     readonly property var defaultWidgets: {
-        "left": ["Clock", "WindowTitle"],
+        "left": ["ChaosButton", "Clock", "WindowTitle"],
         "center": ["Workspaces"],
         "right": ["SysTray", "Media", "ControlCenter", "BatteryIndicator", "SessionButton"]
     }
@@ -28,12 +28,13 @@ Singleton {
     readonly property var availableWidgets: [
         {name: "Battery",        value: "BatteryIndicator",   icon: "battery_android_full"},
         {name: "Clock",          value: "Clock",              icon: "schedule"},
-        {name: "Control Center", value: "ControlCenter",    icon: "wifi"},
+        {name: "Control Center", value: "ControlCenter",      icon: "wifi"},
         {name: "Media",          value: "Media",              icon: "music_note"},
         {name: "Logout",         value: "SessionButton",      icon: "logout"},
         {name: "System Tray",    value: "SysTray",            icon: "arrow_circle_up"},
         {name: "Window Title",   value: "WindowTitle",        icon: "title"},
-        {name: "Workspaces",     value: "Workspaces",         icon: "workspaces"}
+        {name: "Workspaces",     value: "Workspaces",         icon: "workspaces"},
+        {name: "Chaos",          value: "ChaosButton",        icon: "apps"}
     ]
 
     function getWidgetInfo(val) {

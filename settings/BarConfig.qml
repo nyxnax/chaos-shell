@@ -285,6 +285,40 @@ ColumnLayout {
         }
     }
 
+        ConfigGroup { // Chaos Button Section
+        icon: Config.options.bar.chaosIcon
+        title: "Chaos Button"
+        ConfigTile {
+            buttonIcon: "code"
+            text: "Command"
+            description: "Runs when you press the button"
+            control: StyledTextField {
+                outlined: true
+                placeholderText: ""
+                text: Config.options.bar.startCommand
+                onTextChanged: {
+                    if (Config.options.bar.chaosCommand !== text) {
+                        Config.options.bar.chaosCommand = text
+                    }
+                }
+            }
+        }
+        ConfigTile {
+            buttonIcon: "window"
+            text: "Icon"
+            description: "Example: 'orbit', 'planet' More at 'https://fonts.google.com/icons'"
+            control: StyledTextField {
+                outlined: true
+                placeholderText: "apps"
+                text: Config.options.bar.chaosIcon
+                onTextChanged: {
+                    if (Config.options.bar.chaosIcon !== text) {
+                        Config.options.bar.chaosIcon = text
+                    }
+                }
+            }
+        }
+    }
 
     ConfigGroup { // Focused Window and Workspace Indicator Section
         icon: "toolbar"
