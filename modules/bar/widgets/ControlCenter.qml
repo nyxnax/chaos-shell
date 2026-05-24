@@ -40,11 +40,11 @@ BarItem {
             text: Audio.sinkMaterialSymbol
             iconSize: Appearance.font.pixelSize.larger
             anchors.centerIn: parent
-            opacity: 0.6
             fill: 1
+            animateChange: true
         }
 
-        readonly property bool shouldShow: Audio.sink?.audio?.muted ?? false
+        readonly property bool shouldShow: Config.options.bar.showSinkSymbol ? true : (Audio.sink?.audio?.muted ?? false)
         opacity: shouldShow ? 1 : 0
         visible: opacity > 0
         Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }

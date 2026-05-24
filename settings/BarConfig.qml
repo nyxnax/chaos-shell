@@ -443,6 +443,20 @@ ColumnLayout {
         }
     }
 
+    ConfigGroup{ // Clock Section
+        icon: "wifi"
+        title: "Control Center"
+        ConfigSwitch {
+            buttonIcon: "volume_up"
+            text: "Volume symbol"
+            description: "If disabled, shows when output is muted"
+            checked: Config.options.bar.showSinkSymbol
+            onCheckedChanged: {
+                Config.options.bar.showSinkSymbol = checked;
+            }
+        }
+    }
+
     ConfigGroup { // Just here as fluff
         icon: "dashboard"
         title: "Test"

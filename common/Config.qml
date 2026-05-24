@@ -119,6 +119,7 @@ Singleton {
                 property bool showMediaText: true
                 property bool showMediaControl: true
                 property bool showBackground: true
+                property bool showSinkSymbol: true
                 property bool showBatteryPercentage: true
             }
 
