@@ -71,4 +71,11 @@ Scope {
             Theme.generate()
         }
     }
+
+    IpcHandler {
+        target: "power"
+        function cycleProfile() {
+            PowerService.cycleProfile()
+        }
+    }
 }
