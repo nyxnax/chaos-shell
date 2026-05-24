@@ -43,12 +43,7 @@ Scope {
 
         sourceComponent: OSD {
             id: osdInstance
-            icon: {
-                if (Audio.sink?.audio?.muted || Audio.value === 0) return "volume_off";
-                if (Audio.value < 0.25) return "volume_mute";
-                if (Audio.value < 0.50) return "volume_down";
-                return "volume_up";
-            }
+            icon: Audio.sinkMaterialSymbol
 
             value: Audio.value
             onMoved: {

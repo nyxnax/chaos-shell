@@ -46,6 +46,18 @@ Singleton {
     // Signals
     signal sinkProtectionTriggered(string reason);
 
+    property string sinkMaterialSymbol: (!root.ready || !root.sink || !root.sink.audio)
+        ? "volume_off"
+        : (root.sink.audio.muted)
+            ? "volume_off"
+            : (value <= 0.0)
+            ? "volume_mute"
+            : (value <= 0.33)
+            ? "volume_down"
+            : (value <= 0.66)
+            ? "volume_down"
+            : "volume_up"
+
     // Controls
     function toggleMute() {
         Audio.sink.audio.muted = !Audio.sink.audio.muted
