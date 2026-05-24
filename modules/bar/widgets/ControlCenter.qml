@@ -16,7 +16,7 @@ BarItem {
 
         MaterialSymbol {
             id: inputIcon
-            text: "mic_off"
+            text: Audio.sourceMaterialSymbol
             iconSize: Appearance.font.pixelSize.larger
             anchors.centerIn: parent
             opacity: 0.6
@@ -37,7 +37,7 @@ BarItem {
 
         MaterialSymbol {
             id: outputIcon
-            text: "volume_off"
+            text: Audio.sinkMaterialSymbol
             iconSize: Appearance.font.pixelSize.larger
             anchors.centerIn: parent
             opacity: 0.6
