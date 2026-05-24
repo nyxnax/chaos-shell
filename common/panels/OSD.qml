@@ -49,11 +49,13 @@ Item {
                 spacing: 0
 
                 MaterialSymbol {
+                    animateChange: true
                     text: root.icon
                     font.pixelSize: Appearance.font.pixelSize.huge
                     color: (osdSlider.visualPosition * osdSlider.width) > 40
                            ? Appearance.colors.m3onPrimary
                            : Qt.alpha(Appearance.colors.m3onSurfaceVariant, 0.6)
+                    fill: 1
                     Behavior on color { animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this) }
                 }
 
