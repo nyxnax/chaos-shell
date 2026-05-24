@@ -19,11 +19,12 @@ BarItem {
             text: Audio.sourceMaterialSymbol
             iconSize: Appearance.font.pixelSize.larger
             anchors.centerIn: parent
-            opacity: 0.6
+            color: (Audio.source?.audio?.muted) ? Appearance.colors.m3outline : Appearance.colors.m3primary
             fill: 1
+            animateChange: true
         }
 
-        readonly property bool shouldShow: Audio.source?.audio?.muted ?? false
+        readonly property bool shouldShow: Audio.inputAppNodes.length > 0 || Audio.source?.audio?.muted
         opacity: shouldShow ? 1 : 0
         visible: opacity > 0
         Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
