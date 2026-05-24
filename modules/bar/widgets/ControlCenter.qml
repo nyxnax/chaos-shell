@@ -14,13 +14,13 @@ BarItem {
         implicitWidth: root.cellSize - 5
         Layout.alignment: Qt.AlignCenter
 
-
         MaterialSymbol {
             id: inputIcon
             text: "mic_off"
             iconSize: Appearance.font.pixelSize.larger
             anchors.centerIn: parent
             opacity: 0.6
+            fill: 1
         }
 
         readonly property bool shouldShow: Audio.source?.audio?.muted ?? false
@@ -41,6 +41,7 @@ BarItem {
             iconSize: Appearance.font.pixelSize.larger
             anchors.centerIn: parent
             opacity: 0.6
+            fill: 1
         }
 
         readonly property bool shouldShow: Audio.sink?.audio?.muted ?? false
@@ -68,6 +69,7 @@ BarItem {
             text: Network.materialSymbol
             iconSize: Appearance.font.pixelSize.larger
             anchors.centerIn: parent
+            fill: 1
         }
     }
 }
