@@ -9,6 +9,38 @@ ColumnLayout {
     id:root
     spacing: 15
 
+    ConfigGroup { // Power Profiles Section
+        visible: PowerService.available
+        title: "Power"
+        icon: "power"
+        ConfigButtonGroup {
+            text: "Profile"
+            buttonIcon: "electrical_services"
+            model: PowerService.profilesModel
+            currentValue: PowerService.activeProfile
+            onChoiceSelected: (value) => {
+                PowerService.setProfile(value);
+            }
+        }
+        RowLayout {
+            MaterialSymbol {text: "info"}
+            StyledText {text: "Power Info";}
+        }
+        ColumnLayout{
+            opacity: 0.8
+            RowLayout {
+                MaterialSymbol {text: "trending_down"}
+                StyledText {text: "Degradation state: "}
+                StyledText {text: PowerService.degradationStateText}
+            }
+            RowLayout {
+                MaterialSymbol {text: "comment"}
+                StyledText {text: "Degradation reason: "}
+                StyledText {text: PowerService.degradationReasonText}
+            }
+        }
+    }
+
     ConfigGroup{ // Battery Section
         visible: Battery.available
         title: "Battery"
@@ -20,7 +52,7 @@ ColumnLayout {
             checked: Config.options.bar.showBatteryPercentage
             onCheckedChanged: {
                 Config.options.bar.showBatteryPercentage = checked;
-                console.log ("System: Battery percentage set to " + checked)
+                //console.log ("System: Battery percentage set to " + checked)
             }
         }
         ConfigSwitch{
@@ -30,7 +62,7 @@ ColumnLayout {
             checked: Config.options.battery.sounds
             onCheckedChanged: {
                 Config.options.battery.sounds = checked;
-                console.log ("System: Battery sounds set to " + checked)
+                //console.log ("System: Battery sounds set to " + checked)
             }
         }
         ConfigSwitch{
@@ -40,7 +72,7 @@ ColumnLayout {
             checked: Config.options.battery.automaticSuspend
             onCheckedChanged: {
                 Config.options.battery.automaticSuspend = checked;
-                console.log ("System: Battery auto-suspend set to " + checked)
+                //console.log ("System: Battery auto-suspend set to " + checked)
             }
         }
         Item {} // Padding
@@ -72,6 +104,7 @@ ColumnLayout {
             }
         }
     }
+
     ConfigGroup { // Audio Section
         title: "Audio"
         icon: "volume_up"
@@ -82,7 +115,7 @@ ColumnLayout {
             checked: Config.options.audio.protection.enable
             onCheckedChanged: {
                 Config.options.audio.protection.enable = checked;
-                console.log ("System: Audio protection set to " + checked)
+                //console.log ("System: Audio protection set to " + checked)
             }
         }
     }
