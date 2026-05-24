@@ -50,6 +50,7 @@ ItemDelegate {
             iconSize: Appearance.font.pixelSize.larger
             color: Appearance.colors.m3onSecondaryContainer
             visible: root.buttonIcon !== ""
+            fill: root.hovered ? 1 : 0
         }
 
         ColumnLayout {
