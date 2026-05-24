@@ -125,6 +125,7 @@ Button {
                 font.pixelSize: fontSize * 1.1
                 color: fontColor
                 anchors.verticalCenter: parent.verticalCenter
+                fill: root.isSelected || root.hovered ? 1 : 0
             }
             StyledText {
                 id: text
