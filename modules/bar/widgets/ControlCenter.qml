@@ -24,7 +24,7 @@ BarItem {
             animateChange: true
         }
 
-        readonly property bool shouldShow: Audio.inputAppNodes.length > 0 || Audio.source?.audio?.muted
+        readonly property bool shouldShow: (Audio.ready && Audio.inputAppNodes.length > 0 || Audio.ready && Audio.source?.audio?.muted)
         opacity: shouldShow ? 1 : 0
         visible: opacity > 0
         Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
