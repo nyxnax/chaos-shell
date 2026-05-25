@@ -8,7 +8,6 @@ import Qt5Compat.GraphicalEffects
 
 BarItem {
     id: root
-    width: layout.implicitWidth
 
     readonly property bool isShown: MediaService.hasMedia && Config.options.bar.showMedia
     opacity: isShown ? 1 : 0
@@ -124,7 +123,7 @@ BarItem {
                     id: titleText
                     text: MediaService.trackTitle
                     color: Appearance.colors.m3onBackground
-                    font.pixelSize: Config.options.bar.showArtist ? Appearance.font.pixelSize.smaller : Appearance.font.pixelSize.normal
+                    font.pixelSize: artistContainer.visible ? Appearance.font.pixelSize.smaller : Appearance.font.pixelSize.normal
                     font.weight: 500
                     onTextChanged: checkScroll()
                     onImplicitWidthChanged: checkScroll()
@@ -166,7 +165,7 @@ BarItem {
                 Layout.preferredWidth: artistText.implicitWidth
                 Layout.preferredHeight: artistText.implicitHeight
                 clip: true
-                visible: Config.options.bar.showArtist
+                visible: Config.options.bar.showArtist && MediaService.trackArtist
                 onWidthChanged: artistText.checkScroll()
 
                 StyledText {
