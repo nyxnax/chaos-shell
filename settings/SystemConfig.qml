@@ -9,6 +9,35 @@ ColumnLayout {
     id:root
     spacing: 15
 
+    ConfigGroup { // Profile Section
+        title: "Profile"
+        icon: "id_card"
+        ProfileCard {isExpanded: true; size: ProfileCard.Size.XL}
+        ConfigSwitch {
+            buttonIcon: "photo"
+            text: "Use Picture"
+            description: "Stored at ~/.face"
+            checked: Config.options.system.profile.usePicture
+            onCheckedChanged: Config.options.system.profile.usePicture = checked
+        }
+        ConfigTile {
+            visible: !Config.options.system.profile.usePicture
+            buttonIcon: Config.options.system.profile.icon
+            text: "Profile Icon"
+            description: "Icon to fall back to when not using a picture"
+            control: StyledTextField {
+                outlined: true
+                placeholderText: "person"
+                text: Config.options.system.profile.icon
+                onTextChanged: {
+                    if (Config.options.system.profile.icon !== text) {
+                        Config.options.system.profile.icon = text
+                    }
+                }
+            }
+        }
+    }
+
     ConfigGroup { // Power Profiles Section
         visible: PowerService.available
         title: "Power"

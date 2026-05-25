@@ -141,6 +141,14 @@ Singleton {
                     property real maxAllowed: 99
                 }
             }
+            property JsonObject system: JsonObject {
+                property JsonObject profile: JsonObject {
+                    property bool usePicture: false
+                    property string picture: `${Directories.home}/.face`
+                    property string icon: "moon_stars"
+                }
+
+            }
         }
     }
 }

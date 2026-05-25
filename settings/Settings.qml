@@ -1,3 +1,4 @@
+import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -124,14 +125,19 @@ ApplicationWindow {
                             id: pageColumn
                             width: Math.min(scroll.availableWidth, 1000)
                             anchors.horizontalCenter: parent.horizontalCenter
-                            bottomPadding: isPortrait ? navBar.height + 40 : 20
+                            bottomPadding: isPortrait ? navBar.height + 40 : 16
                             spacing: 5
-                            topPadding: 20
+                            topPadding: 12
                             Behavior on bottomPadding {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
                             ConfigRow {
-                                MaterialSymbol {text: modelData.icon; font.pixelSize: Appearance.font.pixelSize.title * 1.2}
-                                StyledText {text: modelData.name; font.pixelSize: Appearance.font.pixelSize.title * 1.2}
+                                anchors.right: parent.right
+                                anchors.left: parent.left
+
+                                MaterialSymbol {text: modelData.icon; font.pixelSize: Appearance.font.pixelSize.title}
+                                StyledText {text: modelData.name; font.pixelSize: Appearance.font.pixelSize.title}
+                                Item {Layout.fillWidth: true}
+                                ProfileCard {shouldShow: isPortrait}
                             }
 
                             Loader {
@@ -263,6 +269,13 @@ ApplicationWindow {
                         }
                     }
                 }
+            }
+
+            ProfileCard {
+                isExpanded: navRail.isExpanded
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 16
+                x: 16
             }
         }
     }
