@@ -8,13 +8,22 @@ import QtQuick.Layouts
 
 BarItem {
     id:root
-    visible: Battery.available
+    visible: Battery.available && !shouldHide
     color: "transparent"
     width: layout.width
+
+    readonly property bool shouldHide: {
+        (Config.options.bar.hideBatteryWhenPlugged && isPluggedIn)
+        ? true
+        : (Config.options.bar.hideBatteryWhenFull && isFull)
+        ? true
+        : false
+    }
 
     readonly property var chargeState: Battery.chargeState
     readonly property bool isCharging: Battery.isCharging
     readonly property bool isPluggedIn: Battery.isPluggedIn
+    readonly property bool isFull: Battery.isFull
     readonly property real percentage: Battery.percentage
     readonly property bool isLow: percentage <= Config.options.battery.low / 100
 

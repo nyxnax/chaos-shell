@@ -463,11 +463,29 @@ ColumnLayout {
         title: "Battery"
         ConfigSwitch {
             buttonIcon: "percent"
-            text: "Percentage"
+            text: "Show Percentage"
             description: "Show battery percentage inside the indicator (shows on hover if disabled)"
             checked: Config.options.bar.showBatteryPercentage
             onCheckedChanged: {
                 Config.options.bar.showBatteryPercentage = checked;
+            }
+        }
+        ConfigSwitch {
+            buttonIcon: "electrical_services"
+            text: "Hide When Plugged In"
+            description: "Hide the widget while connected to AC power"
+            checked: Config.options.bar.hideBatteryWhenPlugged
+            onCheckedChanged: {
+                Config.options.bar.hideBatteryWhenPlugged = checked;
+            }
+        }
+        ConfigSwitch {
+            buttonIcon: "battery_android_frame_bolt"
+            text: "Hide When Full"
+            description: "Hide the widget when fully charged"
+            checked: Config.options.bar.hideBatteryWhenFull
+            onCheckedChanged: {
+                Config.options.bar.hideBatteryWhenFull = checked;
             }
         }
     }

@@ -120,7 +120,10 @@ Singleton {
                 property bool showMediaControl: true
                 property bool showBackground: true
                 property bool showSinkSymbol: true
+
                 property bool showBatteryPercentage: true
+                property bool hideBatteryWhenPlugged: false
+                property bool hideBatteryWhenFull: false
             }
 
             property JsonObject battery: JsonObject {
@@ -128,7 +131,7 @@ Singleton {
                 property bool sounds: true
                 property int low: 20
                 property int critical: 10
-                property int full: 101
+                property int full: 100
                 property int suspend: 3
             }
             property JsonObject sounds: JsonObject {
