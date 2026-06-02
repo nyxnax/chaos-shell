@@ -443,7 +443,7 @@ ColumnLayout {
         }
     }
 
-    ConfigGroup{ // Clock Section
+    ConfigGroup{ // Control Center Section
         icon: "wifi"
         title: "Control Center"
         ConfigSwitch {
@@ -453,6 +453,21 @@ ColumnLayout {
             checked: Config.options.bar.showSinkSymbol
             onCheckedChanged: {
                 Config.options.bar.showSinkSymbol = checked;
+            }
+        }
+    }
+
+    ConfigGroup { // Battery Section
+        shouldShow: Battery.available
+        icon: "battery_android_full"
+        title: "Battery"
+        ConfigSwitch {
+            buttonIcon: "percent"
+            text: "Percentage"
+            description: "Show battery percentage inside the indicator (shows on hover if disabled)"
+            checked: Config.options.bar.showBatteryPercentage
+            onCheckedChanged: {
+                Config.options.bar.showBatteryPercentage = checked;
             }
         }
     }
