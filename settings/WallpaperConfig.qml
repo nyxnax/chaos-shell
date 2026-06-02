@@ -46,14 +46,6 @@ ColumnLayout {
                     NumberAnimation { duration: 400; easing.type: Easing.InOutQuad }
                 }
             }
-
-            Rectangle {
-                anchors.fill: parent
-                color: "transparent"
-                border.color: Appearance.colors.m3outline
-                border.width: 5
-                radius: parent.radius
-            }
         }
 
         ColumnLayout { // Mode switcher
