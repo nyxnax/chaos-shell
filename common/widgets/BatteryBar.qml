@@ -27,8 +27,8 @@ ProgressBar {
 
     text: Math.round(value * 100)
     font {
-        pixelSize: Config.options.bar.showBackground ? 16 : 14
-        weight: text.length > 2 ? Font.Medium : Font.DemiBold
+        pixelSize: Config.options.bar.showBackground ? Appearance.font.pixelSize.normal : Appearance.font.pixelSize.small
+        weight: Font.Bold
     }
 
     background: Item {
