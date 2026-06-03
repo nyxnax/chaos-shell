@@ -10,7 +10,6 @@ import qs.modules.bar.widgets
 
 Scope {
     id: root
-    readonly property int workspacesPerScreen: 10
 
     Variants {
         model: Quickshell.screens;

@@ -15,7 +15,7 @@ GridLayout {
     rowSpacing: isVertical ? 4 : 0
 
     // Defined locally to prevent scope shadowing from Bar.qml
-    readonly property int workspacesPerScreen: 10
+    readonly property int workspacesPerScreen: Config.options.bar.workspaceMaxPerMonitor
 
     // Safely get the target monitor name using the passed widgetScreen property
     property string targetMonitorName: {
