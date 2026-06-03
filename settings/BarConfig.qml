@@ -328,37 +328,39 @@ ColumnLayout {
         }
     }
 
-    ConfigGroup { // Focused Window and Workspace Indicator Section
-        icon: "toolbar"
-        title: "Windows and Workspaces"
-        ConfigSwitch {
-            buttonIcon: "title"
-            text: "Active Window Title"
-            description: "Display the focused window's title in the bar"
-            checked: Config.options.bar.showWindowTitle
-            onCheckedChanged: {
-                Config.options.bar.showWindowTitle = checked;
-                //console.log ("Bar: Window title set to " + checked)
-            }
-        }
+    ConfigGroup { // Active Window Section
+        icon: "title"
+        title: "Active Window Title"
         ConfigSwitch {
             buttonIcon: "image"
-            text: "Active Window Icon"
-            description: "Display the focused app's icon "
+            text: "Icon"
+            description: "Display the focused app's icon"
             checked: Config.options.bar.showWindowIcon
             onCheckedChanged: {
                 Config.options.bar.showWindowIcon = checked;
-                //console.log ("Bar: Window icon set to " + checked)
             }
         }
         ConfigSwitch {
+            buttonIcon: "text_format"
+            text: "Text"
+            description: "Display the focused window's title"
+            checked: Config.options.bar.showWindowTitle
+            onCheckedChanged: {
+                Config.options.bar.showWindowTitle = checked;
+            }
+        }
+    }
+
+    ConfigGroup{ // Workspaces Section
+        icon: "workspaces"
+        title: "Workspaces"
+        ConfigSwitch {
             buttonIcon: "apps"
-            text: "Workspace App icons"
+            text: "Workspace App Icons"
             description: "Display app icons inside the occupied workspace indicators"
             checked: Config.options.bar.workspaceIcons
             onCheckedChanged: {
                 Config.options.bar.workspaceIcons = checked;
-                //console.log ("Bar: Workspace icons set to " + checked)
             }
         }
     }
