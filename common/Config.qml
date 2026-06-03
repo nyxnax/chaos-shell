@@ -112,7 +112,11 @@ Singleton {
                 property bool showTime: true
                 property bool showWindowTitle: true
                 property bool showWindowIcon: true
+
                 property bool workspaceIcons: true
+                property int workspaceMinPerMonitor: 3
+                property int workspaceMaxPerMonitor: 10
+
                 property bool showCoverArt: false
                 property bool showArtist: true
                 property bool showMedia: true

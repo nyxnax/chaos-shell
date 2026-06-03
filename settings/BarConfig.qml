@@ -356,13 +356,34 @@ ColumnLayout {
         title: "Workspaces"
         ConfigSwitch {
             buttonIcon: "apps"
-            text: "Workspace App Icons"
+            text: "App Icons"
             description: "Display app icons inside the occupied workspace indicators"
             checked: Config.options.bar.workspaceIcons
             onCheckedChanged: {
                 Config.options.bar.workspaceIcons = checked;
             }
         }
+        ConfigSlider {
+            buttonIcon: "steppers"
+            text: "Minimum Per Monitor"
+            description: "Maximum number of workspace indicators to show per display"
+            defaultValue: 3
+            valueSuffix: ""
+            from: 1; to: Config.options.bar.workspaceMaxPerMonitor; stepSize: 1
+            value: Config.options.bar.workspaceMinPerMonitor
+            onMoved: (newValue) => {Config.options.bar.workspaceMinPerMonitor = newValue;}
+        }
+        ConfigSlider {
+            buttonIcon: "page_control"
+            text: "Maximum Per Monitor"
+            description: "Maximum number of workspace indicators to show per display"
+            defaultValue: 10
+            valueSuffix: ""
+            from: Config.options.bar.workspaceMinPerMonitor; to: 10; stepSize: 1
+            value: Config.options.bar.workspaceMaxPerMonitor
+            onMoved: (newValue) => {Config.options.bar.workspaceMaxPerMonitor = newValue;}
+        }
+
     }
 
     ConfigGroup{ // Clock Section

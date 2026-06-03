@@ -39,7 +39,7 @@ GridLayout {
 
     // Dynamically calculate the number of workspaces to show
     readonly property int workspaceCount: {
-        let maxIdx = 5;
+        let maxIdx = Config.options.bar.workspaceMinPerMonitor;
         const monitorWorkspaces = Hyprland.workspaces.values;
         if (monitorWorkspaces) {
             for (let i = 0; i < monitorWorkspaces.length; i++) {
@@ -50,7 +50,7 @@ GridLayout {
                 }
             }
         }
-        return Math.min(10, Math.max(5, maxIdx));
+        return Math.min(Config.options.bar.workspaceMaxPerMonitor, Math.max(Config.options.bar.workspaceMinPerMonitor, maxIdx));
     }
 
     Repeater {
