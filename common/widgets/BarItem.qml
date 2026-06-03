@@ -11,6 +11,7 @@ Rectangle {
     readonly property real contentHeight: layout.childrenRect.height
     readonly property real cellSize: 32 * (Config.options.appearance.displayScale / 100)
 
+    property int spacing: 0
     property bool usePadding: false
     property real padding: 6 * (Config.options.appearance.displayScale / 100)
     readonly property real horizontalPadding: usePadding ? padding * 2 : 0
@@ -53,7 +54,7 @@ Rectangle {
         id: layout
         anchors.centerIn: parent
         flow: isVertical ? Grid.TopToBottom : Grid.LeftToRight
-        columnSpacing: 0
-        rowSpacing: 0
+        columnSpacing: spacing
+        rowSpacing: spacing
     }
 }
