@@ -3,16 +3,15 @@ import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 import qs.common
+import qs.common.widgets
 import qs.services
 import qs.common.functions
 
-GridLayout {
+BarItem {
     id: root
 
-    columns: isVertical ? 1 : -1
-    rows: isVertical ? -1 : 1
-    columnSpacing: isVertical ? 0 : 4
-    rowSpacing: isVertical ? 4 : 0
+    spacing: 3
+    usePadding: true
 
     // Defined locally to prevent scope shadowing from Bar.qml
     readonly property int workspacesPerScreen: Config.options.bar.workspaceMaxPerMonitor
