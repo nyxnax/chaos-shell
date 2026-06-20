@@ -7,6 +7,10 @@ ColumnLayout {
 
     property string title
     property string icon
+    property string description
+    property string descriptionIcon
+    property string footer
+    property string footerIcon
     property bool shouldShow: true
     default property alias content: column.data
 
@@ -73,6 +77,21 @@ ColumnLayout {
 
         StyledText {
             text: root.title
+            visible: text !== ""
+        }
+    }
+
+    RowLayout {
+        visible: root.descriptionIcon !== "" || root.description !== ""
+        MaterialSymbol {
+            text: root.descriptionIcon
+            color: Appearance.colors.m3onSurfaceVariant
+            visible: text !== ""
+        }
+
+        StyledText {
+            text: root.description
+            color: Appearance.colors.m3onSurfaceVariant
             visible: text !== ""
         }
     }
@@ -150,5 +169,21 @@ ColumnLayout {
         }
 
         Component.onCompleted: debounceTimer.restart()
+    }
+
+    RowLayout {
+        Layout.topMargin: 6
+        visible: root.footerIcon !== "" || root.footer !== ""
+        MaterialSymbol {
+            text: root.footerIcon
+            color: Appearance.colors.m3outline
+            visible: text !== ""
+        }
+
+        StyledText {
+            text: root.footer
+            color: Appearance.colors.m3outline
+            visible: text !== ""
+        }
     }
 }
