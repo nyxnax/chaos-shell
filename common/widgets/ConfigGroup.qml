@@ -92,10 +92,14 @@ ColumnLayout {
             }
 
             for (let i = 0; i < items.length; i++) {
-                if (items.length === 1) items[i].position = 3;          // Single
-                else if (i === 0) items[i].position = 1;                // Top
-                else if (i === items.length - 1) items[i].position = 2; // Bottom
-                else items[i].position = 0;                             // Mid
+                let child = items[i];
+                let isHovered = child.hasOwnProperty("hovered") && child.hovered;
+                let isPressed = child.hasOwnProperty("down") && child.down;
+
+                if (isPressed || isHovered || items.length === 1) child.position = 3;  // Single
+                else if (i === 0) child.position = 1;                                  // Top
+                else if (i === items.length - 1) child.position = 2;                   // Bottom
+                else child.position = 0;                                               // Mid
             }
         }
 
@@ -110,6 +114,14 @@ ColumnLayout {
                 let child = column.children[i];
                 if (child.hasOwnProperty("position")) {
                     child.visibleChanged.connect(updatePositions);
+
+                    if (child.hasOwnProperty("hoveredChanged")) {
+                        child.hoveredChanged.connect(updatePositions);
+                    }
+
+                    if (child.hasOwnProperty("downChanged")) {
+                        child.downChanged.connect(updatePositions);
+                    }
                 }
             }
             debounceTimer.restart()
