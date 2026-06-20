@@ -13,12 +13,16 @@ ItemDelegate {
     property alias control: controlContainer.data
 
     property int position: 3 // 0: mid, 1: top, 2: bottom, 3: both
+    property bool isFocused: true
     property int smallRadius: Appearance.rounding.unsharpen
     property int outerRadius: Appearance.rounding.normal
 
     Layout.fillWidth: true
     implicitHeight: contentLayout.implicitHeight + 12 * 2
     font.pixelSize: Appearance.font.pixelSize.large
+    opacity: isFocused ? 1 : 0.6
+
+    Behavior on opacity {animation: Appearance.animation.elementMove.numberAnimation.createObject(root)}
 
     background: Rectangle {
         topLeftRadius: (root.position === 1 || root.position === 3) ? outerRadius : smallRadius

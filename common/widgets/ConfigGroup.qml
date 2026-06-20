@@ -91,10 +91,21 @@ ColumnLayout {
                 }
             }
 
+            let groupHasActiveHover = false;
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].hovered || items[i].down) {
+                    groupHasActiveHover = true;
+                    break;
+                }
+            }
+
             for (let i = 0; i < items.length; i++) {
                 let child = items[i];
                 let isHovered = child.hasOwnProperty("hovered") && child.hovered;
                 let isPressed = child.hasOwnProperty("down") && child.down;
+
+                if (!groupHasActiveHover) {child.isFocused = true;}
+                else {child.isFocused = (isHovered || isPressed);}
 
                 if (isPressed || isHovered || items.length === 1) child.position = 3;  // Single
                 else if (i === 0) child.position = 1;                                  // Top
