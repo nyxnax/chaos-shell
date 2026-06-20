@@ -53,7 +53,7 @@ ColumnLayout {
         }
         RowLayout {
             MaterialSymbol {text: "info"}
-            StyledText {text: "Power Info";}
+            StyledText {text: "Power info";}
         }
         ColumnLayout{
             opacity: 0.8
@@ -95,13 +95,13 @@ ColumnLayout {
         Item {} // Padding
         RowLayout {
             MaterialSymbol {text: "info"}
-            StyledText {text: "Battery Info";}
+            StyledText {text: "Battery info";}
         }
         ColumnLayout {
             opacity: 0.8
             RowLayout {
                 MaterialSymbol{text: "percent"}
-                StyledText {text: "Battery Percentage: "}
+                StyledText {text: "Battery percentage: "}
                 StyledText {text: `${Math.round(Battery.percentage * 100)}%`}
             }
             RowLayout {

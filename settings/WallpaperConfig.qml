@@ -263,7 +263,7 @@ ColumnLayout {
         ]
 
         ConfigSlider {
-            text: "Transition duration"
+            text: "Transition Duration"
             buttonIcon: "transition_fade"
             //description: "Control how long it takes to switch the wallpaper"
             //liveUpdate: false
@@ -275,7 +275,7 @@ ColumnLayout {
         }
 
         ConfigSlider {
-            text: "Transition framerate"
+            text: "Transition Framerate"
             buttonIcon: "blur_linear"
             //description: ""
             //liveUpdate: false
@@ -287,7 +287,7 @@ ColumnLayout {
         }
 
         ConfigButtonGroup {
-            text: "Transition type"
+            text: "Transition Type"
             buttonIcon: "transition_chop"
             model: transition.transitionTypeModel
             currentValue: Config.options.appearance.transitionType

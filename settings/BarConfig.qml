@@ -10,9 +10,9 @@ ColumnLayout {
     spacing: 15
 
     ConfigGroup {
-        id: arrangementGroup
+        id: positionGroup
         icon: "responsive_layout"
-        title: "Arrangement"
+        title: "Position"
 
         readonly property var positionsModel: [
             { name: "Top",      value: "top",       icon: "top_panel_close" },
@@ -21,44 +21,48 @@ ColumnLayout {
             { name: "Right",    value: "right",     icon: "right_panel_close" },
         ]
 
-        ConfigButtonGroup {
-            id: globalArrangement
-            text: "Global (Default)"
-            buttonIcon: "globe"
-            model: arrangementGroup.positionsModel
-            currentValue: Config.options.bar.position
-            onChoiceSelected: (value) => Config.options.bar.position = value
-        }
-    }
-
-    ConfigGroup{
-        ConfigSwitch {
-            buttonIcon: "splitscreen"
-            text: "Per Display Position"
-            description: ""
-            checked: Config.options.bar.enablePerDisplayPosition
-            onCheckedChanged: {
-                Config.options.bar.enablePerDisplayPosition = checked;
+        ConfigGroup {
+            ConfigButtonGroup {
+                text: "Global (Default)"
+                buttonIcon: "globe"
+                model: positionGroup.positionsModel
+                currentValue: Config.options.bar.position
+                onChoiceSelected: (value) => Config.options.bar.position = value
             }
         }
-    }
 
-    ConfigGroup {
-        shouldShow: Config.options.bar.enablePerDisplayPosition
-        Repeater {
-            model: Display.activeScreens
+        ConfigGroup{
+            spacing: 0
 
-            ConfigButtonGroup {
-                id: displayArrangement
-                text: "Display: " + modelData
-                buttonIcon: info.backend === "backlight" ? "laptop_chromebook" : "monitor"
-                model: arrangementGroup.positionsModel
+            ConfigSwitch {
+                buttonIcon: "splitscreen"
+                text: "Enable Per Display Position"
+                description: ""
+                isMainToggle: true
+                checked: Config.options.bar.enablePerDisplayPosition
+                onCheckedChanged: {
+                    Config.options.bar.enablePerDisplayPosition = checked;
+                }
+            }
 
-                property string displayName: String(modelData)
-                readonly property var info: Display.displayInfo[displayName] || {}
+            ConfigGroup {
+                spacing: 0
+                shouldShow: Config.options.bar.enablePerDisplayPosition
+                Repeater {
+                    model: Display.activeScreens
 
-                currentValue: BarService.getPosition(displayArrangement.displayName)
-                onChoiceSelected: (value) => BarService.setPosition(displayArrangement.displayName, value)
+                    ConfigButtonGroup {
+                        text: "Display: " + modelData
+                        buttonIcon: info.backend === "backlight" ? "laptop_chromebook" : "monitor"
+                        model: positionGroup.positionsModel
+
+                        property string displayName: String(modelData)
+                        readonly property var info: Display.displayInfo[displayName] || {}
+
+                        currentValue: BarService.getPosition(displayName)
+                        onChoiceSelected: (value) => BarService.setPosition(displayName, value)
+                    }
+                }
             }
         }
     }
@@ -66,7 +70,7 @@ ColumnLayout {
     ConfigGroup { // Globbal Widgets Section
         id: globalWidgetGroup
         icon: "extension"
-        title: "Global Widgets"
+        title: "Widgets"
 
         property string selectedArea: "left"
 
@@ -144,16 +148,15 @@ ColumnLayout {
 
     ConfigGroup { // Per Display Widgets section
         id: displayWidgetGroup
-        icon: "extension"
-        title: "Per Display Widgets"
 
         property string selectedArea: "left"
         property string selectedDisplay: Display.activeScreens[0] || ""
 
         ConfigSwitch {
-            buttonIcon: ""
-            text: "Enable"
+            buttonIcon: "extension"
+            text: "Enable Per Display Widgets"
             description: ""
+            isMainToggle: true
             checked: Config.options.bar.enablePerDisplayWidgets
             onCheckedChanged: {
                 Config.options.bar.enablePerDisplayWidgets = checked;
@@ -253,16 +256,7 @@ ColumnLayout {
     ConfigGroup { // Main Section
         icon: "menu"
         title: "Main"
-        //ConfigSwitch {
-        //    buttonIcon: "screen_rotation_alt"
-        //    text: "Bar position"
-        //    description: "Switches the bar's position from top to bottom"
-        //    checked: Config.options.bar.bottom
-        //    onCheckedChanged: {
-        //        Config.options.bar.bottom = checked;
-        //        //console.log ("Bar: Bar bottom set to " + checked)
-        //    }
-        //}
+
         ConfigSwitch {
             buttonIcon: "visibility_off"
             text: "Auto-hide"
@@ -285,7 +279,7 @@ ColumnLayout {
         }
     }
 
-        ConfigGroup { // Chaos Button Section
+    ConfigGroup { // Chaos Button Section
         icon: Config.options.bar.chaosIcon
         title: "Chaos Button"
         ConfigTile {
@@ -328,12 +322,37 @@ ColumnLayout {
         }
     }
 
+    ConfigGroup{ // Clock Section
+        icon: "farsight_digital"
+        title: "Clock"
+        ConfigSwitch {
+            buttonIcon: "nest_clock_farsight_analog"
+            text: "Show Time"
+            description: "Disable this to hide your time information on the bar"
+            checked: Config.options.bar.showTime
+            onCheckedChanged: {
+                Config.options.bar.showTime = checked;
+                //console.log ("Bar: Time set to " + checked)
+            }
+        }
+        ConfigSwitch {
+            buttonIcon: "calendar_clock"
+            text: "Show Date"
+            description: "Display date beside clock, or alone if unavailable"
+            checked: Config.options.bar.showDate
+            onCheckedChanged: {
+                Config.options.bar.showDate = checked;
+                //console.log ("Bar: Date set to " + checked)
+            }
+        }
+    }
+
     ConfigGroup { // Active Window Section
         icon: "title"
         title: "Active Window Title"
         ConfigSwitch {
             buttonIcon: "image"
-            text: "Icon"
+            text: "Show Icon"
             description: "Display the focused app's icon"
             checked: Config.options.bar.showWindowIcon
             onCheckedChanged: {
@@ -342,7 +361,7 @@ ColumnLayout {
         }
         ConfigSwitch {
             buttonIcon: "text_format"
-            text: "Text"
+            text: "Show Text"
             description: "Display the focused window's title"
             checked: Config.options.bar.showWindowTitle
             onCheckedChanged: {
@@ -356,7 +375,7 @@ ColumnLayout {
         title: "Workspaces"
         ConfigSwitch {
             buttonIcon: "apps"
-            text: "App Icons"
+            text: "Show App Icons"
             description: "Display app icons inside the occupied workspace indicators"
             checked: Config.options.bar.workspaceIcons
             onCheckedChanged: {
@@ -365,7 +384,7 @@ ColumnLayout {
         }
         ConfigSlider {
             buttonIcon: "steppers"
-            text: "Minimum Per Monitor"
+            text: "Minimum Per Display"
             description: "Maximum number of workspace indicators to show per display"
             defaultValue: 3
             valueSuffix: ""
@@ -375,7 +394,7 @@ ColumnLayout {
         }
         ConfigSlider {
             buttonIcon: "page_control"
-            text: "Maximum Per Monitor"
+            text: "Maximum Per Display"
             description: "Maximum number of workspace indicators to show per display"
             defaultValue: 10
             valueSuffix: ""
@@ -386,38 +405,17 @@ ColumnLayout {
 
     }
 
-    ConfigGroup{ // Clock Section
-        icon: "farsight_digital"
-        title: "Date & Time"
-        ConfigSwitch {
-            buttonIcon: "nest_clock_farsight_analog"
-            text: "Time"
-            description: "Disable this to hide your time information on the bar"
-            checked: Config.options.bar.showTime
-            onCheckedChanged: {
-                Config.options.bar.showTime = checked;
-                //console.log ("Bar: Time set to " + checked)
-            }
-        }
-        ConfigSwitch {
-            buttonIcon: "calendar_clock"
-            text: "Date"
-            description: "Display date beside clock, or alone if unavailable"
-            checked: Config.options.bar.showDate
-            onCheckedChanged: {
-                Config.options.bar.showDate = checked;
-                //console.log ("Bar: Date set to " + checked)
-            }
-        }
-    }
 
     ConfigGroup{ // Media Section
         icon: "music_note"
         title: "Media Controller"
+        footer: "Automatically hidden when no media source is active"
+        footerIcon: "info"
         ConfigSwitch {
             buttonIcon: Config.options.bar.showMedia ? "visibility" : "visibility_off"
             text: Config.options.bar.showMedia ? "Enabled" : "Disabled"
-            description: "Display current media title and artist"
+            description: ""
+            isMainToggle: true
             checked: Config.options.bar.showMedia
             onCheckedChanged: {
                 Config.options.bar.showMedia = checked;
@@ -426,7 +424,7 @@ ColumnLayout {
         }
         ConfigSwitch {
             buttonIcon: "art_track"
-            text: "Cover art"
+            text: "Show Cover Art"
             description: "Display cover art from currently playing media"
             checked: Config.options.bar.showCoverArt
             onCheckedChanged: {
@@ -435,18 +433,8 @@ ColumnLayout {
             }
         }
         ConfigSwitch {
-            buttonIcon: "album"
-            text: "Artist name"
-            description: "Display artirst name under the title"
-            checked: Config.options.bar.showArtist
-            onCheckedChanged: {
-                Config.options.bar.showArtist = checked;
-                //console.log ("Bar: Media artist set to " + checked)
-            }
-        }
-        ConfigSwitch {
             buttonIcon: "play_arrow"
-            text: "Control"
+            text: "Show Control Button"
             description: "Enable Play/Pause button beside the metadata"
             checked: Config.options.bar.showMediaControl
             onCheckedChanged: {
@@ -456,12 +444,22 @@ ColumnLayout {
         }
         ConfigSwitch {
             buttonIcon: "text_ad"
-            text: "Text"
-            description: "Disable to keep cover art and/or control only"
+            text: "Show Text"
+            description: "(Automatically disabled on vertical bars) Disable to keep cover art and/or control only"
             checked: Config.options.bar.showMediaText
             onCheckedChanged: {
                 Config.options.bar.showMediaText = checked;
                 //console.log ("Bar: Media control set to " + checked)
+            }
+        }
+        ConfigSwitch {
+            buttonIcon: "album"
+            text: "Show Artist Name"
+            description: "Display artirst name under the title"
+            checked: Config.options.bar.showArtist
+            onCheckedChanged: {
+                Config.options.bar.showArtist = checked;
+                //console.log ("Bar: Media artist set to " + checked)
             }
         }
     }
@@ -471,7 +469,7 @@ ColumnLayout {
         title: "Control Center"
         ConfigSwitch {
             buttonIcon: "volume_up"
-            text: "Volume symbol"
+            text: "Always Show Volume Icon"
             description: "If disabled, shows when output is muted"
             checked: Config.options.bar.showSinkSymbol
             onCheckedChanged: {
@@ -484,6 +482,8 @@ ColumnLayout {
         shouldShow: Battery.available
         icon: "battery_android_full"
         title: "Battery"
+        footer: "This section only appears if you have a battery >:3"
+        footerIcon: "info"
         ConfigSwitch {
             buttonIcon: "percent"
             text: "Show Percentage"
@@ -516,6 +516,7 @@ ColumnLayout {
     ConfigGroup { // Just here as fluff
         icon: "dashboard"
         title: "Test"
+        footer: "idk why I haven't removed this section"
         ConfigSwitch { text: "Item 1"; description: "These do nothing, they're just here as fluff for testing and showcase" }
         ConfigSwitch { text: "Item 2" }
         ConfigSwitch { text: "Item 3" }

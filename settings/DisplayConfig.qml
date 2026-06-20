@@ -36,9 +36,34 @@ ColumnLayout {
         }
     }
 
+    ConfigGroup {
+        icon: "palette"
+        title: "Appearance"
+
+        ConfigSwitch {
+            buttonIcon: Config.options.appearance.light ? "brightness_7" : "moon_stars"
+            text: Config.options.appearance.light ? "Light Mode" : "Dark Mode"
+            checked: Config.options.appearance.light
+            onCheckedChanged: {
+                Config.options.appearance.light = checked;
+                //console.info ("Appearance: Light theme set to " + checked)
+                Theme.generate();
+            }
+        }
+        ConfigSwitch {
+            buttonIcon: "orbit"
+            text: "Show Display Corners"
+            checked: Config.options.appearance.showScreenRounding
+            onCheckedChanged: {
+                Config.options.appearance.showScreenRounding = checked;
+                //console.info ("Appearance: Screen rounding set to " + checked)
+            }
+        }
+    }
+
     ConfigGroup { // Visibility / Accessibility Section
         icon: "accessibility_new"
-        title: "Accessibility and Visibility"
+        title: "Accessibility and visibility"
 
         ConfigSlider {
             text: "Font Size"
@@ -79,35 +104,21 @@ ColumnLayout {
             value: Config.options.appearance.rounding
             onMoved: (newValue) => {Config.options.appearance.rounding = newValue;}
         }
-
-        ConfigSwitch {
-            buttonIcon: "orbit"
-            text: "Display Corners"
-            checked: Config.options.appearance.showScreenRounding
-            onCheckedChanged: {
-                Config.options.appearance.showScreenRounding = checked;
-                //console.info ("Appearance: Screen rounding set to " + checked)
-            }
-        }
-        ConfigSwitch {
-            buttonIcon: Config.options.appearance.light ? "brightness_7" : "moon_stars"
-            text: Config.options.appearance.light ? "Light Mode" : "Dark Mode"
-            checked: Config.options.appearance.light
-            onCheckedChanged: {
-                Config.options.appearance.light = checked;
-                //console.info ("Appearance: Light theme set to " + checked)
-                Theme.generate();
-            }
-        }
     }
 
     ConfigGroup { // OSD Section
         icon: "instant_mix"
-        title: "On-Screen Display"
+        title: "On-screen display"
+        description: "Show a bar indicating volume and brightness levels as they change."
+        descriptionIcon: ""
+        footer: "The OSD automatically fades away after a few seconds."
+        footerIcon: "info"
+
         ConfigSwitch {
             buttonIcon: "preview"
+            isMainToggle: true
             text: "Enable"
-            description: "Displays a bar on the screen indicating current volume and (soon) brightness levels when they are changed"
+            description: ""
             checked: Config.options.osd.enable
             onCheckedChanged: {
                 Config.options.osd.enable = checked;
@@ -117,7 +128,7 @@ ColumnLayout {
         ConfigSwitch {
             buttonIcon: "touch_long"
             text: "Enable Dragging"
-            description: "Allows for mouse and touch drag inputs on the bar"
+            description: "Allow mouse and touch drag inputs on the bar"
             checked: Config.options.osd.draggable
             onCheckedChanged: {
                 Config.options.osd.draggable = checked;
@@ -136,7 +147,7 @@ ColumnLayout {
         }
         ConfigSwitch {
             buttonIcon: "more_horiz"
-            text: "Dots"
+            text: "Show Dots"
             description: "Display dots inside the slider"
             checked: Config.options.osd.showDots
             onCheckedChanged: {
