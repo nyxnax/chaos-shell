@@ -37,7 +37,8 @@ Singleton {
             "matugen", "image", img,
             "-t", Config.options.appearance.scheme,
             "-m", Config.options.appearance.light ? "light" : "dark",
-            "--source-color-index", "1",
+            "--source-color-index", "0",
+            "--fallback-color", "#cd2a6c",
             "--verbose",
         ];
 
