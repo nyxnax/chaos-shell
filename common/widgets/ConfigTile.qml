@@ -14,11 +14,12 @@ ItemDelegate {
 
     property int position: 3 // 0: mid, 1: top, 2: bottom, 3: both
     property bool isFocused: true
+    property bool isMainToggle: false
     property int smallRadius: Appearance.rounding.unsharpen
     property int outerRadius: Appearance.rounding.normal
 
     Layout.fillWidth: true
-    implicitHeight: contentLayout.implicitHeight + 12 * 2
+    implicitHeight: contentLayout.implicitHeight + 12 * 2 + (isMainToggle ? 12 : 0)
     font.pixelSize: Appearance.font.pixelSize.large
     opacity: isFocused ? 1 : 0.6
 
@@ -30,10 +31,12 @@ ItemDelegate {
         bottomLeftRadius: (root.position === 2 || root.position === 3) ? outerRadius : smallRadius
         bottomRightRadius: (root.position === 2 || root.position === 3) ? outerRadius : smallRadius
 
-        color: {
-            if (root.down) return Appearance.colors.m3surfaceVariant;
-            if (root.hovered) return Appearance.colors.m3surfaceContainerHighest;
-            return Appearance.colors.m3surfaceContainerHigh;
+        color: {(root.down) ? Appearance.colors.m3surfaceVariant
+               : (root.hovered)
+               ? Appearance.colors.m3surfaceContainerHighest
+               : (isMainToggle)
+               ? Qt.darker(Appearance.colors.m3primaryContainer, 1.2)
+               : Appearance.colors.m3surfaceContainerHigh;
         }
 
         border.color: root.hovered ? Qt.alpha(Appearance.colors.m3primary, 0.35) : "transparent"

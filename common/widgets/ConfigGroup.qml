@@ -77,7 +77,6 @@ ColumnLayout {
         }
     }
 
-
     ColumnLayout {
         id: column
         spacing: 4
@@ -99,18 +98,30 @@ ColumnLayout {
                 }
             }
 
+            let virtualIndex = 0;
+
             for (let i = 0; i < items.length; i++) {
                 let child = items[i];
                 let isHovered = child.hasOwnProperty("hovered") && child.hovered;
                 let isPressed = child.hasOwnProperty("down") && child.down;
+                let isMainToggle = child.hasOwnProperty("isMainToggle") && child.isMainToggle;
 
                 if (!groupHasActiveHover) {child.isFocused = true;}
                 else {child.isFocused = (isHovered || isPressed);}
 
+                if (isMainToggle) {
+                    child.position = 3;
+                    virtualIndex = 0;
+                    child["Layout"]["topMargin"] = 6;
+                    child["Layout"]["bottomMargin"] = 6;
+                    continue;
+                }
+
                 if (isPressed || isHovered || items.length === 1) child.position = 3;  // Single
-                else if (i === 0) child.position = 1;                                  // Top
+                else if (virtualIndex === 0) child.position = 1;                       // Top
                 else if (i === items.length - 1) child.position = 2;                   // Bottom
                 else child.position = 0;                                               // Mid
+                virtualIndex++;
             }
         }
 
