@@ -34,7 +34,12 @@ ItemDelegate {
 
         border.color: root.hovered ? Qt.alpha(Appearance.colors.m3primary, 0.35) : "transparent"
         border.width: 3
-        Behavior on color { animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this) }
+
+        Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
+        Behavior on topLeftRadius {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
+        Behavior on bottomLeftRadius {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
+        Behavior on topRightRadius {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
+        Behavior on bottomRightRadius {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
     }
 
     contentItem: RowLayout {
