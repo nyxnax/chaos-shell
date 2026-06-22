@@ -7,6 +7,7 @@ import qs.services
 BarItem {
     id: root
     onClicked: Global.states.settingsOpen = !Global.states.settingsOpen
+    usePadding: true
 
     Item { // Input
         id: input
@@ -72,5 +73,73 @@ BarItem {
             anchors.centerIn: parent
             fill: 1
         }
+    }
+
+    RowLayout { // Download speed
+        id: downloadSpeed
+        spacing: 2
+        Layout.alignment: root.isVertical ? Qt.AlignHCenter : Qt.AlignVCenter
+        Layout.preferredWidth: shouldShow ? -1 : 0
+        Layout.preferredHeight: shouldShow ? -1 : 0
+
+        MaterialSymbol {
+            id: downloadSpeedIcon
+            text: "download"
+            iconSize: Appearance.font.pixelSize.larger
+            color: Network.downloadSpeedBytes > 1 ? Appearance.colors.m3primary : Appearance.colors.m3outline
+        }
+
+        StyledText {
+            visible: !root.isVertical && Config.options.bar.showNetworkSpeedText && downloadSpeed.shouldShow && (!Config.options.bar.showNetworkSpeedTextOnHover || root.hovered)
+            text: Network.downloadSpeedText ?? "0 B/s"
+            font.pixelSize: Appearance.font.pixelSize.small
+            color: Network.downloadSpeedBytes > 1 ? Appearance.colors.m3onSurface : Appearance.colors.m3outline
+        }
+
+        readonly property bool shouldShow: {
+            const isConnected = Network.status === "connected" || Network.wifiStatus === "connected";
+            const isEnabledInConfig = Config.options.bar.showDownloadSpeed;
+            const passesZeroCheck = Config.options.bar.hideNetworkSpeedWhenZero ? Network.downloadSpeedBytes > 0 : true;
+            const passesHoverCheck = Config.options.bar.showNetworkSpeedOnHover ? root.hovered : true;
+            return isConnected && isEnabledInConfig && passesZeroCheck && passesHoverCheck;
+        }
+
+        opacity: shouldShow ? 1 : 0
+        visible: opacity > 0
+        Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+    }
+
+    RowLayout { // Upload speed
+        id: uploadSpeed
+        spacing: 2
+        Layout.alignment: root.isVertical ? Qt.AlignHCenter : Qt.AlignVCenter
+        Layout.preferredWidth: shouldShow ? -1 : 0
+        Layout.preferredHeight: shouldShow ? -1 : 0
+
+        MaterialSymbol {
+            id: uploadSpeedIcon
+            text: "upload"
+            iconSize: Appearance.font.pixelSize.larger
+            color: Network.uploadSpeedBytes > 1 ? Appearance.colors.m3secondary : Appearance.colors.m3outline
+        }
+
+        StyledText {
+            visible: !root.isVertical && Config.options.bar.showNetworkSpeedText && uploadSpeed.shouldShow && (!Config.options.bar.showNetworkSpeedTextOnHover || root.hovered)
+            text: Network.uploadSpeedText ?? "0 B/s"
+            font.pixelSize: Appearance.font.pixelSize.small
+            color: Network.uploadSpeedBytes > 1 ? Appearance.colors.m3onSurface : Appearance.colors.m3outline
+        }
+
+        readonly property bool shouldShow: {
+            const isConnected = Network.status === "connected" || Network.wifiStatus === "connected";
+            const isEnabledInConfig = Config.options.bar.showUploadSpeed;
+            const passesZeroCheck = Config.options.bar.hideNetworkSpeedWhenZero ? Network.uploadSpeedBytes > 0 : true;
+            const passesHoverCheck = Config.options.bar.showNetworkSpeedOnHover ? root.hovered : true;
+            return isConnected && isEnabledInConfig && passesZeroCheck && passesHoverCheck;
+        }
+
+        opacity: shouldShow ? 1 : 0
+        visible: opacity > 0
+        Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
     }
 }

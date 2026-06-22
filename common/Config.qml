@@ -104,12 +104,17 @@ Singleton {
                 property string position: "top"
                 property bool enablePerDisplayPosition: true
                 property bool enablePerDisplayWidgets: true
+
+                property bool showBackground: true
                 property bool autoHide: false
+
                 property string chaosCommand: ""
                 property string chaosIcon: "apps"
                 property bool chaosAccent: true
+
                 property bool showDate: true
                 property bool showTime: true
+
                 property bool showWindowTitle: true
                 property bool showWindowIcon: true
 
@@ -122,8 +127,14 @@ Singleton {
                 property bool showMedia: true
                 property bool showMediaText: true
                 property bool showMediaControl: true
-                property bool showBackground: true
+
                 property bool showSinkSymbol: true
+                property bool showDownloadSpeed: true
+                property bool showUploadSpeed: true
+                property bool hideNetworkSpeedWhenZero: false
+                property bool showNetworkSpeedOnHover: true
+                property bool showNetworkSpeedText: true
+                property bool showNetworkSpeedTextOnHover: false
 
                 property bool showBatteryPercentage: true
                 property bool hideBatteryWhenPlugged: false

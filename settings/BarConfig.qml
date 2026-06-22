@@ -476,6 +476,62 @@ ColumnLayout {
                 Config.options.bar.showSinkSymbol = checked;
             }
         }
+        ConfigGroup {
+            ConfigSwitch {
+                buttonIcon: "download"
+                text: "Show Download Speed"
+                description: ""
+                checked: Config.options.bar.showDownloadSpeed
+                onCheckedChanged: {
+                    Config.options.bar.showDownloadSpeed = checked;
+                }
+            }
+            ConfigSwitch {
+                buttonIcon: "upload"
+                text: "Show Upload Speed"
+                description: ""
+                checked: Config.options.bar.showUploadSpeed
+                onCheckedChanged: {
+                    Config.options.bar.showUploadSpeed = checked;
+                }
+            }
+            ConfigSwitch {
+                buttonIcon: "hide"
+                text: (Config.options.bar.showDownloadSpeed && Config.options.bar.showUploadSpeed) ? "Hide Indicators when at 0 B/s" : "Hide Indicator when at 0 B/s"
+                description: ""
+                checked: Config.options.bar.hideNetworkSpeedWhenZero
+                onCheckedChanged: {
+                    Config.options.bar.hideNetworkSpeedWhenZero = checked;
+                }
+            }
+            ConfigSwitch {
+                buttonIcon: "highlight_mouse_cursor"
+                text: (Config.options.bar.showDownloadSpeed && Config.options.bar.showUploadSpeed) ? "Show Indicators on Hover" : "Show Indicator on Hover"
+                description: ""
+                checked: Config.options.bar.showNetworkSpeedOnHover
+                onCheckedChanged: {
+                    Config.options.bar.showNetworkSpeedOnHover = checked;
+                }
+            }
+            ConfigSwitch {
+                buttonIcon: "123"
+                text: "Show Speed Value"
+                description: ""
+                checked: Config.options.bar.showNetworkSpeedText
+                onCheckedChanged: {
+                    Config.options.bar.showNetworkSpeedText = checked;
+                }
+            }
+            ConfigSwitch {
+                buttonIcon: "arrow_selector_tool"
+                text: "Show Speed Value On Hover"
+                description: ""
+                checked: Config.options.bar.showNetworkSpeedTextOnHover
+                onCheckedChanged: {
+                    Config.options.bar.showNetworkSpeedTextOnHover = checked;
+                }
+            }
+        }
     }
 
     ConfigGroup { // Battery Section

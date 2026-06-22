@@ -6,7 +6,7 @@ import Quickshell.Io
 import QtQuick
 import qs.services.network
 
-// Credit: caelestia and end-4 (GPLv3)
+// Credit: modified from caelestia and end-4 (GPLv3)
 
 Singleton {
     id: root
@@ -49,6 +49,20 @@ Singleton {
                     : (root.wifiStatus === "disabled")
                         ? "android_wifi_3_bar_question"
                         : "cloud_off"
+
+    property int downloadSpeedBytes: 0
+    property int uploadSpeedBytes: 0
+    readonly property string downloadSpeedText: formatBytesPerSecond(downloadSpeedBytes)
+    readonly property string uploadSpeedText: formatBytesPerSecond(uploadSpeedBytes)
+    property var _lastNetworkStats: ({})
+
+    function formatBytesPerSecond(bytes) {
+        if (bytes < 1024) return bytes + " B/s";
+        let kib = bytes / 1024;
+        if (kib < 1024) return kib.toFixed(1) + " KiB/s";
+        let mib = kib / 1024;
+        return mib.toFixed(1) + " MiB/s";
+    }
 
     // Control
     function enableWifi(enabled = true): void {
@@ -319,6 +333,55 @@ Singleton {
                 }
             }
         }
+    }
+
+    Process {
+        id: speedMonitorProc
+        command: ["cat", "/proc/net/dev"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const lines = text.trim().split("\n");
+                let totalRx = 0;
+                let totalTx = 0;
+
+                for (let i = 2; i < lines.length; i++) {
+                    let line = lines[i].trim();
+                    if (!line) continue;
+
+                    let parts = line.split(/:\s+/);
+                    if (parts.length < 2) continue;
+
+                    let iface = parts[0].trim();
+                    if (iface === "lo") continue;
+
+                    let stats = parts[1].trim().split(/\s+/);
+                    let rxBytes = parseInt(stats[0]);
+                    let txBytes = parseInt(stats[8]);
+
+                    if (!isNaN(rxBytes)) totalRx += rxBytes;
+                    if (!isNaN(txBytes)) totalTx += txBytes;
+                }
+
+                if (root._lastNetworkStats.rx !== undefined) {
+                    let intervalSec = speedTicker.interval / 1000;
+                    let rxDelta = totalRx - root._lastNetworkStats.rx;
+                    let txDelta = totalTx - root._lastNetworkStats.tx;
+
+                    root.downloadSpeedBytes = rxDelta > 0 ? Math.round(rxDelta / intervalSec) : 0;
+                    root.uploadSpeedBytes = txDelta > 0 ? Math.round(txDelta / intervalSec) : 0;
+                }
+
+                root._lastNetworkStats = { rx: totalRx, tx: totalTx };
+            }
+        }
+    }
+
+    Timer {
+        id: speedTicker
+        interval: 1000
+        running: root.wifiStatus === "connected" || root.ethernet
+        repeat: true
+        onTriggered: speedMonitorProc.running = true
     }
 
     Component {
