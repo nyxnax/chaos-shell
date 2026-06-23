@@ -29,28 +29,62 @@ BarItem {
         opacity: shouldShow ? 1 : 0
         visible: opacity > 0
         Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
-        }
+    }
 
-    Item { // Output
+    RowLayout { // Output
         id: output
-        implicitHeight: root.cellSize
-        implicitWidth: root.cellSize - 5
-        Layout.alignment: Qt.AlignCenter
+        spacing: 2
+        Layout.alignment: root.isVertical ? Qt.AlignHCenter : Qt.AlignVCenter
+
+        property bool timeoutActive: false
+
+        Connections {
+            target: Audio
+            function onValueChanged() {
+                output.timeoutActive = true
+                sinkPercentTimeout.restart()
+            }
+        }
 
         MaterialSymbol {
             id: outputIcon
             text: Audio.sinkMaterialSymbol
             iconSize: Appearance.font.pixelSize.larger
-            anchors.centerIn: parent
+            color: (!Audio.sink?.audio?.muted && Math.round(Audio.value * 100) > 0) ? Appearance.colors.m3onSurface : Appearance.colors.m3outline
             fill: 1
             animateChange: true
+
+            readonly property bool shouldShow: (Config.options.bar.showSinkSymbol || (Config.options.bar.showSinkOnVolumeChanged && output.timeoutActive)) ? true : (Audio.sink?.audio?.muted ?? false)
+            opacity: shouldShow ? 1 : 0
+            visible: opacity > 0
+            Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+
         }
 
-        readonly property bool shouldShow: Config.options.bar.showSinkSymbol ? true : (Audio.sink?.audio?.muted ?? false)
-        opacity: shouldShow ? 1 : 0
-        visible: opacity > 0
-        Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+        StyledText {
+            id: sinkPercent
+            Layout.preferredWidth: shouldShow ? -1 : 0
+            Layout.preferredHeight: shouldShow ? -1 : 0
+            text: Math.round(Audio.value * 100) + "%"
+            font.pixelSize: Appearance.font.pixelSize.small
+            color: (!Audio.sink?.audio?.muted && Math.round(Audio.value * 100) > 0) ? Appearance.colors.m3onSurface : Appearance.colors.m3outline
+
+            readonly property bool shouldShow: !root.isVertical && Config.options.bar.showSinkPercent && ((Config.options.bar.showSinkPercentOnHover ? root.hovered : true) || (Config.options.bar.showSinkOnVolumeChanged && output.timeoutActive));
+            opacity: shouldShow ? 1 : 0
+            visible: opacity > 0
+            Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+        }
+
+        Timer {
+            id: sinkPercentTimeout
+            interval: 3000
+            repeat: false
+            onTriggered: {
+                output.timeoutActive = false;
+            }
+        }
     }
+
 
     Item { // Network
         id: network

@@ -129,6 +129,9 @@ Singleton {
                 property bool showMediaControl: true
 
                 property bool showSinkSymbol: true
+                property bool showSinkOnVolumeChanged: true
+                property bool showSinkPercent: true
+                property bool showSinkPercentOnHover: true
                 property bool showDownloadSpeed: true
                 property bool showUploadSpeed: true
                 property bool hideNetworkSpeedWhenZero: false

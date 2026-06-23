@@ -467,13 +467,42 @@ ColumnLayout {
     ConfigGroup{ // Control Center Section
         icon: "wifi"
         title: "Control Center"
-        ConfigSwitch {
-            buttonIcon: "volume_up"
-            text: "Always Show Volume Icon"
-            description: "If disabled, shows when output is muted"
-            checked: Config.options.bar.showSinkSymbol
-            onCheckedChanged: {
-                Config.options.bar.showSinkSymbol = checked;
+        ConfigGroup {
+            ConfigSwitch {
+                buttonIcon: "volume_up"
+                text: "Always Show Volume Icon"
+                description: "If disabled, shows when output is muted"
+                checked: Config.options.bar.showSinkSymbol
+                onCheckedChanged: {
+                    Config.options.bar.showSinkSymbol = checked;
+                }
+            }
+            ConfigSwitch {
+                buttonIcon: "waves"
+                text: "Show When Volume Changed"
+                description: ""
+                checked: Config.options.bar.showSinkOnVolumeChanged
+                onCheckedChanged: {
+                    Config.options.bar.showSinkOnVolumeChanged = checked;
+                }
+            }
+            ConfigSwitch {
+                buttonIcon: "percent"
+                text: "Show Percentage"
+                description: ""
+                checked: Config.options.bar.showSinkPercent
+                onCheckedChanged: {
+                    Config.options.bar.showSinkPercent = checked;
+                }
+            }
+            ConfigSwitch {
+                buttonIcon: "highlight_mouse_cursor"
+                text: "Show Percentage on Hover"
+                description: ""
+                checked: Config.options.bar.showSinkPercentOnHover
+                onCheckedChanged: {
+                    Config.options.bar.showSinkPercentOnHover = checked;
+                }
             }
         }
         ConfigGroup {
