@@ -38,6 +38,20 @@ BarItem {
 
         property bool timeoutActive: false
 
+        WheelHandler {
+            id: volumeWheelHandler
+            acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+            orientation: Qt.Vertical
+            onWheel: (event) => {
+                if (event.angleDelta.y > 0) {
+                    Audio.incrementVolume()
+                    if (Audio.sink?.audio?.muted) Audio.sink.audio.muted = false
+                } else {
+                    Audio.decrementVolume()
+                }
+            }
+        }
+
         Connections {
             target: Audio
             function onValueChanged() {
