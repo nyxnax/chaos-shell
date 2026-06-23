@@ -48,6 +48,8 @@ BarItem {
 
         MaterialSymbol {
             id: outputIcon
+            Layout.preferredWidth: shouldShow ? -1 : 0
+            Layout.preferredHeight: shouldShow ? -1 : 0
             text: Audio.sinkMaterialSymbol
             iconSize: Appearance.font.pixelSize.larger
             color: (!Audio.sink?.audio?.muted && Math.round(Audio.value * 100) > 0) ? Appearance.colors.m3onSurface : Appearance.colors.m3outline
@@ -69,7 +71,10 @@ BarItem {
             font.pixelSize: Appearance.font.pixelSize.small
             color: (!Audio.sink?.audio?.muted && Math.round(Audio.value * 100) > 0) ? Appearance.colors.m3onSurface : Appearance.colors.m3outline
 
-            readonly property bool shouldShow: !root.isVertical && Config.options.bar.showSinkPercent && ((Config.options.bar.showSinkPercentOnHover ? root.hovered : true) || (Config.options.bar.showSinkOnVolumeChanged && output.timeoutActive));
+            readonly property bool shouldShow: !root.isVertical && Config.options.bar.showSinkPercent
+                                                && ((Config.options.bar.showSinkPercentOnHover && root.hovered)
+                                                || (Config.options.bar.showSinkOnVolumeChanged && output.timeoutActive)
+                                                || (!Config.options.bar.showSinkPercentOnHover && !Config.options.bar.showSinkOnVolumeChanged))
             opacity: shouldShow ? 1 : 0
             visible: opacity > 0
             Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
