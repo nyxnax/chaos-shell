@@ -9,7 +9,7 @@ import Qt5Compat.GraphicalEffects
 BarItem {
     id: root
 
-    readonly property bool isShown: MediaService.hasMedia && Config.options.bar.showMedia
+    readonly property bool isShown:  (MediaService.activePlayer !== null) && Config.options.bar.showMedia
     opacity: isShown ? 1 : 0
     visible: opacity > 0
 
@@ -26,7 +26,7 @@ BarItem {
             color: Appearance.colors.m3surfaceVariant
             clip: true
 
-            readonly property bool isShown: MediaService.trackArtUrl !== "" && Config.options.bar.showCoverArt
+            readonly property bool isShown: Config.options.bar.showCoverArt
             visible: opacity > 0
             opacity: isShown ? 1 : 0
             scale: isShown ? 1 : 0.7
@@ -37,7 +37,9 @@ BarItem {
             Image {
                 id: coverArt
                 anchors.fill: parent
-                source: MediaService.trackArtUrl
+                source: MediaService.activeTrack?.artUrl
+                sourceSize.height: 50
+                sourceSize.width: 50
                 fillMode: Image.PreserveAspectCrop
                 asynchronous: true
                 mipmap: true // Makes it look smooth when scaled down to 32x32
@@ -51,12 +53,31 @@ BarItem {
                     }
                 }
 
-                Behavior on source {
-                    NumberAnimation {
-                        duration: Appearance.animation.elementMoveFast.duration
-                        easing.type: Appearance.animation.elementMoveFast.type
-                        easing.bezierCurve: Appearance.animation.elementMoveFast.bezierCurve
+                opacity: 1
+
+                onSourceChanged: {
+                    fadeAnimation.stop();
+                    coverArt.opacity = 0;
+                    if (status === Image.Ready) {
+                        fadeAnimation.start();
                     }
+                }
+
+                onStatusChanged: {
+                    if (status === Image.Ready) {
+                        fadeAnimation.restart();
+                    } else if (status === Image.Loading || status === Image.Null) {
+                        fadeAnimation.stop();
+                        coverArt.opacity = 0;
+                    }
+                }
+
+                NumberAnimation on opacity {
+                    id: fadeAnimation
+                    from: 0
+                    to: 1
+                    duration: Appearance.animation.elementMoveFast.duration
+                    easing.type: Appearance.animation.elementMoveFast.type
                 }
             }
         }
@@ -92,7 +113,7 @@ BarItem {
                 id: buttonArea
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
-                onClicked: MediaService.togglePlayPause()
+                onClicked: MediaService.togglePlaying()
             }
         }
 
@@ -121,7 +142,7 @@ BarItem {
 
                 StyledText {
                     id: titleText
-                    text: MediaService.trackTitle
+                    text: MediaService.activeTrack?.title
                     color: Appearance.colors.m3onBackground
                     font.pixelSize: artistContainer.visible ? Appearance.font.pixelSize.smaller : Appearance.font.pixelSize.normal
                     font.weight: 500
@@ -165,12 +186,12 @@ BarItem {
                 Layout.preferredWidth: artistText.implicitWidth
                 Layout.preferredHeight: artistText.implicitHeight
                 clip: true
-                visible: Config.options.bar.showArtist && MediaService.trackArtist
+                visible: Config.options.bar.showArtist && MediaService.activeTrack?.artist !== null
                 onWidthChanged: artistText.checkScroll()
 
                 StyledText {
                     id: artistText
-                    text: MediaService.trackArtist
+                    text: MediaService.activeTrack?.artist
                     color: Appearance.colors.m3outline
                     font.pixelSize: Appearance.font.pixelSize.smallest
                     font.weight: 400
