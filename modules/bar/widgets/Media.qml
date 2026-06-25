@@ -98,7 +98,7 @@ BarItem {
             color: MediaService.isPlaying ? Appearance.colors.m3surfaceVariant : Appearance.colors.m3secondaryContainer
             scale: buttonArea.pressed ? 0.9 : (MediaService.isPlaying ? 1.0 : 0.95)
             Behavior on radius {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
-            Behavior on color {animation: Appearance.animation.elementMove.colorAnimation.createObject(this)}
+            Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
             Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)}
             Behavior on opacity {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
