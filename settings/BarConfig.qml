@@ -471,7 +471,7 @@ ColumnLayout {
             ConfigSwitch {
                 buttonIcon: "volume_up"
                 text: "Always Show Volume Icon"
-                description: "If disabled, shows when output is muted"
+                description: "When turned off, the icon stays hidden unless output is muted"
                 checked: Config.options.bar.showSinkSymbol
                 onCheckedChanged: {
                     Config.options.bar.showSinkSymbol = checked;
@@ -480,7 +480,7 @@ ColumnLayout {
             ConfigSwitch {
                 buttonIcon: "waves"
                 text: "Show When Volume Changed"
-                description: ""
+                description: "Only show for 3 seconds when output volume is changed"
                 checked: Config.options.bar.showSinkOnVolumeChanged
                 onCheckedChanged: {
                     Config.options.bar.showSinkOnVolumeChanged = checked;
