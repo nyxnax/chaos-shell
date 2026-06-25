@@ -146,6 +146,8 @@ BarItem {
                     color: Appearance.colors.m3onBackground
                     font.pixelSize: artistContainer.visible ? Appearance.font.pixelSize.smaller : Appearance.font.pixelSize.normal
                     font.weight: 500
+                    animateChange: true
+
                     onTextChanged: checkScroll()
                     onImplicitWidthChanged: checkScroll()
 
@@ -195,7 +197,7 @@ BarItem {
                     color: Appearance.colors.m3outline
                     font.pixelSize: Appearance.font.pixelSize.smallest
                     font.weight: 400
-
+                    animateChange: true
 
                     onTextChanged: checkScroll()
                     onImplicitWidthChanged: checkScroll()
