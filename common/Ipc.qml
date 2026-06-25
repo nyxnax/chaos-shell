@@ -54,6 +54,14 @@ Scope {
     }
 
     IpcHandler {
+		target: "media"
+
+		function playPause(): void {MediaService.togglePlaying();}
+		function previous(): void {MediaService.previous();}
+		function next(): void {MediaService.next();}
+	}
+
+    IpcHandler {
         target: "theme"
 
         function toggle() {
