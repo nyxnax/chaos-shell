@@ -34,6 +34,12 @@ BarItem {
             Behavior on opacity {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
             Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this) }
 
+            MaterialSymbol {
+                anchors.centerIn: parent
+                text: "album"
+                font.pixelSize: Appearance.font.pixelSize.larger
+            }
+
             Image {
                 id: coverArt
                 anchors.fill: parent
