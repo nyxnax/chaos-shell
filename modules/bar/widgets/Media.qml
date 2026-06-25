@@ -9,8 +9,8 @@ import Qt5Compat.GraphicalEffects
 BarItem {
     id: root
 
-    readonly property bool isShown:  (MediaService.activePlayer !== null) && Config.options.bar.showMedia
-    opacity: isShown ? 1 : 0
+    readonly property bool shouldShow:  (MediaService.activePlayer !== null) && Config.options.bar.showMedia
+    opacity: shouldShow ? 1 : 0
     visible: opacity > 0
 
     GridLayout {
@@ -26,13 +26,13 @@ BarItem {
             color: Appearance.colors.m3surfaceVariant
             clip: true
 
-            readonly property bool isShown: Config.options.bar.showCoverArt
+            readonly property bool shouldShow: Config.options.bar.showCoverArt
             visible: opacity > 0
-            opacity: isShown ? 1 : 0
-            scale: isShown ? 1 : 0.7
+            opacity: shouldShow ? 1 : 0
+            scale: shouldShow ? 1 : 0.7
 
-            Behavior on opacity {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
-            Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this) }
+            Behavior on opacity {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
+            Behavior on scale {animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
 
             MaterialSymbol {
                 anchors.centerIn: parent
@@ -97,10 +97,10 @@ BarItem {
             radius: MediaService.isPlaying ? 8 : 15
             color: MediaService.isPlaying ? Appearance.colors.m3surfaceVariant : Appearance.colors.m3secondaryContainer
             scale: buttonArea.pressed ? 0.9 : (MediaService.isPlaying ? 1.0 : 0.95)
-            Behavior on radius {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
-            Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
+            Behavior on radius {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
+            Behavior on color {animation: Appearance.animation.elementMove.colorAnimation.createObject(this)}
             Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)}
-            Behavior on opacity {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)}
+            Behavior on opacity {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
             clip: true
 
@@ -125,10 +125,10 @@ BarItem {
 
         // Text Display with Marquee Scrolling
         ColumnLayout {
-            readonly property bool isShown: Config.options.bar.showMediaText && !isVertical
-            opacity: isShown ? 1 : 0
+            readonly property bool shouldShow: Config.options.bar.showMediaText && !isVertical
+            opacity: shouldShow ? 1 : 0
             visible: opacity > 0
-            Behavior on opacity {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)}
+            Behavior on opacity { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
 
             spacing: -2
             Layout.maximumWidth: 200
