@@ -6,9 +6,13 @@ import qs.services
 
 BarItem {
     id: root
-    visible: time.isShown || date.isShown
     enabled: false
     usePadding: true
+
+    property bool shouldShow: time.shouldShow || date.shouldShow || verticalTime.shouldShow || verticalDate.shouldShow
+    visible: opacity > 0
+    opacity: shouldShow ? 1 : 0
+    scale: shouldShow ? 1 : 0.7
 
     RowLayout { // Horozontal
         visible: !isVertical
@@ -19,13 +23,13 @@ BarItem {
             font.weight: 700
             animateChange: true
 
-            property bool isShown: Config.options.bar.showTime
+            property bool shouldShow: Config.options.bar.showTime
             visible: opacity > 0
-            opacity: isShown ? 1 : 0
-            scale: isShown ? 1 : 0.7
+            opacity: shouldShow ? 1 : 0
+            scale: shouldShow ? 1 : 0.7
 
-            Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
-            Behavior on scale   { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+            Behavior on opacity { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
+            Behavior on scale   { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
 
         }
 
@@ -35,13 +39,13 @@ BarItem {
             font.weight: 400
             animateChange: true
 
-            property bool isShown: Config.options.bar.showDate
+            property bool shouldShow: Config.options.bar.showDate
             visible: opacity > 0
-            opacity: isShown ? 0.7 : 0
-            scale: isShown ? 1 : 0.7
+            opacity: shouldShow ? 0.7 : 0
+            scale: shouldShow ? 1 : 0.7
 
-            Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
-            Behavior on scale   { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+            Behavior on opacity { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
+            Behavior on scale   { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
         }
     }
 
@@ -49,21 +53,64 @@ BarItem {
         visible: isVertical
         spacing: 0
 
-        StyledText {
-            visible: isVertical
-            text: Time.hour
-            font.weight: 800
-            horizontalAlignment: Text.AlignHCenter
-            Layout.alignment: Qt.AlignHCenter
+        ColumnLayout { // Time
+            id: verticalTime
+            spacing: -4
+
+            property bool shouldShow: Config.options.bar.showTime
+            visible: opacity > 0
+            opacity: shouldShow ? 0.7 : 0
+            scale: shouldShow ? 1 : 0.7
+
+            Behavior on opacity { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
+            Behavior on scale   { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
+
+            StyledText {
+                text: Time.hour
+                font.weight: 800
+                horizontalAlignment: Text.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter
+                animateChange: true
+            }
+
+            StyledText {
+                text: Time.minute
+                font.weight: 800
+                horizontalAlignment: Text.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter
+                animateChange: true
+            }
         }
 
-        StyledText {
-            visible: isVertical
-            text: Time.minute
-            font.weight: 800
-            opacity: 0.8
-            horizontalAlignment: Text.AlignHCenter
-            Layout.alignment: Qt.AlignHCenter
+        ColumnLayout { // Date
+            id: verticalDate
+            spacing: -4
+
+            property bool shouldShow: Config.options.bar.showDate
+            visible: opacity > 0
+            opacity: shouldShow ? 0.7 : 0
+            scale: shouldShow ? 1 : 0.7
+
+            Behavior on opacity { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
+            Behavior on scale   { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
+
+            StyledText {
+                text: Time.day
+                font.weight: 500
+                opacity: 0.8
+                horizontalAlignment: Text.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter
+                animateChange: true
+            }
+
+            StyledText {
+                text: Time.month
+                font.weight: 500
+                opacity: 0.8
+                horizontalAlignment: Text.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter
+                animateChange: true
+            }
         }
     }
 }
