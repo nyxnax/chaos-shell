@@ -34,6 +34,8 @@ Item {
                 id: osdSlider
                 from: 0; to: 1; segments: Config.options.osd.showDots ? 20 : 0;
                 thick: true
+                hideFirstDots: true
+                hideFilledDots: true
                 anchors.centerIn: parent
                 width: parent.width - 25
                 height: parent.height - 30
@@ -67,8 +69,8 @@ Item {
                     font.pixelSize: Appearance.font.pixelSize.large
                     font.weight: 700
                     color: (osdSlider.visualPosition * osdSlider.width) > (osdSlider.width - 39)
-                           ? Qt.alpha (Appearance.colors.m3onPrimary, 0)
-                           : Qt.alpha (Appearance.colors.m3onSurfaceVariant, 1)
+                           ? "transparent"
+                           : Appearance.colors.m3onSecondaryContainer
                     Behavior on color { animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this) }
                 }
                 Rectangle {
@@ -77,8 +79,8 @@ Item {
                     width: height
                     radius: height / 2
                     color: (osdSlider.visualPosition * osdSlider.width) > (osdSlider.width - 20)
-                           ? Qt.alpha (Appearance.colors.m3onPrimary, 0)
-                           : Qt.alpha (Appearance.colors.m3onSurfaceVariant, 1)
+                           ? "transparent"
+                           : Appearance.colors.m3onSecondaryContainer
                     Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
                 }
             }

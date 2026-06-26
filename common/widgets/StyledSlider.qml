@@ -6,16 +6,18 @@ import qs.common
 import Qt5Compat.GraphicalEffects
 
 // Material Design 3 style Slider
-
 Slider {
     id: root
 
     property bool thick: false
     property bool showDots: true
+    property bool hideFilledDots: false
+    property bool hideFirstDots: false
     property int segments
     property color backgroundColor: Appearance.colors.m3background
     property color trackColor: Appearance.colors.m3secondaryContainer
     property color fillColor: Appearance.colors.m3primary
+    property int gapSize: 6
 
     from: 0
     to: 1
@@ -33,16 +35,6 @@ Slider {
         width: root.pressed ? 2 : 4
         height: 44
         Behavior on width {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
-        Behavior on x {enabled: !root.pressed; animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
-
-        Rectangle { // Handle border
-            id: gapBorder
-            anchors.centerIn: parent
-            width: parent.width + 12
-            height: parent.height + 4
-            radius: 6
-            color: root.backgroundColor
-        }
 
         Rectangle { // Handle
             id: handlePill
@@ -52,51 +44,61 @@ Slider {
         }
     }
 
-    background: Rectangle { // Background track
-        id: track
-        x: root.leftPadding
-        y: root.topPadding + (root.availableHeight - height) / 2
-        implicitHeight: root.thick ? (root.pressed ? 40: 34) : (root.pressed ? 24 : 16)
-        width: root.availableWidth
+    background: Item {
+        id: trackContainer
+        anchors.verticalCenter: parent.verticalCenter
+        width: root.width
+        implicitHeight: root.thick ? (root.pressed ? 40 : 34) : (root.pressed ? 24 : 16)
         height: implicitHeight
-        radius: 8
-        color: root.trackColor
+
         Behavior on implicitHeight {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
         readonly property int dotCount: (root.stepSize > 0) ? Math.round((root.to - root.from) / root.stepSize) + 1 : 0
+        readonly property real midPointX: handleContainer.x + (handleContainer.width / 2)
 
-        Item { // Progress fill
-            id: fillContainer
-            anchors.fill: parent
-            visible: false
-            Rectangle {
-                id: fill
-                height: parent.height
-                width: Math.max(0, (root.visualPosition * parent.width) - 6)
-                color: Appearance.colors.m3primary
-                radius: 2
-                Behavior on width {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
-            }
+        Rectangle { // Filled Track Segment
+            id: leftFillTrack
+            x: 0
+            anchors.verticalCenter: parent.verticalCenter
+            width: Math.max(0, trackContainer.midPointX - root.gapSize)
+            height: parent.height
+            color: root.fillColor
+
+            topLeftRadius: 8
+            topRightRadius: 2
+            bottomLeftRadius: 8
+            bottomRightRadius: 2
         }
 
-        Rectangle {id: barMask; anchors.fill: parent; radius: track.radius; visible: false; layer.enabled: true}
-        OpacityMask {anchors.fill: parent; source: fillContainer; maskSource: barMask}
+        Rectangle { // Background / Empty Track Segment
+            id: rightEmptyTrack
+            x: trackContainer.midPointX + root.gapSize
+            anchors.verticalCenter: parent.verticalCenter
+            width: Math.max(0, parent.width - x)
+            height: parent.height
+            color: root.trackColor
+
+            topLeftRadius: 2
+            topRightRadius: 8
+            bottomRightRadius: 8
+            bottomLeftRadius: 2
+        }
 
         Repeater { // Stop indicators
-            model: (root.stepSize > 0) ? Math.round((root.to - root.from) / root.stepSize) + 1 : 0
+            model: trackContainer.dotCount
             delegate: Rectangle {
-                x: (track.dotCount > 1) ? (index * (track.width / (track.dotCount - 1))) - (width / 2) : 0
+                x: (trackContainer.dotCount > 1) ? (root.leftPadding + (index * (root.availableWidth / (trackContainer.dotCount - 1)))) - (width / 2) : 0
                 anchors.verticalCenter: parent.verticalCenter
                 width: 4
                 height: 4
                 radius: 2
-                visible: index > 0 && index < (track.dotCount - 1)
-                color: (root.from + (index * root.stepSize)) <= (root.value + 0.001)
-                       ? root.fillColor
-                       : Appearance.colors.m3onSecondaryContainer
+                visible: index > (root.hideFirstDots ? 3 : 0) && index < (trackContainer.dotCount - 1)
 
-                opacity: 0.6
-                Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
+                readonly property bool isFilled: (root.from + (index * root.stepSize)) <= (root.value + 0.001)
+
+                color: isFilled
+                       ? (root.hideFilledDots ? "transparent" : Appearance.colors.m3onPrimary)
+                       : Appearance.colors.m3onSecondaryContainer
             }
         }
     }
