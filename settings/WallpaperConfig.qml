@@ -240,8 +240,8 @@ ColumnLayout {
         ]
 
         ConfigButtonGroup {
-            text: "Color Scheme"
-            buttonIcon: "colors"
+            text: "Colors"
+            buttonIcon: "palette"
             model: scheme.schemeModel
             currentValue: Config.options.appearance.scheme
             onChoiceSelected: (value) => {
@@ -264,7 +264,7 @@ ColumnLayout {
 
         ConfigSlider {
             text: "Transition Duration"
-            buttonIcon: "transition_fade"
+            buttonIcon: "timer"
             //description: "Control how long it takes to switch the wallpaper"
             //liveUpdate: false
             defaultValue: 1
@@ -276,12 +276,12 @@ ColumnLayout {
 
         ConfigSlider {
             text: "Transition Framerate"
-            buttonIcon: "blur_linear"
+            buttonIcon: "shutter_speed"
             //description: ""
             //liveUpdate: false
             defaultValue: 120
             valueSuffix: "fps"
-            from: 20; to: 240; stepSize: 10
+            from: 30; to: 240; stepSize: 30
             value: Config.options.appearance.transitionFPS
             onMoved: (newValue) => {Config.options.appearance.transitionFPS = newValue;}
         }
