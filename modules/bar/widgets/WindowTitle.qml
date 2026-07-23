@@ -44,10 +44,12 @@ BarItem {
                 anchors.fill: appIcon
                 source: appIcon
                 visible: appIcon.visible
-                opacity: 0.4
 
                 colorization: 1.0
-                colorizationColor: Appearance.colors.m3onSurfaceVariant
+                colorizationColor: {
+                    let c = Appearance.colors.m3primaryContainer;
+                    return Qt.hsla(c.hslHue, c.hslSaturation, 0.8, c.a);
+                }
             }
         }
 
