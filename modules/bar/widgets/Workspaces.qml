@@ -131,7 +131,7 @@ BarItem {
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
-                onClicked: Hyprland.dispatch(`workspace ${wsId}`)
+                onClicked: ws.activate();
             }
         }
     }
