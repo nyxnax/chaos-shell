@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
@@ -7,7 +8,6 @@ import qs.services
 import qs.common
 import qs.common.widgets
 import qs.common.functions
-import Qt5Compat.GraphicalEffects
 
 BarItem {
     id: root
@@ -38,13 +38,16 @@ BarItem {
                 anchors.fill: parent
                 source: mainAppIconSource
                 visible: status === Image.Ready
+            }
 
-                ColorOverlay {
-                    anchors.fill: appIcon
-                    source: appIcon
-                    color: Appearance.colors.m3onSurfaceVariant
-                    opacity: 0.4
-                }
+            MultiEffect {
+                anchors.fill: appIcon
+                source: appIcon
+                visible: appIcon.visible
+                opacity: 0.4
+
+                colorization: 1.0
+                colorizationColor: Appearance.colors.m3onSurfaceVariant
             }
         }
 
