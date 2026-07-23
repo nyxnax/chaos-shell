@@ -74,23 +74,69 @@ ColumnLayout {
         visible: Battery.available
         title: "Battery"
         icon: "battery_android_full"
-        ConfigSwitch{
-            buttonIcon: "ear_sound"
-            text: "Sounds"
-            description: "Enable sounds related to power and battery (Plugged, unplugged, low, critical)"
-            checked: Config.options.battery.sounds
-            onCheckedChanged: {
-                Config.options.battery.sounds = checked;
+        ConfigGroup {
+            ConfigSwitch{
+                buttonIcon: "ear_sound"
+                text: "Sounds"
+                description: "Enable sounds related to power and battery (Plugged, unplugged, low, critical)"
+                checked: Config.options.battery.sounds
+                onCheckedChanged: {
+                    Config.options.battery.sounds = checked;
+                }
+            }
+            ConfigSwitch{
+                buttonIcon: "power_off"
+                text: "Automatic Suspend"
+                description: "Suspend system when at very low battery to avoid losing progress"
+                checked: Config.options.battery.automaticSuspend
+                onCheckedChanged: {
+                    Config.options.battery.automaticSuspend = checked;
+                }
             }
         }
-        ConfigSwitch{
-            buttonIcon: "power_off"
-            text: "Automatic Suspend"
-            description: "Suspend system when at very low battery to avoid losing progress"
-            checked: Config.options.battery.automaticSuspend
-            onCheckedChanged: {
-                Config.options.battery.automaticSuspend = checked;
+        ConfigGroup {
+            //descriptionIcon: "percent"
+            //description: "Percentages"
+            ConfigSlider {
+                buttonIcon:"emergency_home"
+                text: "Suspend Percentage"
+                description: "Trigger automatic system suspend when reached"
+                defaultValue: 3
+                valueSuffix: ""
+                from: 1; to: Config.options.battery.critical; stepSize: 1
+                value: Config.options.battery.suspend
+                onMoved: (newValue) => {Config.options.battery.suspend = newValue;}
             }
+            ConfigSlider {
+                buttonIcon:"battery_android_1"
+                text: "Critical Percentage"
+                description: ""
+                defaultValue: 10
+                valueSuffix: ""
+                from: 1; to: Config.options.battery.low; stepSize: 1
+                value: Config.options.battery.critical
+                onMoved: (newValue) => {Config.options.battery.critical = newValue;}
+            }
+            ConfigSlider {
+                buttonIcon:"battery_android_2"
+                text: "Low Percentage"
+                description: ""
+                defaultValue: 20
+                valueSuffix: ""
+                from: Config.options.battery.critical; to: 30; stepSize: 1
+                value: Config.options.battery.low
+                onMoved: (newValue) => {Config.options.battery.low = newValue;}
+            }
+            ConfigSlider {
+                buttonIcon:"battery_android_full"
+                text: "Full Percentage"
+                description: ""
+                defaultValue: 100
+                valueSuffix: ""
+                from: 80; to: 100; stepSize: 1
+                value: Config.options.battery.full
+                onMoved: (newValue) => {Config.options.battery.full = newValue;}
+            } 
         }
         Item {} // Padding
         RowLayout {
