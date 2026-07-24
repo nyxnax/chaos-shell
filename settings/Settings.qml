@@ -95,6 +95,21 @@ ApplicationWindow {
                                 anchors.right: parent.right
                                 anchors.left: parent.left
 
+                                StyledButton {
+                                    id: backButton
+                                    visible: true
+                                    size: StyledButton.Size.M
+                                    buttonIcon: "arrow_back"
+                                    fontColor: Appearance.colors.m3onSurface
+                                    onReleased: root.currentPage = Math.max(0, root.currentPage - 1)
+                                }
+
+                                Shortcut {
+                                    sequence: "Escape"
+                                    enabled: backButton.visible && root.currentPage > 0
+                                    onActivated: backButton.click()
+                                }
+
                                 StyledText {text: modelData.name; font.pixelSize: Appearance.font.pixelSize.title}
                                 Item {Layout.fillWidth: true}
                                 ProfileCard {shouldShow: isCompact}
