@@ -21,7 +21,7 @@ ApplicationWindow {
     color: Config.options.appearance.opacity <= 0 ? "transparent" :
            Qt.alpha(Appearance.colors.m3background, Config.options.appearance.opacity / 100.0)
 
-    property bool isPortrait: height > width
+    property bool isCompact: height > width
     property int currentPage: 0
     property var pages: [
         { name: "Wallpaper", icon: "wallpaper_slideshow", iconRotation: 180, component: "WallpaperConfig.qml" },
@@ -61,7 +61,7 @@ ApplicationWindow {
             id: pagesStack
             anchors.fill: parent
             currentIndex: root.currentPage
-            anchors.leftMargin: isPortrait ? 30 : navRail.width + 40
+            anchors.leftMargin: isCompact ? 30 : navRail.width + 40
             anchors.rightMargin: 20
             Behavior on anchors.leftMargin {animation: Appearance.animation.elementResize.numberAnimation.createObject(this)}
 
@@ -86,7 +86,7 @@ ApplicationWindow {
                             id: pageColumn
                             width: Math.min(scroll.availableWidth, 1000)
                             anchors.horizontalCenter: parent.horizontalCenter
-                            bottomPadding: isPortrait ? navBar.height + 40 : 16
+                            bottomPadding: isCompact ? navBar.height + 40 : 16
                             spacing: 5
                             topPadding: 12
                             Behavior on bottomPadding {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
@@ -98,7 +98,7 @@ ApplicationWindow {
                                 MaterialSymbol {text: modelData.icon; font.pixelSize: Appearance.font.pixelSize.title}
                                 StyledText {text: modelData.name; font.pixelSize: Appearance.font.pixelSize.title}
                                 Item {Layout.fillWidth: true}
-                                ProfileCard {shouldShow: isPortrait}
+                                ProfileCard {shouldShow: isCompact}
                             }
 
                             Loader {
@@ -114,7 +114,7 @@ ApplicationWindow {
         TabBar { // Bottom Navigation Bar
             id: navBar
             currentIndex: root.currentPage
-            opacity: isPortrait ? 1 : 0
+            opacity: isCompact ? 1 : 0
             visible: opacity > 0
             height: 60
             width: (60 * root.pages.length)
@@ -176,7 +176,7 @@ ApplicationWindow {
         Rectangle { // Navigation Rail
             id: navRail
             property bool isExpanded: false
-            opacity: !isPortrait ? 1 : 0
+            opacity: !isCompact ? 1 : 0
             visible: opacity > 0
             width: isExpanded ? 220 : 80
             anchors.left: parent.left
