@@ -20,55 +20,16 @@ ApplicationWindow {
     Component.onCompleted: pagesStack.forceActiveFocus()
     color: Config.options.appearance.opacity <= 0 ? "transparent" :
            Qt.alpha(Appearance.colors.m3background, Config.options.appearance.opacity / 100.0)
-    property bool isPortrait: root.height > root.width
-    property var pages: [
-        {
-            name: "Wallpaper",
-            icon: "wallpaper_slideshow",
-            iconRotation: 180,
-            component: "WallpaperConfig.qml"
-        },
-        {
-            name: "Display",
-            icon: "display_settings",
-            iconRotation: 180,
-            component: "DisplayConfig.qml"
-        },
-        {
-            name: "Bar",
-            icon: "toast",
-            iconRotation: 180,
-            component: "BarConfig.qml"
-        },
-        {
-            name: "System",
-            icon: "tune",
-            iconRotation: 180,
-            component: "SystemConfig.qml"
-        },
-        {
-            name: "About",
-            icon: "info",
-            iconRotation: 180,
-            component: "About.qml"
-        }
-    ]
+
+    property bool isPortrait: height > width
     property int currentPage: 0
-
-    Process {
-        id: matugenProcess
-        running: false
-        // Call the interpreter, then the absolute path to your script
-        command: ["bash", Quickshell.shellPath("./scripts/wall.sh")]
-
-        onStdoutChanged: console.log("Script Out: " + stdout)
-        onStderrChanged: console.warn("Script Error: " + stderr)
-
-        onExited: (exitCode) => {
-            console.log("Script finished with code: " + exitCode);
-            matugenProcess.running = false;
-        }
-    }
+    property var pages: [
+        { name: "Wallpaper", icon: "wallpaper_slideshow", iconRotation: 180, component: "WallpaperConfig.qml" },
+        { name: "Display",   icon: "display_settings",    iconRotation: 180, component: "DisplayConfig.qml" },
+        { name: "Bar",       icon: "toast",               iconRotation: 180, component: "BarConfig.qml"},
+        { name: "System",    icon: "tune",                iconRotation: 180, component: "SystemConfig.qml" },
+        { name: "About",     icon: "info",                iconRotation: 180, component: "About.qml" }
+    ]
 
     Item {
         id: mainContent
