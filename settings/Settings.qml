@@ -102,6 +102,7 @@ ApplicationWindow {
                                     buttonIcon: "arrow_back"
                                     fontColor: Appearance.colors.m3onSurface
                                     onReleased: root.currentPage = Math.max(0, root.currentPage - 1)
+                                    opacity: root.currentPage === 0 ? 0.38 : 1
                                 }
 
                                 Shortcut {
