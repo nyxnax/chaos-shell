@@ -91,10 +91,10 @@ ApplicationWindow {
                             Behavior on bottomPadding {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
                             ConfigRow {
+                                id: header
                                 anchors.right: parent.right
                                 anchors.left: parent.left
 
-                                MaterialSymbol {text: modelData.icon; font.pixelSize: Appearance.font.pixelSize.title}
                                 StyledText {text: modelData.name; font.pixelSize: Appearance.font.pixelSize.title}
                                 Item {Layout.fillWidth: true}
                                 ProfileCard {shouldShow: isCompact}
