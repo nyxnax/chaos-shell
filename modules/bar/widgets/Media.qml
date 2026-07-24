@@ -38,6 +38,7 @@ BarItem {
                 anchors.centerIn: parent
                 text: "album"
                 font.pixelSize: Appearance.font.pixelSize.larger
+                opacity: 0.38
             }
 
             Image {
