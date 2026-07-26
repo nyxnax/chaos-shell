@@ -140,6 +140,7 @@ BarItem {
             text: "download"
             iconSize: Appearance.font.pixelSize.larger
             color: Network.downloadSpeedBytes > 1 ? Appearance.colors.m3primary : Appearance.colors.m3outline
+            Behavior on color { animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this) }
         }
 
         StyledText {
@@ -147,6 +148,7 @@ BarItem {
             text: Network.downloadSpeedText ?? "0 B/s"
             font.pixelSize: Appearance.font.pixelSize.small
             color: Network.downloadSpeedBytes > 1 ? Appearance.colors.m3onSurface : Appearance.colors.m3outline
+            Behavior on color { animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this) }
         }
 
         readonly property bool shouldShow: {
@@ -174,6 +176,7 @@ BarItem {
             text: "upload"
             iconSize: Appearance.font.pixelSize.larger
             color: Network.uploadSpeedBytes > 1 ? Appearance.colors.m3secondary : Appearance.colors.m3outline
+            Behavior on color { animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this) }
         }
 
         StyledText {
@@ -181,6 +184,7 @@ BarItem {
             text: Network.uploadSpeedText ?? "0 B/s"
             font.pixelSize: Appearance.font.pixelSize.small
             color: Network.uploadSpeedBytes > 1 ? Appearance.colors.m3onSurface : Appearance.colors.m3outline
+            Behavior on color { animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this) }
         }
 
         readonly property bool shouldShow: {
