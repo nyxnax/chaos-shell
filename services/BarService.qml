@@ -22,7 +22,7 @@ Singleton {
     readonly property var defaultWidgets: {
         "left": ["ChaosButton", "Clock", "WindowTitle"],
         "center": ["Workspaces"],
-        "right": ["SysTray", "Media", "ControlCenter", "BatteryIndicator", "SessionButton"]
+        "right": ["SysTray", "Media", "SysStatsuuu", "ControlCenter", "BatteryIndicator", "SessionButton"]
     }
 
     readonly property var availableWidgets: [
@@ -32,6 +32,7 @@ Singleton {
         {name: "Media",          value: "Media",              icon: "music_note"},
         {name: "Logout",         value: "SessionButton",      icon: "logout"},
         {name: "System Tray",    value: "SysTray",            icon: "arrow_circle_up"},
+        {name: "System Stats",   value: "SysStats",           icon: "browse_activity"},
         {name: "Window Title",   value: "WindowTitle",        icon: "title"},
         {name: "Workspaces",     value: "Workspaces",         icon: "workspaces"},
         {name: "Chaos",          value: "ChaosButton",        icon: "apps"}

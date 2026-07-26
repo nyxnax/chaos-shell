@@ -464,6 +464,64 @@ ColumnLayout {
         }
     }
 
+    ConfigGroup { // System Stats Section
+        icon: "browse_activity"
+        title: "System Stats"
+        footerIcon: "info"
+        footer: "Stats are updated every 2 seconds"
+        ConfigGroup {
+            ConfigSwitch{
+                buttonIcon: "memory"
+                text: "Show CPU Usage"
+                description: ""
+                checked: Config.options.bar.showCpuPercent
+                onCheckedChanged: {
+                    Config.options.bar.showCpuPercent = checked;
+                }
+            }
+        }
+        ConfigGroup {   
+            ConfigSwitch{
+                buttonIcon: "memory_alt"
+                text: "Show RAM Usage"
+                description: ""
+                checked: Config.options.bar.showRamPercent
+                onCheckedChanged: {
+                    Config.options.bar.showRamPercent = checked;
+                }
+            }
+            ConfigSwitch{
+                buttonIcon: "numbers"
+                text: "Show RAM Usage Values"
+                description: ""
+                checked: Config.options.bar.showRamUsage
+                onCheckedChanged: {
+                    Config.options.bar.showRamUsage = checked;
+                }
+            }
+            ConfigSwitch{
+                buttonIcon: "highlight_mouse_cursor"
+                text: "Show RAM Usage Values On Hover"
+                description: ""
+                checked: Config.options.bar.showRamUsageOnHover
+                onCheckedChanged: {
+                    Config.options.bar.showRamUsageOnHover = checked;
+                }
+            }
+        }
+        ConfigGroup {
+            ConfigSwitch{
+                buttonIcon: "highlight_mouse_cursor"
+                text: "Show Percentages On Hover"
+                description: ""
+                checked: Config.options.bar.showSystemStatsPercentOnHover
+                onCheckedChanged: {
+                    Config.options.bar.showSystemStatsPercentOnHover = checked;
+                }
+            }
+        }
+    }
+
     ConfigGroup{ // Control Center Section
         icon: "wifi"
         title: "Control Center"

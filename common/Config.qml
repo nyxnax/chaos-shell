@@ -128,6 +128,12 @@ Singleton {
                 property bool showMediaText: true
                 property bool showMediaControl: true
 
+                property bool showCpuPercent: true
+                property bool showRamPercent: true
+                property bool showRamUsage: true
+                property bool showRamUsageOnHover: true
+                property bool showSystemStatsPercentOnHover: true
+
                 property bool showSinkSymbol: true
                 property bool showSinkOnVolumeChanged: true
                 property bool showSinkPercent: true
