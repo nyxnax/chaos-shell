@@ -22,7 +22,7 @@ Singleton {
     readonly property var defaultWidgets: {
         "left": ["ChaosButton", "Clock", "WindowTitle"],
         "center": ["Workspaces"],
-        "right": ["SysTray", "Media", "SysStatsuuu", "ControlCenter", "BatteryIndicator", "SessionButton"]
+        "right": ["SysTray", "Media", "SysStats", "ControlCenter", "BatteryIndicator", "SessionButton"]
     }
 
     readonly property var availableWidgets: [
