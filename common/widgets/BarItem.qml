@@ -7,8 +7,8 @@ Rectangle {
 
     default property alias content: layout.data
     property alias hovered: mouseArea.containsMouse
-    readonly property real contentWidth: layout.childrenRect.width
-    readonly property real contentHeight: layout.childrenRect.height
+    readonly property real contentWidth: layout.implicitWidth
+    readonly property real contentHeight: layout.implicitHeight
     readonly property real cellSize: 32 * (Config.options.appearance.displayScale / 100)
 
     property int spacing: 0
