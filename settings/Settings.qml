@@ -85,9 +85,11 @@ ApplicationWindow {
                             id: pageColumn
                             width: Math.min(scroll.availableWidth, 1000)
                             anchors.horizontalCenter: parent.horizontalCenter
-                            bottomPadding: isCompact ? navBar.height + 40 : 16
                             spacing: 5
-                            topPadding: 12
+                            
+                            topPadding: 20
+                            bottomPadding: isCompact ? navBar.height + 40 : 16
+
                             Behavior on bottomPadding {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
                             ConfigRow {
