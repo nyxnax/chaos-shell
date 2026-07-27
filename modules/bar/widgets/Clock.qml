@@ -56,6 +56,7 @@ BarItem {
         ColumnLayout { // Time
             id: verticalTime
             spacing: -4
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
             property bool shouldShow: Config.options.bar.showTime
             visible: opacity > 0
@@ -69,7 +70,7 @@ BarItem {
                 text: Time.hour
                 font.weight: 800
                 horizontalAlignment: Text.AlignHCenter
-                Layout.alignment: Qt.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 animateChange: true
             }
 
@@ -77,7 +78,7 @@ BarItem {
                 text: Time.minute
                 font.weight: 800
                 horizontalAlignment: Text.AlignHCenter
-                Layout.alignment: Qt.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 animateChange: true
             }
         }
@@ -85,6 +86,7 @@ BarItem {
         ColumnLayout { // Date
             id: verticalDate
             spacing: -4
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
             property bool shouldShow: Config.options.bar.showDate
             visible: opacity > 0
@@ -99,7 +101,7 @@ BarItem {
                 font.weight: 500
                 opacity: 0.8
                 horizontalAlignment: Text.AlignHCenter
-                Layout.alignment: Qt.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 animateChange: true
             }
 
@@ -108,7 +110,7 @@ BarItem {
                 font.weight: 500
                 opacity: 0.8
                 horizontalAlignment: Text.AlignHCenter
-                Layout.alignment: Qt.AlignHCenter
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 animateChange: true
             }
         }
