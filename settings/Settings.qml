@@ -157,6 +157,16 @@ ApplicationWindow {
                                 width: parent.width
                                 source: modelData.component
                             }
+
+                            ColumnLayout {
+                                id: pageFooter
+
+                                StyledText {
+                                    text: ":: end_of page_0" + (root.currentPage+1) + " //"
+                                    color: Appearance.colors.m3outline
+                                    font.pixelSize: Appearance.font.pixelSize.smaller
+                                }
+                            }
                         }
                     }
                 }
