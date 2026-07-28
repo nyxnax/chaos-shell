@@ -35,6 +35,10 @@ ColumnLayout {
                 source: previewImage
                 maskEnabled: true
                 maskSource: wallpaperMaskFrame
+
+                opacity: previewImage.status === Image.Ready ? 1.0 : 0.0
+
+                Behavior on opacity { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
             }
 
             Image {
@@ -43,14 +47,8 @@ ColumnLayout {
                 source: Config.options.appearance.wallpaper ? "file://" + Config.options.appearance.wallpaper : ""
                 fillMode: Image.PreserveAspectCrop
                 asynchronous: true
-
                 sourceSize.width: 800
                 sourceSize.height: 450
-
-                opacity: status === Image.Ready ? 1 : 0
-                Behavior on opacity {
-                    NumberAnimation { duration: 400; easing.type: Easing.InOutQuad }
-                }
                 visible: false
             }
         }
@@ -221,11 +219,13 @@ ColumnLayout {
                         maskThresholdMin: 0.5
                         maskSpreadAtMin: 1.0
 
+                        opacity: wallpapersImage.status === Image.Ready ? 1.0 : 0.0
                         brightness: wallpapers.isSelected ? 0.0 : -0.02
                         saturation: wallpapers.isSelected ? 0.0 : -0.70
 
                         Behavior on brightness { NumberAnimation { duration: 500 } }
                         Behavior on saturation { NumberAnimation { duration: 300 } }
+                        Behavior on opacity { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
                     }
 
                     Rectangle { // Border
