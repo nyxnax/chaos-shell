@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Io
 import qs.common
 import qs.common.widgets
+import qs.services
 
 ApplicationWindow {
     id: root
@@ -92,8 +93,23 @@ ApplicationWindow {
                 StyledText {
                     text: root.pages[root.currentPage].name
                     font.pixelSize: Appearance.font.pixelSize.title
+                    Layout.alignment: Qt.AlignBaseline
                 }
+
+                StyledText {
+                    text: "[CHA_OS] :: settings // " + "page_0" + (root.currentPage+1)
+                    color: Appearance.colors.m3outline
+                    font.pixelSize: Appearance.font.pixelSize.smaller
+                    Layout.alignment: Qt.AlignBaseline
+                }
+
                 Item {Layout.fillWidth: true}
+                StyledText {
+                    text: ":: " + DeviceService.ramUsedGb.toFixed(5) + " //"
+                    color: Appearance.colors.m3outline
+                    font.pixelSize: Appearance.font.pixelSize.smaller
+                    Layout.alignment: Qt.AlignBaseline
+                }
                 ProfileCard {shouldShow: isCompact}
             }
         }
