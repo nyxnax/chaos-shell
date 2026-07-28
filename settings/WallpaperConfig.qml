@@ -1,5 +1,5 @@
-import Qt5Compat.GraphicalEffects
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
@@ -22,13 +22,19 @@ ColumnLayout {
             radius: Appearance.rounding.large
             color: Appearance.colors.m3surfaceContainer
 
-            layer.enabled: true
-            layer.effect: OpacityMask {
-                maskSource: Rectangle {
-                    width: wallpaperPreview.width
-                    height: wallpaperPreview.height
-                    radius: wallpaperPreview.radius
-                }
+            Rectangle {
+                id: wallpaperMaskFrame
+                anchors.fill: parent
+                radius: Appearance.rounding.large
+                visible: false
+                layer.enabled: true
+            }
+
+            MultiEffect {
+                anchors.fill: wallpaperPreview       
+                source: previewImage         
+                maskEnabled: true
+                maskSource: wallpaperMaskFrame
             }
 
             Image {
@@ -45,6 +51,7 @@ ColumnLayout {
                 Behavior on opacity {
                     NumberAnimation { duration: 400; easing.type: Easing.InOutQuad }
                 }
+                visible: false
             }
         }
 
@@ -168,13 +175,12 @@ ColumnLayout {
                     width: parent.width
                     height: parent.height
 
-                    layer.enabled: true
-                    layer.effect: OpacityMask {
-                        maskSource: Rectangle {
-                            width: wallpaperFrame.width
-                            height: wallpaperFrame.height
-                            radius: Appearance.rounding.small
-                        }
+                    Rectangle {
+                        id: wallpapersMaskFrame
+                        anchors.fill: parent
+                        radius: Appearance.rounding.small
+                        visible: false
+                        layer.enabled: true
                     }
 
                     Image { // Image
@@ -183,24 +189,26 @@ ColumnLayout {
                         source: model.path
                         fillMode: Image.PreserveAspectCrop
                         asynchronous: true
-                        sourceSize.width: 320
-                        sourceSize.height: 180
-                        smooth: true
+                        sourceSize: Qt.size(320, 180)
                         cache: true
+                        visible: false
                     }
 
-                    Desaturate { // Desaturation
-                        anchors.fill: parent
+                    MultiEffect {
+                        anchors.fill: wallpapersImage
                         source: wallpapersImage
-                        desaturation: wallpapers.isSelected ? 0.0 : 0.7
-                        Behavior on desaturation {NumberAnimation {duration: 500}}
-                    }
+                                                
+                        maskEnabled: true
+                        maskSource: wallpapersMaskFrame
+                        maskThresholdMin: 0.5
+                        maskSpreadAtMin: 1.0
+                        
+                        brightness: wallpapers.isSelected ? 0.0 : -0.02
+                        saturation: wallpapers.isSelected ? 0.0 : -0.70
 
-                    Rectangle { // Darkening
-                        anchors.fill: parent
-                        color: "black"
-                        opacity: wallpapers.isSelected ? 0 : 0.1
-                        Behavior on opacity {NumberAnimation {duration: 500}}
+                        Behavior on brightness { NumberAnimation { duration: 500 } }
+                        Behavior on saturation { NumberAnimation { duration: 300 } }
+
                     }
 
                     Rectangle { // Border
