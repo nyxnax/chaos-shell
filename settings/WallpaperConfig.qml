@@ -31,8 +31,8 @@ ColumnLayout {
             }
 
             MultiEffect {
-                anchors.fill: wallpaperPreview       
-                source: previewImage         
+                anchors.fill: wallpaperPreview
+                source: previewImage
                 maskEnabled: true
                 maskSource: wallpaperMaskFrame
             }
@@ -197,12 +197,12 @@ ColumnLayout {
                     MultiEffect {
                         anchors.fill: wallpapersImage
                         source: wallpapersImage
-                                                
+
                         maskEnabled: true
                         maskSource: wallpapersMaskFrame
                         maskThresholdMin: 0.5
                         maskSpreadAtMin: 1.0
-                        
+
                         brightness: wallpapers.isSelected ? 0.0 : -0.02
                         saturation: wallpapers.isSelected ? 0.0 : -0.70
 
