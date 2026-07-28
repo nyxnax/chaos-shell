@@ -151,7 +151,7 @@ ColumnLayout {
             anchors.fill: parent
             orientation: ListView.Horizontal
             model: wallpaperModel
-            snapMode: ListView.SnapToItem
+            snapMode: ListView.NoSnap
             boundsBehavior: Flickable.StopAtBounds
             preferredHighlightBegin: 20
             preferredHighlightEnd: parent.width - 20
@@ -160,20 +160,38 @@ ColumnLayout {
             cacheBuffer: 100
             reuseItems: true
 
+            highlightMoveDuration: 50
+            currentIndex: {
+                for (var i = 0; i < count; i++) {
+                    if (model.get(i).path === Config.options.appearance.wallpaper) return i;
+                }
+                return 0;
+            }
+
             delegate: Item {
                 id: wallpapers
-                readonly property bool isSelected: Config.options.appearance.wallpaper === model.path
-
-                width: isSelected ? 320 : 140
+                width: targetWidth
                 height: carouselContainer.height - carouselContainer.radius
-                Behavior on width {animation: Appearance.animation.elementMove.numberAnimation.createObject(root)}
+
+                readonly property bool isSelected: Config.options.appearance.wallpaper === model.path
+                readonly property int indexDistance: Math.abs(index - carousel.currentIndex)
+
+                property real targetWidth: {
+                    if (isSelected) return 320;
+                    if (indexDistance === 1) return 160;
+                    if (indexDistance === 2) return 120;
+                    return 100;
+                }
+
+                Behavior on targetWidth {
+                    enabled: wallpapers.Component.completed0
+                    animation: Appearance.animation.elementMove.numberAnimation.createObject(root)
+                }
 
                 Item { // Frame / Background
                     id: wallpaperFrame
                     anchors.fill: parent
                     anchors.margins: 6
-                    width: parent.width
-                    height: parent.height
 
                     Rectangle {
                         id: wallpapersMaskFrame
@@ -208,11 +226,10 @@ ColumnLayout {
 
                         Behavior on brightness { NumberAnimation { duration: 500 } }
                         Behavior on saturation { NumberAnimation { duration: 300 } }
-
                     }
 
                     Rectangle { // Border
-                        anchors.fill: wallpaperFrame
+                        anchors.fill: parent
                         color: "transparent"
                         border.color: Appearance.colors.m3primary
                         border.width: wallpapers.isSelected ? 3 : 0
@@ -225,6 +242,7 @@ ColumnLayout {
                         onClicked: {
                             Config.options.appearance.wallpaper = model.path;
                             Theme.generate(model.path, Config.options.appearance.light);
+                            carousel.currentIndex = index;
                         }
                         PointingHand{}
                     }
