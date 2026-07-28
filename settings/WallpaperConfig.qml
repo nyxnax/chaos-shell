@@ -184,7 +184,7 @@ ColumnLayout {
                 }
 
                 Behavior on targetWidth {
-                    enabled: wallpapers.Component.completed0
+                    enabled: wallpapers.Component.completed
                     animation: Appearance.animation.elementMove.numberAnimation.createObject(root)
                 }
 
