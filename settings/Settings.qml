@@ -55,13 +55,60 @@ ApplicationWindow {
             }
         }
 
+        Item {
+            id: headerArea
+            anchors.top: parent.top
+            anchors.topMargin: 20
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: isCompact ? 30 : navRail.width + 40
+            anchors.rightMargin: 20
+            height: header.implicitHeight
+            z: 10
+
+            Behavior on anchors.leftMargin { animation: Appearance.animation.elementResize.numberAnimation.createObject(this) }
+
+            ConfigRow {
+                id: header
+                width: Math.min(parent.width, 1000)
+                anchors.horizontalCenter: parent.horizontalCenter
+                
+                StyledButton {
+                    id: backButton
+                    visible: true
+                    size: StyledButton.Size.M
+                    buttonIcon: "arrow_back"
+                    fontColor: Appearance.colors.m3onSurface
+                    onReleased: root.currentPage = Math.max(0, root.currentPage - 1)
+                    opacity: root.currentPage === 0 ? 0.38 : 1
+                }
+
+                Shortcut {
+                    sequence: "Escape"
+                    enabled: backButton.visible && root.currentPage > 0
+                    onActivated: backButton.click()
+                }
+
+                StyledText {
+                    text: root.pages[root.currentPage].name
+                    font.pixelSize: Appearance.font.pixelSize.title
+                }
+                Item {Layout.fillWidth: true}
+                ProfileCard {shouldShow: isCompact}
+            }
+        }
 
         StackLayout { // Pages
             id: pagesStack
-            anchors.fill: parent
-            currentIndex: root.currentPage
+
+            anchors.top: headerArea.bottom
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.topMargin: 12
             anchors.leftMargin: isCompact ? 30 : navRail.width + 40
             anchors.rightMargin: 20
+            currentIndex: root.currentPage
             Behavior on anchors.leftMargin {animation: Appearance.animation.elementResize.numberAnimation.createObject(this)}
 
             Repeater {
@@ -85,38 +132,10 @@ ApplicationWindow {
                             id: pageColumn
                             width: Math.min(scroll.availableWidth, 1000)
                             anchors.horizontalCenter: parent.horizontalCenter
-                            spacing: 5
-                            
-                            topPadding: 20
+                            spacing: 5                            
                             bottomPadding: isCompact ? navBar.height + 40 : 16
 
                             Behavior on bottomPadding {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
-
-                            ConfigRow {
-                                id: header
-                                anchors.right: parent.right
-                                anchors.left: parent.left
-
-                                StyledButton {
-                                    id: backButton
-                                    visible: true
-                                    size: StyledButton.Size.M
-                                    buttonIcon: "arrow_back"
-                                    fontColor: Appearance.colors.m3onSurface
-                                    onReleased: root.currentPage = Math.max(0, root.currentPage - 1)
-                                    opacity: root.currentPage === 0 ? 0.38 : 1
-                                }
-
-                                Shortcut {
-                                    sequence: "Escape"
-                                    enabled: backButton.visible && root.currentPage > 0
-                                    onActivated: backButton.click()
-                                }
-
-                                StyledText {text: modelData.name; font.pixelSize: Appearance.font.pixelSize.title}
-                                Item {Layout.fillWidth: true}
-                                ProfileCard {shouldShow: isCompact}
-                            }
 
                             Loader {
                                 width: parent.width
