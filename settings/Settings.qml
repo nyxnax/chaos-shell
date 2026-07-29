@@ -21,7 +21,29 @@ ApplicationWindow {
     color: Config.options.appearance.opacity <= 0 ? "transparent" :
            Qt.alpha(Appearance.colors.m3background, Config.options.appearance.opacity / 100.0)
 
-    property bool isCompact: height > width
+    enum Breakpoint { // Material Design 3 Breakpoints
+        Compact, // Phone in portrait
+        Medium, // Tablet in portrait / Foldable in portrait (unfolded)
+        Expanded, // Phone in landscape / Tablet in landscape / Foldable in landscape (unfolded) / Desktop
+        Large, // Desktop / Fullscreen-ish 16:9 display
+        ExtraLarge // Ultrawide display
+    }
+
+    readonly property int currentBreakpoint: {
+        let width = root.width
+        if (width < 700)  return Settings.Breakpoint.Compact // Larger than 600 because I'm stupid and can't do 600 without breaking things yet :)
+        if (width < 840)  return Settings.Breakpoint.Medium
+        if (width < 1200) return Settings.Breakpoint.Expanded
+        if (width < 1600) return Settings.Breakpoint.Large
+        return Settings.Breakpoint.ExtraLarge
+    }
+
+    readonly property bool isCompact:    currentBreakpoint === Settings.Breakpoint.Compact
+    readonly property bool isMedium:     currentBreakpoint === Settings.Breakpoint.Medium
+    readonly property bool isExpanded:   currentBreakpoint === Settings.Breakpoint.Expanded
+    readonly property bool isLarge:      currentBreakpoint === Settings.Breakpoint.Large
+    readonly property bool isExtraLarge: currentBreakpoint === Settings.Breakpoint.ExtraLarge
+
     property int currentPage: 0
     property var pages: [
         { name: "Wallpaper", icon: "wallpaper_slideshow", iconRotation: 180, component: "WallpaperConfig.qml" },
@@ -73,7 +95,7 @@ ApplicationWindow {
                 id: header
                 width: Math.min(parent.width, 1000)
                 anchors.horizontalCenter: parent.horizontalCenter
-                
+
                 StyledButton {
                     id: backButton
                     visible: true
@@ -148,7 +170,7 @@ ApplicationWindow {
                             id: pageColumn
                             width: Math.min(scroll.availableWidth, 1000)
                             anchors.horizontalCenter: parent.horizontalCenter
-                            spacing: 5                            
+                            spacing: 5
                             bottomPadding: isCompact ? navBar.height + 40 : 16
 
                             Behavior on bottomPadding {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
