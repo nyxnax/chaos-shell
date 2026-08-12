@@ -7,6 +7,18 @@ Scope {
     id: root
 
     IpcHandler {
+        target: "bar"
+
+        function toggleAutoHide() {
+            Config.options.bar.autoHide = !Config.options.bar.autoHide
+        }
+
+        function toggleWidgetBackground() {
+            Config.options.bar.showBackground = !Config.options.bar.showBackground
+        }
+    }
+
+    IpcHandler {
         target: "settings"
 
         function toggle() {
