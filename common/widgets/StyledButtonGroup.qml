@@ -46,8 +46,8 @@ GridLayout {
                 return 0;
             }
 
-            isSelected: root.currentValue === modelData.value
-            onClicked: root.choiceSelected(modelData.value)
+            isSelected: root.currentValue === (modelData.value !== undefined ? modelData.value : index)
+            onClicked: root.choiceSelected(modelData.value !== undefined ? modelData.value : index)
 
             StyledToolTip {
                 shown: parent.hovered && collapsed && text !== ""
