@@ -195,64 +195,32 @@ ApplicationWindow {
             }
         }
 
-        TabBar { // Bottom Navigation Bar
+        RowLayout { // Bottom Navigation Bar
             id: navBar
-            currentIndex: root.currentPage
             opacity: isCompact ? 1 : 0
             visible: opacity > 0
-            height: 60
-            width: (60 * root.pages.length)
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 20
 
             Behavior on opacity { NumberAnimation { duration: 200; easing.type: Easing.InOutQuad } }
 
-            Repeater {
-                model: root.pages
-                delegate: StyledTabButton {
-                    id: tabButton
-                    implicitWidth: 60
-                    implicitHeight: 60
-                    checked: root.currentPage === index
-                    onClicked: root.currentPage = index
+            Rectangle {
+                color: Appearance.colors.m3surfaceContainerLowest
+                height: navButtons.height + 10
+                width: navButtons.width + 10
+                radius: Appearance.rounding.verylarge + 5
 
-                    MaterialSymbol {
-                        anchors.centerIn: parent
-                        text: modelData.icon
-                        color: tabButton.checked
-                            ? Appearance.colors.m3onPrimaryContainer
-                            : Appearance.colors.m3onSecondary
-                        iconSize: Appearance.font.pixelSize.huge
-                        opacity: 0.9
-                    }
-
-                    StyledToolTip {
-                        text: modelData.name
-                    }
-                }
-            }
-
-            background:Rectangle {
-                color: Appearance.colors.m3secondary
-                radius: 10
-
-                Rectangle {
-                    id: indicator
-                    height: parent.height - 8
-                    width: 60 - 8
-                    y: 4
-                    x: (navBar.currentItem ? navBar.currentItem.x : 0) + 4
-                    color: Appearance.colors.m3primaryContainer
-                    radius: 8
-
-                    Behavior on x {
-                        NumberAnimation {
-                            duration: Appearance.animationCurves.expressiveDefaultSpatialDuration
-                            easing.type: Easing.BezierSpline
-                            easing.bezierCurve: Appearance.animationCurves.expressiveFastSpatial
-                        }
-                    }
+                StyledButtonGroup {
+                    id: navButtons
+                    anchors.centerIn:parent
+                    model: root.pages
+                    buttonSize: StyledButton.Size.XL
+                    style: StyledButton.Style.Tonal
+                    columns: root.pages.length
+                    collapsed: true
+                    currentValue: root.currentPage
+                    onChoiceSelected: (index) => root.currentPage = index
                 }
             }
         }
