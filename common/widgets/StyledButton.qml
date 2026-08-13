@@ -13,7 +13,16 @@ Button {
         XL  // 56px - Prominent
     }
 
+    enum Style { // The colors are slightly different from the MD3 spec
+        Elevated, // Surface container low, no shadow for now
+        Filled,   // Solid primary (my preferred default)
+        Tonal,    // Secondary/Tertiary container
+        Outlined, // Transparent + outline
+        Text      // Flat/Transparent
+    }
+
     property int size: StyledButton.Size.M
+    property int style: StyledButton.Style.Filled
 
     readonly property real targetHeight: {
         switch(size) {
@@ -75,15 +84,54 @@ Button {
     property bool isRound: false
     property bool isSelected: false
     readonly property bool isIconOnly: root.text === "" && root.buttonIcon !== ""
-    property string fontColor: root.pressed ? Appearance.colors.m3onPrimaryContainer :
-                               isSelected ? Appearance.colors.m3onPrimary :
-                               root.hovered ? Appearance.colors.m3onSurfaceVariant
-                               : Appearance.colors.m3onSurface
-    property string buttonColor: pressed ? Appearance.colors.m3primaryContainer :
-                                 isSelected && hovered ? Qt.darker(Appearance.colors.m3primary, 1.25) :
-                                 isSelected ? Appearance.colors.m3primary :
-                                 hovered ? Appearance.colors.m3surfaceContainerHigh
-                                 : Appearance.colors.m3surfaceContainerLow
+
+    property string fontColor: {
+        switch(style) {
+            case StyledButton.Style.Elevated:
+                return isSelected ? Appearance.colors.m3onPrimary : Appearance.colors.m3primary;
+
+            case StyledButton.Style.Filled:
+                return isSelected ? Appearance.colors.m3onPrimary : Appearance.colors.m3onSecondaryContainer;
+
+            case StyledButton.Style.Tonal:
+                return isSelected ? Appearance.colors.m3onPrimary : Appearance.colors.m3onSecondaryContainer;
+
+            case StyledButton.Style.Outlined:
+            case StyledButton.Style.Text:
+            default:
+                return isSelected ? Appearance.colors.m3primary : Appearance.colors.m3onSurface;
+        }
+    }
+
+    property string buttonColor: {
+        switch(style) {
+            case StyledButton.Style.Elevated:
+                return pressed ? Appearance.colors.m3surfaceContainerHigh :
+                       isSelected ? Appearance.colors.m3primary :
+                       hovered ? Appearance.colors.m3surfaceContainerLow :
+                       Appearance.colors.m3surfaceContainerLow;
+
+            case StyledButton.Style.Filled:
+                return pressed ? Appearance.colors.m3surfaceContainerHigh :
+                       isSelected ? Appearance.colors.m3primary :
+                       hovered ? Appearance.colors.m3surfaceContainer :
+                       Appearance.colors.m3surfaceContainerLow;
+
+            case StyledButton.Style.Tonal:
+                return pressed ? Appearance.colors.m3primaryContainer :
+                       isSelected ? Appearance.colors.m3primary :
+                       hovered ? Appearance.colors.m3surfaceContainerHigh :
+                       Appearance.colors.m3secondaryContainer;
+
+            case StyledButton.Style.Outlined:
+            case StyledButton.Style.Text:
+            default:
+                return pressed ? Appearance.colors.m3surfaceContainerHighest :
+                       isSelected ? Appearance.colors.m3background :
+                       hovered ? Appearance.colors.m3surfaceContainerLow :
+                       "transparent";
+        }
+    }
     property string buttonIcon: ""
     property int border: 0
 
@@ -98,8 +146,9 @@ Button {
         bottomLeftRadius: (root.position === 1 || root.position === 3) ? outerRadius : innerRadius
         bottomRightRadius: (root.position === 2 || root.position === 3) ? outerRadius : innerRadius
         color: buttonColor
-        border.width: 0
-        border.color: Appearance.colors.m3outlineVariant
+
+        border.width: (root.style === StyledButton.Style.Outlined || root.border > 0) ? (root.border > 0 ? root.border : 2) : 0
+        border.color: root.style === StyledButton.Style.Outlined ? Appearance.colors.m3outline : Appearance.colors.m3outlineVariant
 
         Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
         Behavior on scale {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this) }

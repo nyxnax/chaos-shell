@@ -13,6 +13,7 @@ GridLayout {
     property bool collapsed: colWidth < 100
     property bool fullWidth: true
     signal choiceSelected(var value)
+    property int style: StyledButton.Style.Filled
 
     columns: Math.max(1, Math.min(4, root.model.length))
     columnSpacing: 2
@@ -26,6 +27,7 @@ GridLayout {
             text: collapsed ? "" : modelData.name
             Layout.fillWidth: root.fullWidth
             buttonIcon: modelData.icon
+            style: root.style
 
             Behavior on width {
                 animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)
