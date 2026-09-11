@@ -480,7 +480,7 @@ ColumnLayout {
                 }
             }
         }
-        ConfigGroup {   
+        ConfigGroup {
             ConfigSwitch{
                 buttonIcon: "memory_alt"
                 text: "Show RAM Usage"
@@ -525,6 +525,26 @@ ColumnLayout {
     ConfigGroup{ // Control Center Section
         icon: "wifi"
         title: "Control Center"
+        ConfigGroup {
+            ConfigSwitch {
+                buttonIcon: "bluetooth"
+                text: "Show Bluetooth Icon"
+                //description: ""
+                checked: Config.options.bar.showBluetoothSymbol
+                onCheckedChanged: {
+                    Config.options.bar.showBluetoothSymbol = checked;
+                }
+            }
+            ConfigSwitch {
+                buttonIcon: "hide"
+                text: "Hide Bluetooth Icon When Disabled"
+                //description: ""
+                checked: Config.options.bar.hideBluetoothSymbolWhenDisabled
+                onCheckedChanged: {
+                    Config.options.bar.hideBluetoothSymbolWhenDisabled = checked;
+                }
+            }
+        }
         ConfigGroup {
             ConfigSwitch {
                 buttonIcon: "volume_up"

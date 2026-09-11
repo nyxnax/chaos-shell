@@ -9,6 +9,32 @@ BarItem {
     onClicked: Global.states.settingsOpen = !Global.states.settingsOpen
     usePadding: true
 
+    RowLayout { // Bluetooth
+        id: bluetooth
+        spacing: 2
+        Layout.alignment: root.isVertical ? Qt.AlignHCenter : Qt.AlignVCenter
+
+        MaterialSymbol {
+            id: bluetoothIcon
+            text: Bluetooth.materialSymbol
+            iconSize: Appearance.font.pixelSize.larger
+            color: !Bluetooth.enabled ? Appearance.colors.m3outline : Appearance.colors.m3onSurface
+            fill: 1
+            animateChange: true
+        }
+
+        readonly property bool shouldShow: {
+            const isAvailable = Bluetooth.available;
+            const isEnabledInConfig = Config.options.bar.showBluetoothSymbol;
+            const disabledCheck = Config.options.bar.hideBluetoothSymbolWhenDisabled ? Bluetooth.enabled : true;
+            return isAvailable && isEnabledInConfig && disabledCheck
+        }
+
+        opacity: shouldShow ? 1 : 0
+        visible: opacity > 0
+        Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+    }
+
     Item { // Input
         id: input
         implicitHeight: root.cellSize

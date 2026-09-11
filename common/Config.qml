@@ -128,6 +128,9 @@ Singleton {
                 property bool showMediaText: true
                 property bool showMediaControl: true
 
+                property bool showBluetoothSymbol: true
+                property bool hideBluetoothSymbolWhenDisabled: true
+
                 property bool showCpuPercent: true
                 property bool showRamPercent: true
                 property bool showRamUsage: true
