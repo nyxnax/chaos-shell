@@ -9,18 +9,25 @@ import qs.common
 import qs.common.widgets
 
 ColumnLayout {
-    id: root
+    id: pageRoot
     spacing: 20
 
     RowLayout {
+        spacing: 12
         Rectangle { // Current Wallpaper
             id: wallpaperPreview
             Layout.fillWidth: true
-            //Layout.maximumWidth: 800
             Layout.minimumWidth: 100
-            implicitHeight: width * (9 / 18.5)
+            implicitHeight: root.isCompact ? 700
+                          : isMedium ? width * (4 / 3)
+                          : isExpanded ? width * (9 / 16)
+                          : isLarge ? width * (9 / 16)
+                          : isExtraLarge ? width * (9 / 21)
+                          : width * (4 / 3)
             radius: Appearance.rounding.large
             color: Appearance.colors.m3surfaceContainer
+
+            Behavior on implicitHeight { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
 
             Rectangle {
                 id: wallpaperMaskFrame
@@ -48,7 +55,7 @@ ColumnLayout {
                 fillMode: Image.PreserveAspectCrop
                 asynchronous: true
                 sourceSize.width: 800
-                sourceSize.height: 450
+                sourceSize.height: 700
                 visible: false
             }
         }
@@ -149,7 +156,7 @@ ColumnLayout {
 
                 Behavior on targetWidth {
                     enabled: wallpapers.Component.completed
-                    animation: Appearance.animation.elementMove.numberAnimation.createObject(root)
+                    animation: Appearance.animation.elementMove.numberAnimation.createObject(this)
                 }
 
                 Item { // Frame / Background
