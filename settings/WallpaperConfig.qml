@@ -16,7 +16,7 @@ ColumnLayout {
         Rectangle { // Current Wallpaper
             id: wallpaperPreview
             Layout.fillWidth: true
-            Layout.maximumWidth: 700
+            //Layout.maximumWidth: 800
             Layout.minimumWidth: 100
             implicitHeight: width * (9 / 18.5)
             radius: Appearance.rounding.large
@@ -53,57 +53,23 @@ ColumnLayout {
             }
         }
 
-        ColumnLayout { // Mode switcher
-            id: modeSwitcher
-            spacing: 5
-
-            StyledButton { // Light Mode
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                buttonColor: "white"
-                border: Config.options.appearance.light ? 5 : 0
-                radius: Appearance.rounding.large
-
-                contentItem: Item {
-                    ColumnLayout{
-                        anchors.centerIn: parent
-                        RowLayout {Layout.alignment: Qt.AlignHCenter; MaterialSymbol {text: "brightness_7"; color: "black"; font.pixelSize: Appearance.font.pixelSize.larger} StyledText{text: "Light"; color: "black"; font.pixelSize: Appearance.font.pixelSize.larger}}
-                        Row {
-                            spacing: 5;Layout.alignment: Qt.AlignHCenter;
-                            Rectangle {color: Appearance.colors.m3primary; implicitHeight: 30 ;implicitWidth: 30; radius: 15}
-                            Rectangle {color: Appearance.colors.m3secondary; implicitHeight: 30 ;implicitWidth: 30; radius: 15}
-                            Rectangle {color: Appearance.colors.m3tertiary; implicitHeight: 30 ;implicitWidth: 30; radius: 15}
-                        }
-                    }
-                }
-                onClicked: {
-                    Config.options.appearance.light = true
-                    Theme.generate()
-                }
-            }
-            StyledButton { // Dark Mode
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                buttonColor: "black"
-                border: !Config.options.appearance.light ? 5 : 0
-                radius: Appearance.rounding.large
-
-                contentItem: Item {
-                    ColumnLayout{
-                        anchors.centerIn: parent
-                            RowLayout {Layout.alignment: Qt.AlignHCenter; MaterialSymbol {text: "moon_stars"; color: "white"; font.pixelSize: Appearance.font.pixelSize.larger} StyledText{text: "Dark"; color: "white"; font.pixelSize: Appearance.font.pixelSize.larger}}
-                        Row {spacing: 5;Layout.alignment: Qt.AlignHCenter;
-                            Rectangle {color: Appearance.colors.m3primary; implicitHeight: 30 ;implicitWidth: 30; radius: 15}
-                            Rectangle {color: Appearance.colors.m3secondary; implicitHeight: 30 ;implicitWidth: 30; radius: 15}
-                            Rectangle {color: Appearance.colors.m3tertiary; implicitHeight: 30 ;implicitWidth: 30; radius: 15}
-                        }
-                    }
-                }
-                onClicked: {
-                    Config.options.appearance.light = false
-                    Theme.generate()
-                }
-            }
+        Rectangle { // Primary container color preview
+            id: colorPreview
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            Layout.minimumWidth: 80
+            Layout.maximumWidth: 80
+            color: Appearance.colors.m3primaryContainer
+            radius: Appearance.rounding.large
+        }
+        Rectangle { // Secondary color preview
+            id: colorPreviewTwo
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            Layout.minimumWidth: 40
+            Layout.maximumWidth: 40
+            color: Appearance.colors.m3secondaryContainer
+            radius: Appearance.rounding.large
         }
     }
 
@@ -273,6 +239,16 @@ ColumnLayout {
             onChoiceSelected: (value) => {
                 Config.options.appearance.scheme = value;
                 Theme.generate();
+            }
+        }
+
+        ConfigSwitch {
+            buttonIcon: "moon_stars"
+            text: "Dark Theme"
+            //description: ""
+            checked: !Config.options.appearance.light
+            onCheckedChanged: {
+                Config.options.appearance.light = !checked;
             }
         }
     }
