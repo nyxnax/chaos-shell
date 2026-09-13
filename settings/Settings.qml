@@ -93,7 +93,7 @@ ApplicationWindow {
 
             ConfigRow {
                 id: header
-                width: Math.min(parent.width, 1000)
+                width: Math.min(parent.width, 1800)
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 StyledButton {
@@ -155,7 +155,7 @@ ApplicationWindow {
                 delegate: ScrollView {
                     id: scroll
                     Layout.fillWidth: true
-                    contentHeight: pageColumn.height
+                    contentHeight: pageColumn.implicitHeight
                     readonly property bool isActive: StackLayout.isCurrentItem
                     opacity: isActive ? 1 : 0
                     verticalPadding: isActive ? 0 : 20
@@ -163,12 +163,12 @@ ApplicationWindow {
                     Behavior on verticalPadding {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
                     Item {
-                        height: pageColumn.height
+                        height: pageColumn.implicitHeight
                         width: scroll.availableWidth
 
                         Column {
                             id: pageColumn
-                            width: Math.min(scroll.availableWidth, 1000)
+                            width: Math.min(scroll.availableWidth, 1800)
                             anchors.horizontalCenter: parent.horizontalCenter
                             spacing: 5
                             bottomPadding: isCompact ? navBar.height + 40 : 16
