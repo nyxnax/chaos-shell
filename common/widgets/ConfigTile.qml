@@ -11,6 +11,7 @@ ItemDelegate {
     property string description
     property alias iconSize: iconWidget.iconSize
     property alias control: controlContainer.data
+    property alias bottomControl: bottomControlContainer.data
 
     property int position: 3 // 0: mid, 1: top, 2: bottom, 3: both
     property bool isFocused: true
@@ -52,48 +53,59 @@ ItemDelegate {
         Behavior on bottomRightRadius {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
     }
 
-    contentItem: RowLayout {
+    contentItem: ColumnLayout {
         id: contentLayout
         spacing: 16
 
-        MaterialSymbol { // Icon
-            id: iconWidget
-            text: root.buttonIcon
-            Layout.alignment: Qt.AlignVCenter
-            iconSize: Appearance.font.pixelSize.larger
-            color: Appearance.colors.m3onSecondaryContainer
-            visible: root.buttonIcon !== ""
-            fill: root.hovered ? 1 : 0
-        }
+        RowLayout {
+            id: topRow
+            spacing: 16
 
-        ColumnLayout {
-            Layout.fillWidth: true
-            spacing: 2
-
-            StyledText { // Title
-                id: labelWidget
-                Layout.fillWidth: true
-                text: root.text
-                font: root.font
+            MaterialSymbol { // Icon
+                id: iconWidget
+                text: root.buttonIcon
+                Layout.alignment: Qt.AlignVCenter
+                iconSize: Appearance.font.pixelSize.larger
                 color: Appearance.colors.m3onSecondaryContainer
+                visible: root.buttonIcon !== ""
+                fill: root.hovered ? 1 : 0
             }
 
-            StyledText { // Description
-                id: descriptionWidget
+            ColumnLayout {
                 Layout.fillWidth: true
-                text: root.description
-                font.pixelSize: Appearance.font.pixelSize.normal
-                color: Appearance.colors.m3onSurfaceVariant
-                opacity: 0.7
-                wrapMode: Text.WordWrap
-                visible: root.description !== ""
+                spacing: 2
+
+                StyledText { // Title
+                    id: labelWidget
+                    Layout.fillWidth: true
+                    text: root.text
+                    font: root.font
+                    color: Appearance.colors.m3onSecondaryContainer
+                }
+
+                StyledText { // Description
+                    id: descriptionWidget
+                    Layout.fillWidth: true
+                    text: root.description
+                    font.pixelSize: Appearance.font.pixelSize.normal
+                    color: Appearance.colors.m3onSurfaceVariant
+                    opacity: 0.7
+                    wrapMode: Text.WordWrap
+                    visible: root.description !== ""
+                }
+            }
+
+            RowLayout { // Widget Placeholder
+                id: controlContainer
+                spacing: 12
+                Layout.alignment: Qt.AlignVCenter
             }
         }
 
-        RowLayout { // Widget Placeholder
-            id: controlContainer
-            spacing: 12
-            Layout.alignment: Qt.AlignVCenter
+        ColumnLayout { // Bottom Widget Placeholder
+            id: bottomControlContainer
+            spacing: 16
+            visible: childrenRect.height > 0
         }
     }
 }
