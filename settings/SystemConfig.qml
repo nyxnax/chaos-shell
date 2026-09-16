@@ -7,7 +7,7 @@ import qs.modules.bar
 
 ColumnLayout {
     id:root
-    spacing: 15
+    spacing: 24
 
     ConfigGroup { // Profile Section
         title: "Profile"
@@ -136,7 +136,7 @@ ColumnLayout {
                 from: 80; to: 100; stepSize: 1
                 value: Config.options.battery.full
                 onMoved: (newValue) => {Config.options.battery.full = newValue;}
-            } 
+            }
         }
         Item {} // Padding
         RowLayout {

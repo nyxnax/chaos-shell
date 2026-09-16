@@ -7,7 +7,7 @@ import qs.services
 
 ColumnLayout {
     id: root
-    spacing: 15
+    spacing: 24
 
     anchors.centerIn: parent
 

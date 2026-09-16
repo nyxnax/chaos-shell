@@ -7,7 +7,7 @@ import qs.services
 ColumnLayout {
     id: pageRoot
     width: 500
-    spacing: 15
+    spacing: 24
 
     GridLayout {
         columns: root.isCompact || root.isMedium || root.isExpanded ? 1 : 2
@@ -20,6 +20,7 @@ ColumnLayout {
             Layout.fillHeight: false
             Layout.fillWidth: true
             Layout.preferredWidth: 600
+            spacing: 24
 
             ConfigGroup { // Main Section
                 icon: "category"
@@ -297,6 +298,7 @@ ColumnLayout {
             id: supportingPane
             Layout.fillHeight: false
             Layout.fillWidth: true
+            spacing: 24
 
             ConfigGroup { // Chaos Button Section
                 icon: Config.options.bar.chaosIcon

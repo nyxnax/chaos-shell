@@ -10,7 +10,7 @@ import qs.common.widgets
 
 ColumnLayout {
     id: pageRoot
-    spacing: 20
+    spacing: 24
 
     GridLayout {
         columns: root.isCompact || root.isMedium || root.isExpanded ? 1 : 2
@@ -21,6 +21,7 @@ ColumnLayout {
             Layout.fillHeight: false
             Layout.fillWidth: true
             Layout.preferredWidth: 600
+            spacing: 24
 
             RowLayout {
                 spacing: 8
@@ -275,6 +276,7 @@ ColumnLayout {
             id: supportingPane
             Layout.alignment: Qt.AlignTop
             Layout.fillHeight: false
+            spacing: 24
 
             ConfigGroup {
                 id: transition

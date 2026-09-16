@@ -7,7 +7,7 @@ import qs.common.widgets
 
 ColumnLayout {
     id: pageRoot
-    spacing: 15
+    spacing: 24
 
     GridLayout {
         columns: root.isCompact || root.isMedium || root.isExpanded ? 1 : 2
@@ -18,6 +18,7 @@ ColumnLayout {
             id: mainPane
             Layout.fillHeight: false
             Layout.alignment: Qt.AlignTop
+            spacing: 24
 
             ConfigGroup {
                 title: "Brightness"
@@ -123,6 +124,7 @@ ColumnLayout {
         Layout.alignment: Qt.AlignTop
         Layout.fillHeight: false
         Layout.fillWidth: true
+        spacing: 24
 
         ConfigGroup { // OSD Section
             icon: "instant_mix"
