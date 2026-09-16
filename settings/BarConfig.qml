@@ -21,6 +21,32 @@ ColumnLayout {
             Layout.fillWidth: true
             Layout.preferredWidth: 600
 
+            ConfigGroup { // Main Section
+                icon: "category"
+                title: "Behaviour"
+
+                ConfigSwitch {
+                    buttonIcon: "visibility_off"
+                    text: "Auto-hide"
+                    description: "Hide bar when there is no cursor on it"
+                    checked: Config.options.bar.autoHide
+                    onCheckedChanged: {
+                        Config.options.bar.autoHide = checked;
+                        //console.log ("Bar: Auto-hide set to " + checked)
+                    }
+                }
+                ConfigSwitch {
+                    buttonIcon: "gradient"
+                    text: "Widget Background"
+                    description: "Gives widgets a more visible background"
+                    checked: Config.options.bar.showBackground
+                    onCheckedChanged: {
+                        Config.options.bar.showBackground = checked;
+                        //console.log ("Bar: Background set to " + checked)
+                    }
+                }
+            }
+
             ConfigGroup {
                 id: positionGroup
                 icon: "responsive_layout"
@@ -271,32 +297,6 @@ ColumnLayout {
             id: supportingPane
             Layout.fillHeight: false
             Layout.fillWidth: true
-
-            ConfigGroup { // Main Section
-                icon: "menu"
-                title: "Main"
-
-                ConfigSwitch {
-                    buttonIcon: "visibility_off"
-                    text: "Auto-hide"
-                    description: "Hide bar when there is no cursor on it"
-                    checked: Config.options.bar.autoHide
-                    onCheckedChanged: {
-                        Config.options.bar.autoHide = checked;
-                        //console.log ("Bar: Auto-hide set to " + checked)
-                    }
-                }
-                ConfigSwitch {
-                    buttonIcon: "gradient"
-                    text: "Widget Background"
-                    description: "Gives widgets a more visible background"
-                    checked: Config.options.bar.showBackground
-                    onCheckedChanged: {
-                        Config.options.bar.showBackground = checked;
-                        //console.log ("Bar: Background set to " + checked)
-                    }
-                }
-            }
 
             ConfigGroup { // Chaos Button Section
                 icon: Config.options.bar.chaosIcon
