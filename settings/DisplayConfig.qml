@@ -52,18 +52,17 @@ ColumnLayout {
                 title: "Appearance"
 
                 ConfigSwitch {
-                    buttonIcon: Config.options.appearance.light ? "brightness_7" : "moon_stars"
-                    text: Config.options.appearance.light ? "Light Mode" : "Dark Mode"
-                    checked: Config.options.appearance.light
+                    buttonIcon: "moon_stars"
+                    text: "Dark mode"
+                    checked: !Config.options.appearance.light
                     onCheckedChanged: {
-                        Config.options.appearance.light = checked;
-                        //console.info ("Appearance: Light theme set to " + checked)
+                        Config.options.appearance.light = !checked;
                         Theme.generate();
                     }
                 }
                 ConfigSwitch {
                     buttonIcon: "orbit"
-                    text: "Show Display Corners"
+                    text: "Show display corners"
                     checked: Config.options.appearance.showScreenRounding
                     onCheckedChanged: {
                         Config.options.appearance.showScreenRounding = checked;
@@ -77,7 +76,7 @@ ColumnLayout {
                 title: "Accessibility and visibility"
 
                 ConfigSlider {
-                    text: "Font Size"
+                    text: "Font size"
                     buttonIcon: "text_fields"
                     liveUpdate: false
                     from: 80; to: 120; stepSize: 5
@@ -85,7 +84,7 @@ ColumnLayout {
                     onMoved: (newValue) => {Config.options.appearance.fontScale = newValue;}
                 }
                 ConfigSlider {
-                    text: "Display Scale"
+                    text: "Display scale"
                     buttonIcon: "linear_scale"
                     //description: "Work in progress, currently only affects bar"
                     liveUpdate: false
@@ -147,7 +146,7 @@ ColumnLayout {
             }
             ConfigSwitch {
                 buttonIcon: "touch_long"
-                text: "Enable Dragging"
+                text: "Enable dragging"
                 description: "Allow mouse and touch drag inputs on the bar"
                 checked: Config.options.osd.draggable
                 onCheckedChanged: {
@@ -157,7 +156,7 @@ ColumnLayout {
             }
             ConfigSwitch {
                 buttonIcon: Config.options.osd.showPercent ? "percent" : "adjust"
-                text: "Show Percentage"
+                text: "Show percentage"
                 description: "Replace dot at the end of the OSD"
                 checked: Config.options.osd.showPercent
                 onCheckedChanged: {
@@ -167,7 +166,7 @@ ColumnLayout {
             }
             ConfigSwitch {
                 buttonIcon: "more_horiz"
-                text: "Show Dots"
+                text: "Show dots"
                 description: "Display dots inside the slider"
                 checked: Config.options.osd.showDots
                 onCheckedChanged: {

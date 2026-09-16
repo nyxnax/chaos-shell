@@ -15,7 +15,7 @@ ColumnLayout {
         ProfileCard {isExpanded: true; size: ProfileCard.Size.XL}
         ConfigSwitch {
             buttonIcon: "photo"
-            text: "Use Picture"
+            text: "Use picture"
             description: "Stored at ~/.face"
             checked: Config.options.system.profile.usePicture
             onCheckedChanged: Config.options.system.profile.usePicture = checked
@@ -23,7 +23,7 @@ ColumnLayout {
         ConfigTile {
             visible: !Config.options.system.profile.usePicture
             buttonIcon: Config.options.system.profile.icon
-            text: "Profile Icon"
+            text: "Profile icon"
             description: "Icon to fall back to when not using a picture"
             control: StyledTextField {
                 outlined: true
@@ -86,7 +86,7 @@ ColumnLayout {
             }
             ConfigSwitch{
                 buttonIcon: "power_off"
-                text: "Automatic Suspend"
+                text: "Automatic suspend"
                 description: "Suspend system when at very low battery to avoid losing progress"
                 checked: Config.options.battery.automaticSuspend
                 onCheckedChanged: {
@@ -99,7 +99,7 @@ ColumnLayout {
             //description: "Percentages"
             ConfigSlider {
                 buttonIcon:"emergency_home"
-                text: "Suspend Percentage"
+                text: "Suspend percentage"
                 description: "Trigger automatic system suspend when reached"
                 defaultValue: 3
                 valueSuffix: ""
@@ -109,7 +109,7 @@ ColumnLayout {
             }
             ConfigSlider {
                 buttonIcon:"battery_android_1"
-                text: "Critical Percentage"
+                text: "Critical percentage"
                 description: ""
                 defaultValue: 10
                 valueSuffix: ""
@@ -119,7 +119,7 @@ ColumnLayout {
             }
             ConfigSlider {
                 buttonIcon:"battery_android_2"
-                text: "Low Percentage"
+                text: "Low percentage"
                 description: ""
                 defaultValue: 20
                 valueSuffix: ""
@@ -129,7 +129,7 @@ ColumnLayout {
             }
             ConfigSlider {
                 buttonIcon:"battery_android_full"
-                text: "Full Percentage"
+                text: "Full percentage"
                 description: ""
                 defaultValue: 100
                 valueSuffix: ""

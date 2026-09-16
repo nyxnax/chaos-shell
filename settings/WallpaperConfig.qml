@@ -250,7 +250,7 @@ ColumnLayout {
                 ]
 
                 ConfigButtonGroup {
-                    text: "Colors"
+                    text: "Material colour scheme"
                     buttonIcon: "palette"
                     model: scheme.schemeModel
                     currentValue: Config.options.appearance.scheme
@@ -262,7 +262,7 @@ ColumnLayout {
 
                 ConfigSwitch {
                     buttonIcon: "moon_stars"
-                    text: "Dark Theme"
+                    text: "Dark theme"
                     //description: ""
                     checked: !Config.options.appearance.light
                     onCheckedChanged: {
@@ -291,7 +291,7 @@ ColumnLayout {
                 ]
 
                 ConfigSlider {
-                    text: "Transition Duration"
+                    text: "Transition duration"
                     buttonIcon: "timer"
                     //description: "Control how long it takes to switch the wallpaper"
                     //liveUpdate: false
@@ -303,7 +303,7 @@ ColumnLayout {
                 }
 
                 ConfigSlider {
-                    text: "Transition Framerate"
+                    text: "Transition framerate"
                     buttonIcon: "shutter_speed"
                     //description: ""
                     //liveUpdate: false
@@ -315,7 +315,7 @@ ColumnLayout {
                 }
 
                 ConfigButtonGroup {
-                    text: "Transition Type"
+                    text: "Transition type"
                     buttonIcon: "transition_chop"
                     model: transition.transitionTypeModel
                     currentValue: Config.options.appearance.transitionType

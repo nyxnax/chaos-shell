@@ -38,7 +38,7 @@ ColumnLayout {
                 }
                 ConfigSwitch {
                     buttonIcon: "gradient"
-                    text: "Widget Background"
+                    text: "Widget background"
                     description: "Gives widgets a more visible background"
                     checked: Config.options.bar.showBackground
                     onCheckedChanged: {
@@ -75,7 +75,7 @@ ColumnLayout {
 
                     ConfigSwitch {
                         buttonIcon: "splitscreen"
-                        text: "Enable Per Display Position"
+                        text: "Enable per display position"
                         description: ""
                         isMainToggle: true
                         checked: Config.options.bar.enablePerDisplayPosition
@@ -114,7 +114,7 @@ ColumnLayout {
                 property string selectedArea: "left"
 
                 ConfigButtonGroup {
-                    text: "Target Area"
+                    text: "Target area"
                     model: [
                         { name: "Left", value: "left", icon: "align_horizontal_left" },
                         { name: "Center", value: "center", icon: "align_horizontal_center" },
@@ -156,7 +156,7 @@ ColumnLayout {
 
                     ConfigButtonGroup {
                         id: globalPicker
-                        text: "Add Widget"
+                        text: "Add widget"
                         Layout.fillWidth: true
                         model: BarService.availableWidgets
                         property string toAdd: ""
@@ -177,7 +177,7 @@ ColumnLayout {
 
                 ColumnLayout {
                     StyledButton {
-                        text: "Reset to Default"
+                        text: "Reset to default"
                         buttonIcon: "restore"
                         Layout.fillWidth: true
                         onClicked: BarService.resetGlobal(globalWidgetGroup.selectedArea);
@@ -193,7 +193,7 @@ ColumnLayout {
 
                 ConfigSwitch {
                     buttonIcon: "extension"
-                    text: "Enable Per Display Widgets"
+                    text: "Enable per display widgets"
                     description: ""
                     isMainToggle: true
                     checked: Config.options.bar.enablePerDisplayWidgets
@@ -206,7 +206,7 @@ ColumnLayout {
                     shouldShow: Config.options.bar.enablePerDisplayWidgets
 
                     ConfigButtonGroup {
-                        text: "Select Display"
+                        text: "Select display"
                         model: Display.activeScreens.map((displayName) => ({
                                 name: displayName,
                                 value: displayName,
@@ -219,7 +219,7 @@ ColumnLayout {
                     }
 
                     ConfigButtonGroup {
-                        text: "Target Area"
+                        text: "Target area"
                         model: [
                             { name: "Left", value: "left", icon: "align_horizontal_left" },
                             { name: "Center", value: "center", icon: "align_horizontal_center" },
@@ -258,7 +258,7 @@ ColumnLayout {
                     RowLayout{
                         ConfigButtonGroup {
                             id: availableWidgetPicker
-                            text: "Add Widget"
+                            text: "Add widget"
                             Layout.fillWidth: true
                             model: BarService.availableWidgets
                             property string toAdd: ""
@@ -283,7 +283,7 @@ ColumnLayout {
                     }
                     ColumnLayout {
                         StyledButton {
-                            text: "Follow Global"
+                            text: "Follow global"
                             buttonIcon: "copy_all"
                             Layout.fillWidth: true
                             onClicked: BarService.copyGlobal(displayWidgetGroup.selectedDisplay, displayWidgetGroup.selectedArea);
@@ -335,7 +335,7 @@ ColumnLayout {
                 }
                 ConfigSwitch {
                     buttonIcon: "format_color_fill"
-                    text: "Accent Color"
+                    text: "Accent color"
                     checked: Config.options.bar.chaosAccent
                     onCheckedChanged: {
                         Config.options.bar.chaosAccent = checked;
@@ -348,7 +348,7 @@ ColumnLayout {
                 title: "Clock"
                 ConfigSwitch {
                     buttonIcon: "nest_clock_farsight_analog"
-                    text: "Show Time"
+                    text: "Show time"
                     description: "Disable this to hide your time information on the bar"
                     checked: Config.options.bar.showTime
                     onCheckedChanged: {
@@ -358,7 +358,7 @@ ColumnLayout {
                 }
                 ConfigSwitch {
                     buttonIcon: "calendar_clock"
-                    text: "Show Date"
+                    text: "Show date"
                     description: "Display date beside clock, or alone if unavailable"
                     checked: Config.options.bar.showDate
                     onCheckedChanged: {
@@ -370,10 +370,10 @@ ColumnLayout {
 
             ConfigGroup { // Active Window Section
                 icon: "title"
-                title: "Active Window Title"
+                title: "Active window title"
                 ConfigSwitch {
                     buttonIcon: "image"
-                    text: "Show Icon"
+                    text: "Show icon"
                     description: "Display the focused app's icon"
                     checked: Config.options.bar.showWindowIcon
                     onCheckedChanged: {
@@ -382,7 +382,7 @@ ColumnLayout {
                 }
                 ConfigSwitch {
                     buttonIcon: "text_format"
-                    text: "Show Text"
+                    text: "Show text"
                     description: "Display the focused window's title"
                     checked: Config.options.bar.showWindowTitle
                     onCheckedChanged: {
@@ -396,7 +396,7 @@ ColumnLayout {
                 title: "Workspaces"
                 ConfigSwitch {
                     buttonIcon: "apps"
-                    text: "Show App Icons"
+                    text: "Show app icons"
                     description: "Display app icons inside the occupied workspace indicators"
                     checked: Config.options.bar.workspaceIcons
                     onCheckedChanged: {
@@ -405,7 +405,7 @@ ColumnLayout {
                 }
                 ConfigSlider {
                     buttonIcon: "steppers"
-                    text: "Minimum Per Display"
+                    text: "Minimum per display"
                     description: "Maximum number of workspace indicators to show per display"
                     defaultValue: 3
                     valueSuffix: ""
@@ -415,7 +415,7 @@ ColumnLayout {
                 }
                 ConfigSlider {
                     buttonIcon: "page_control"
-                    text: "Maximum Per Display"
+                    text: "Maximum per display"
                     description: "Maximum number of workspace indicators to show per display"
                     defaultValue: 10
                     valueSuffix: ""
@@ -444,7 +444,7 @@ ColumnLayout {
                 }
                 ConfigSwitch {
                     buttonIcon: "art_track"
-                    text: "Show Cover Art"
+                    text: "Show cover art"
                     description: "Display cover art from currently playing media"
                     checked: Config.options.bar.showCoverArt
                     onCheckedChanged: {
@@ -454,7 +454,7 @@ ColumnLayout {
                 }
                 ConfigSwitch {
                     buttonIcon: "play_arrow"
-                    text: "Show Control Button"
+                    text: "Show control button"
                     description: "Enable Play/Pause button beside the metadata"
                     checked: Config.options.bar.showMediaControl
                     onCheckedChanged: {
@@ -464,7 +464,7 @@ ColumnLayout {
                 }
                 ConfigSwitch {
                     buttonIcon: "text_ad"
-                    text: "Show Text"
+                    text: "Show text"
                     description: "(Automatically disabled on vertical bars) Disable to keep cover art and/or control only"
                     checked: Config.options.bar.showMediaText
                     onCheckedChanged: {
@@ -474,7 +474,7 @@ ColumnLayout {
                 }
                 ConfigSwitch {
                     buttonIcon: "album"
-                    text: "Show Artist Name"
+                    text: "Show artist name"
                     description: "Display artirst name under the title"
                     checked: Config.options.bar.showArtist
                     onCheckedChanged: {
@@ -492,7 +492,7 @@ ColumnLayout {
                 ConfigGroup {
                     ConfigSwitch{
                         buttonIcon: "memory"
-                        text: "Show CPU Usage"
+                        text: "Show CPU usage"
                         description: ""
                         checked: Config.options.bar.showCpuPercent
                         onCheckedChanged: {
@@ -503,7 +503,7 @@ ColumnLayout {
                 ConfigGroup {
                     ConfigSwitch{
                         buttonIcon: "memory_alt"
-                        text: "Show RAM Usage"
+                        text: "Show RAM usage"
                         description: ""
                         checked: Config.options.bar.showRamPercent
                         onCheckedChanged: {
@@ -512,7 +512,7 @@ ColumnLayout {
                     }
                     ConfigSwitch{
                         buttonIcon: "numbers"
-                        text: "Show RAM Usage Values"
+                        text: "Show RAM usage values"
                         description: ""
                         checked: Config.options.bar.showRamUsage
                         onCheckedChanged: {
@@ -521,7 +521,7 @@ ColumnLayout {
                     }
                     ConfigSwitch{
                         buttonIcon: "highlight_mouse_cursor"
-                        text: "Show RAM Usage Values On Hover"
+                        text: "Show RAM usage values on hover"
                         description: ""
                         checked: Config.options.bar.showRamUsageOnHover
                         onCheckedChanged: {
@@ -532,7 +532,7 @@ ColumnLayout {
                 ConfigGroup {
                     ConfigSwitch{
                         buttonIcon: "highlight_mouse_cursor"
-                        text: "Show Percentages On Hover"
+                        text: "Show percentages on hover"
                         description: ""
                         checked: Config.options.bar.showSystemStatsPercentOnHover
                         onCheckedChanged: {
@@ -548,7 +548,7 @@ ColumnLayout {
                 ConfigGroup {
                     ConfigSwitch {
                         buttonIcon: "bluetooth"
-                        text: "Show Bluetooth Icon"
+                        text: "Show Bluetooth icon"
                         //description: ""
                         checked: Config.options.bar.showBluetoothSymbol
                         onCheckedChanged: {
@@ -557,7 +557,7 @@ ColumnLayout {
                     }
                     ConfigSwitch {
                         buttonIcon: "hide"
-                        text: "Hide Bluetooth Icon When Disabled"
+                        text: "Hide Bluetooth icon when disabled"
                         //description: ""
                         checked: Config.options.bar.hideBluetoothSymbolWhenDisabled
                         onCheckedChanged: {
@@ -568,7 +568,7 @@ ColumnLayout {
                 ConfigGroup {
                     ConfigSwitch {
                         buttonIcon: "volume_up"
-                        text: "Always Show Volume Icon"
+                        text: "Always show volume icon"
                         description: "When turned off, the icon stays hidden unless output is muted"
                         checked: Config.options.bar.showSinkSymbol
                         onCheckedChanged: {
@@ -577,7 +577,7 @@ ColumnLayout {
                     }
                     ConfigSwitch {
                         buttonIcon: "waves"
-                        text: "Show When Volume Changed"
+                        text: "Show on volume changed"
                         description: "Only show for 3 seconds when output volume is changed"
                         checked: Config.options.bar.showSinkOnVolumeChanged
                         onCheckedChanged: {
@@ -586,7 +586,7 @@ ColumnLayout {
                     }
                     ConfigSwitch {
                         buttonIcon: "percent"
-                        text: "Show Percentage"
+                        text: "Show percentage"
                         description: ""
                         checked: Config.options.bar.showSinkPercent
                         onCheckedChanged: {
@@ -595,7 +595,7 @@ ColumnLayout {
                     }
                     ConfigSwitch {
                         buttonIcon: "highlight_mouse_cursor"
-                        text: "Show Percentage on Hover"
+                        text: "Show percentage on hover"
                         description: ""
                         checked: Config.options.bar.showSinkPercentOnHover
                         onCheckedChanged: {
@@ -606,7 +606,7 @@ ColumnLayout {
                 ConfigGroup {
                     ConfigSwitch {
                         buttonIcon: "download"
-                        text: "Show Download Speed"
+                        text: "Show download speed"
                         description: ""
                         checked: Config.options.bar.showDownloadSpeed
                         onCheckedChanged: {
@@ -615,7 +615,7 @@ ColumnLayout {
                     }
                     ConfigSwitch {
                         buttonIcon: "upload"
-                        text: "Show Upload Speed"
+                        text: "Show upload speed"
                         description: ""
                         checked: Config.options.bar.showUploadSpeed
                         onCheckedChanged: {
@@ -624,7 +624,7 @@ ColumnLayout {
                     }
                     ConfigSwitch {
                         buttonIcon: "hide"
-                        text: (Config.options.bar.showDownloadSpeed && Config.options.bar.showUploadSpeed) ? "Hide Indicators when at 0 B/s" : "Hide Indicator when at 0 B/s"
+                        text: (Config.options.bar.showDownloadSpeed && Config.options.bar.showUploadSpeed) ? "Hide indicators when at 0 B/s" : "Hide indicator when at 0 B/s"
                         description: ""
                         checked: Config.options.bar.hideNetworkSpeedWhenZero
                         onCheckedChanged: {
@@ -633,7 +633,7 @@ ColumnLayout {
                     }
                     ConfigSwitch {
                         buttonIcon: "highlight_mouse_cursor"
-                        text: (Config.options.bar.showDownloadSpeed && Config.options.bar.showUploadSpeed) ? "Show Indicators on Hover" : "Show Indicator on Hover"
+                        text: (Config.options.bar.showDownloadSpeed && Config.options.bar.showUploadSpeed) ? "Show indicators on Hover" : "Show indicator on Hover"
                         description: ""
                         checked: Config.options.bar.showNetworkSpeedOnHover
                         onCheckedChanged: {
@@ -642,7 +642,7 @@ ColumnLayout {
                     }
                     ConfigSwitch {
                         buttonIcon: "123"
-                        text: "Show Speed Value"
+                        text: "Show speed value"
                         description: ""
                         checked: Config.options.bar.showNetworkSpeedText
                         onCheckedChanged: {
@@ -651,7 +651,7 @@ ColumnLayout {
                     }
                     ConfigSwitch {
                         buttonIcon: "arrow_selector_tool"
-                        text: "Show Speed Value On Hover"
+                        text: "Show speed value on hover"
                         description: ""
                         checked: Config.options.bar.showNetworkSpeedTextOnHover
                         onCheckedChanged: {
@@ -669,7 +669,7 @@ ColumnLayout {
                 footerIcon: "info"
                 ConfigSwitch {
                     buttonIcon: "percent"
-                    text: "Show Percentage"
+                    text: "Show percentage"
                     description: "Show battery percentage inside the indicator (shows on hover if disabled)"
                     checked: Config.options.bar.showBatteryPercentage
                     onCheckedChanged: {
@@ -678,7 +678,7 @@ ColumnLayout {
                 }
                 ConfigSwitch {
                     buttonIcon: "electrical_services"
-                    text: "Hide When Plugged In"
+                    text: "Hide when plugged in"
                     description: "Hide the widget while connected to AC power"
                     checked: Config.options.bar.hideBatteryWhenPlugged
                     onCheckedChanged: {
@@ -687,7 +687,7 @@ ColumnLayout {
                 }
                 ConfigSwitch {
                     buttonIcon: "battery_android_frame_bolt"
-                    text: "Hide When Full"
+                    text: "Hide when full"
                     description: "Hide the widget when fully charged"
                     checked: Config.options.bar.hideBatteryWhenFull
                     onCheckedChanged: {
