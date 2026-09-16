@@ -19,7 +19,10 @@ ItemDelegate {
     property int outerRadius: Appearance.rounding.normal
 
     Layout.fillWidth: true
-    implicitHeight: contentLayout.implicitHeight + 12 * 2 + (isMainToggle ? 12 : 0)
+    topPadding: 16 + (isMainToggle ? 6 : 0)
+    bottomPadding: 16 + (isMainToggle ? 6 : 0)
+    leftPadding: 20; rightPadding: 20;
+    implicitHeight: contentLayout.implicitHeight + topPadding + bottomPadding
     font.pixelSize: Appearance.font.pixelSize.large
     opacity: isFocused ? 1 : 0.6
 
@@ -52,8 +55,6 @@ ItemDelegate {
     contentItem: RowLayout {
         id: contentLayout
         spacing: 16
-
-        Item {} // Small margin
 
         MaterialSymbol { // Icon
             id: iconWidget
@@ -94,7 +95,5 @@ ItemDelegate {
             spacing: 12
             Layout.alignment: Qt.AlignVCenter
         }
-
-        Item {} // Small margin
     }
 }
