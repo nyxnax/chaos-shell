@@ -25,9 +25,32 @@ ConfigTile {
             opacity: 0.7
         }
 
+        MaterialSymbol {
+            text: "restart_alt"
+            iconSize: Appearance.font.pixelSize.larger
+            color: Appearance.colors.m3onSurfaceVariant
+            opacity: (root.value !== root.defaultValue && !sliderWidget.pressed) ? 0.8 : 0.2
+            //visible: opacity > 0
+
+            MouseArea {
+                anchors.fill: parent
+                //hoverEnabled: true
+                //preventStealing: true
+                onClicked: root.moved(root.defaultValue)
+                cursorShape: Qt.PointingHandCursor
+                //PointingHand {}
+            }
+
+            Behavior on opacity {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
+        }
+    }
+
+    bottomControl: RowLayout {
+
         StyledSlider { // Slider
             id: sliderWidget
-            implicitWidth: 225
+            Layout.fillWidth: true
+            //implicitWidth: 225
             value: root.value
             from: root.from
             to: root.to
@@ -48,26 +71,6 @@ ConfigTile {
                     root.moved(value);
                 }
             }
-        }
-
-
-        MaterialSymbol {
-            text: "restart_alt"
-            iconSize: Appearance.font.pixelSize.larger
-            color: Appearance.colors.m3onSurfaceVariant
-            opacity: (root.value !== root.defaultValue && !sliderWidget.pressed) ? 0.8 : 0.2
-            //visible: opacity > 0
-
-            MouseArea {
-                anchors.fill: parent
-                //hoverEnabled: true
-                //preventStealing: true
-                onClicked: root.moved(root.defaultValue)
-                cursorShape: Qt.PointingHandCursor
-                //PointingHand {}
-            }
-
-            Behavior on opacity {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
         }
     }
 }
