@@ -249,7 +249,7 @@ ColumnLayout {
                     { name: "Rainbow",      value: "scheme-rainbow",     icon: "looks" }
                 ]
 
-                ConfigButtonGroup {
+                ConfigButtonFlow {
                     text: "Material colour scheme"
                     buttonIcon: "palette"
                     model: scheme.schemeModel
@@ -314,7 +314,7 @@ ColumnLayout {
                     onMoved: (newValue) => {Config.options.appearance.transitionFPS = newValue;}
                 }
 
-                ConfigButtonGroup {
+                ConfigButtonFlow {
                     text: "Transition type"
                     buttonIcon: "transition_chop"
                     model: transition.transitionTypeModel

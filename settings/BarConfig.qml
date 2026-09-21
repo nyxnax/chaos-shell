@@ -154,9 +154,9 @@ ColumnLayout {
                     Layout.fillWidth: true
                     spacing: 8
 
-                    ConfigButtonGroup {
+                    ConfigButtonFlow {
                         id: globalPicker
-                        text: "Add widget"
+                        text: "Select widget to add"
                         Layout.fillWidth: true
                         model: BarService.availableWidgets
                         property string toAdd: ""
@@ -256,9 +256,9 @@ ColumnLayout {
                     }
 
                     RowLayout{
-                        ConfigButtonGroup {
+                        ConfigButtonFlow {
                             id: availableWidgetPicker
-                            text: "Add widget"
+                            text: "Select widget to add"
                             Layout.fillWidth: true
                             model: BarService.availableWidgets
                             property string toAdd: ""
