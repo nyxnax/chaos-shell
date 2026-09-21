@@ -158,7 +158,7 @@ ColumnLayout {
             RowLayout {
                 MaterialSymbol{fill: 1; text: "timer"}
                 StyledText {text:{if (Battery.chargeState == 4) {return "Fully charged";} else if (Battery.chargeState == 1) {return "Charging: ";} else {return "Discharging: ";}}}
-                StyledText {text: {function formatTime(seconds) {var h = Math.floor(seconds / 3600); var m = Math.floor((seconds % 3600) / 60); if (h > 0) return `${h}h, ${m}m`; else return `${m}m`;} if (Battery.isCharging) return formatTime(Battery.timeToFull);else return formatTime(Battery.timeToEmpty);}}
+                StyledText {text: {function formatTime(seconds) {var h = Math.floor(seconds / 3600); var m = Math.floor((seconds % 3600) / 60); if (h > 0) return `${h}h, ${m}m`; else return `${m}m`;} if (Battery.isCharging) return formatTime(Battery.timeToFull);else if (Battery.chargeState == 4) {return ""}; return formatTime(Battery.timeToEmpty);}}
             }
             RowLayout{
                 MaterialSymbol{fill: 1; text: "heart_check"}
