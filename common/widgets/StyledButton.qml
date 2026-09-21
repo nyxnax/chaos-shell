@@ -75,7 +75,7 @@ Button {
     implicitWidth: {
         let baseWidth = isIconOnly ? targetHeight : (layoutWrapper.implicitWidth + (hPadding * 2))
         return pressed ? baseWidth * 0.9 :
-               hovered ? baseWidth * 1.2 :
+               hovered ? baseWidth * (animateHover ? 1.2 : 1) :
                baseWidth
     }
 
@@ -83,6 +83,7 @@ Button {
 
     property bool isRound: false
     property bool isSelected: false
+    property bool animateHover: false
     readonly property bool isIconOnly: root.text === "" && root.buttonIcon !== ""
 
     property string fontColor: {
