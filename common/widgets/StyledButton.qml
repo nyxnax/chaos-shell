@@ -58,8 +58,6 @@ Button {
     }
 
     readonly property real targetRadius: {
-        if (isRound || isIconOnly) return Appearance.rounding.full;
-
         switch(size) {
             case StyledButton.Size.XS: return Appearance.rounding.tiny;
             case StyledButton.Size.S:  return Appearance.rounding.verysmall;
@@ -81,7 +79,6 @@ Button {
 
     Behavior on implicitWidth {animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)}
 
-    property bool isRound: false
     property bool isSelected: false
     property bool animateHover: false
     readonly property bool isIconOnly: root.text === "" && root.buttonIcon !== ""
