@@ -33,6 +33,9 @@ RowLayout {
             StyledText {
                 text: root.text
                 visible: root.text !== ""
+                Layout.fillWidth: true
+                Layout.preferredWidth: 0
+                wrapMode: Text.WordWrap
             }
         }
     }
