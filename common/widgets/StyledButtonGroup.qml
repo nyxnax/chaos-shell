@@ -29,10 +29,6 @@ GridLayout {
             buttonIcon: modelData.icon
             style: root.style
 
-            Behavior on width {
-                animation: Appearance.animation.clickBounce.numberAnimation.createObject(this)
-            }
-
             Behavior on text {
                 SequentialAnimation {
                     NumberAnimation { target: buttonDelegate; property: "opacity"; from: 1.0; to: 0.5; duration: 50 }
