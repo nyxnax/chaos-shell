@@ -51,21 +51,22 @@ ColumnLayout {
                 PowerService.setProfile(value);
             }
         }
-        RowLayout {
-            MaterialSymbol {text: "info"}
-            StyledText {text: "Power info";}
+
+        Item {} // Padding
+        StyledCallout {
+            icon: "info"
+            text: "Power info"
         }
-        ColumnLayout{
+
+        StyledCallout {
             opacity: 0.8
             RowLayout {
-                MaterialSymbol {text: "trending_down"}
-                StyledText {text: "Degradation state: "}
-                StyledText {text: PowerService.degradationStateText}
+                MaterialSymbol {fill: 1; text: "trending_down";}
+                StyledText {text: "Degradation state: " + PowerService.degradationStateText}
             }
             RowLayout {
-                MaterialSymbol {text: "comment"}
-                StyledText {text: "Degradation reason: "}
-                StyledText {text: PowerService.degradationReasonText}
+                MaterialSymbol { fill: 1; text: "comment"}
+                StyledText {text: "Degradation reason: " + PowerService.degradationReasonText}
             }
         }
     }
@@ -138,32 +139,30 @@ ColumnLayout {
                 onMoved: (newValue) => {Config.options.battery.full = newValue;}
             }
         }
+
         Item {} // Padding
-        RowLayout {
-            MaterialSymbol {text: "info"}
-            StyledText {text: "Battery info";}
+        StyledCallout {
+            icon: "info"
+            text: "Battery info";
         }
-        ColumnLayout {
+        StyledCallout {
             opacity: 0.8
             RowLayout {
-                MaterialSymbol{text: "percent"}
-                StyledText {text: "Battery percentage: "}
-                StyledText {text: `${Math.round(Battery.percentage * 100)}%`}
+                MaterialSymbol{fill: 1; text: "percent"}
+                StyledText {text: "Battery percentage: " + `${Math.round(Battery.percentage * 100)}%`}
             }
             RowLayout {
-                MaterialSymbol{text: "bolt"}
-                StyledText {text: "Usage: "}
-                StyledText {text: `${Battery.energyRate.toFixed(2)} W`}
+                MaterialSymbol{fill: 1; text: "bolt"}
+                StyledText {text: "Usage: " + `${Battery.energyRate.toFixed(2)} W`}
             }
             RowLayout {
-                MaterialSymbol{text: "timer"}
+                MaterialSymbol{fill: 1; text: "timer"}
                 StyledText {text:{if (Battery.chargeState == 4) {return "Fully charged";} else if (Battery.chargeState == 1) {return "Charging: ";} else {return "Discharging: ";}}}
                 StyledText {text: {function formatTime(seconds) {var h = Math.floor(seconds / 3600); var m = Math.floor((seconds % 3600) / 60); if (h > 0) return `${h}h, ${m}m`; else return `${m}m`;} if (Battery.isCharging) return formatTime(Battery.timeToFull);else return formatTime(Battery.timeToEmpty);}}
             }
             RowLayout{
-                MaterialSymbol{text: "heart_check"}
-                StyledText {text: "Health: "}
-                StyledText {text: `${(Battery.health).toFixed(1)}%`}
+                MaterialSymbol{fill: 1; text: "heart_check"}
+                StyledText {text: "Health: " + `${(Battery.health).toFixed(1)}%`}
             }
         }
     }
