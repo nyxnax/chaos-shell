@@ -159,6 +159,10 @@ ApplicationWindow {
                     readonly property bool isActive: StackLayout.isCurrentItem
                     opacity: isActive ? 1 : 0
                     verticalPadding: isActive ? 0 : 20
+
+                    ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                    ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+
                     Behavior on opacity {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
                     Behavior on verticalPadding {animation: Appearance.animation.elementMove.numberAnimation.createObject(this)}
 
