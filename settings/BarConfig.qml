@@ -346,25 +346,17 @@ ColumnLayout {
             ConfigGroup{ // Clock Section
                 icon: "farsight_digital"
                 title: "Clock"
-                ConfigSwitch {
-                    buttonIcon: "nest_clock_farsight_analog"
-                    text: "Show time"
-                    description: "Disable this to hide your time information on the bar"
-                    checked: Config.options.bar.showTime
-                    onCheckedChanged: {
-                        Config.options.bar.showTime = checked;
-                        //console.log ("Bar: Time set to " + checked)
-                    }
-                }
-                ConfigSwitch {
-                    buttonIcon: "calendar_clock"
-                    text: "Show date"
-                    description: "Display date beside clock, or alone if unavailable"
-                    checked: Config.options.bar.showDate
-                    onCheckedChanged: {
-                        Config.options.bar.showDate = checked;
-                        //console.log ("Bar: Date set to " + checked)
-                    }
+                ConfigButtonGroup {
+                    buttonIcon: "mist"
+                    text: "Mode"
+                    model: [
+                        { name: "Both", icon: "calendar_clock", value: "both" },
+                        { name: "Time", icon: "schedule",       value: "time" },
+                        { name: "Date", icon: "calendar_today", value: "date" }
+                    ]
+
+                    currentValue: Config.options.bar.clockMode
+                    onChoiceSelected: (val) => Config.options.bar.clockMode = val
                 }
             }
 

@@ -23,7 +23,7 @@ BarItem {
             font.weight: 700
             animateChange: true
 
-            property bool shouldShow: Config.options.bar.showTime
+            property bool shouldShow: Config.options.bar.clockMode === "time" || Config.options.bar.clockMode === "both"
             visible: opacity > 0
             opacity: shouldShow ? 1 : 0
             scale: shouldShow ? 1 : 0.7
@@ -39,7 +39,7 @@ BarItem {
             font.weight: 400
             animateChange: true
 
-            property bool shouldShow: Config.options.bar.showDate
+            property bool shouldShow: Config.options.bar.clockMode === "date" || Config.options.bar.clockMode === "both"
             visible: opacity > 0
             opacity: shouldShow ? 0.7 : 0
             scale: shouldShow ? 1 : 0.7
@@ -58,7 +58,7 @@ BarItem {
             spacing: -4
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-            property bool shouldShow: Config.options.bar.showTime
+            property bool shouldShow: Config.options.bar.clockMode === "time" || Config.options.bar.clockMode === "both"
             visible: opacity > 0
             opacity: shouldShow ? 0.7 : 0
             scale: shouldShow ? 1 : 0.7
@@ -88,7 +88,7 @@ BarItem {
             spacing: -4
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-            property bool shouldShow: Config.options.bar.showDate
+            property bool shouldShow: Config.options.bar.clockMode === "date" || Config.options.bar.clockMode === "both"
             visible: opacity > 0
             opacity: shouldShow ? 0.7 : 0
             scale: shouldShow ? 1 : 0.7

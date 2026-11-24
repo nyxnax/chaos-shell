@@ -112,8 +112,7 @@ Singleton {
                 property string chaosIcon: "apps"
                 property bool chaosAccent: true
 
-                property bool showDate: true
-                property bool showTime: true
+                property string clockMode: "both" // both | time | date
 
                 property bool showWindowTitle: true
                 property bool showWindowIcon: true
