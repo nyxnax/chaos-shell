@@ -15,11 +15,14 @@ Singleton {
     Process {
         id: matugenProc
 
+        onStarted: {
+            swwwProc.run(); // Set wallpaper
+            swwwStart.run(); // Start Wallpaper
+        }
+
         onExited: (code) => {
             if (code === 0) {
                 console.log("Theme Service: Matugen finished successfully.");
-                swwwProc.run(); // Set wallpaper
-                swwwStart.run(); // Start Wallpaper
             } else {
                 console.error("Theme Service: Matugen failed with exit code " + code);
             }
