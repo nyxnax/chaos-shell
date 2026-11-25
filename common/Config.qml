@@ -114,8 +114,8 @@ Singleton {
 
                 property string clockMode: "both" // both | time | date
 
-                property bool showWindowTitle: true
                 property bool showWindowIcon: true
+                property string windowTitleTextMode: "both" // both | title | class | none
 
                 property bool workspaceIcons: true
                 property int workspaceMinPerMonitor: 3

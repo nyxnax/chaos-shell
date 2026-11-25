@@ -53,19 +53,47 @@ BarItem {
             }
         }
 
-        StyledText {
-            id: titleText
-            Layout.maximumWidth: 350
-            elide: Text.ElideRight
-            text: ClassOrTitle?.excludeClass(activeWindow?.appId, activeWindow?.title, false, false) || "Desktop"
-            color: Appearance.colors.m3onBackground
-            property bool isShown: Config.options.bar.showWindowTitle && !isVertical
-            visible: isShown
-            Behavior on text {
-                SequentialAnimation {
-                    NumberAnimation { target: titleText; property: "opacity"; to: 0; duration: 100 }
-                    PropertyAction { target: titleText; property: "text" }
-                    NumberAnimation { target: titleText; property: "opacity"; to: 1; duration: 100 }
+        ColumnLayout {
+            spacing: -2
+
+            StyledText {
+                id: classText
+                Layout.maximumWidth: 350
+                elide: Text.ElideRight
+                text: activeWindow?.appId || "Chaos"
+                font.pixelSize: titleText.visible ? Appearance.font.pixelSize.smaller : Appearance.font.pixelSize.normal
+                color: Appearance.colors.m3outline
+                property bool isShown: Config.options.bar.windowTitleTextMode === "class" || Config.options.bar.windowTitleTextMode === "both" && !isVertical
+                visible: opacity > 0
+                opacity: isShown ? 1 : 0
+
+                Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+                Behavior on text {
+                    SequentialAnimation {
+                        NumberAnimation { target: titleText; property: "opacity"; to: 0; duration: 100 }
+                        PropertyAction { target: titleText; property: "text" }
+                        NumberAnimation { target: titleText; property: "opacity"; to: 1; duration: 100 }
+                    }
+                }
+            }
+            StyledText {
+                id: titleText
+                Layout.maximumWidth: 350
+                elide: Text.ElideRight
+                text: activeWindow?.title || "Desktop"
+                font.pixelSize: classText.visible ? Appearance.font.pixelSize.smaller : Appearance.font.pixelSize.normal
+                color: Appearance.colors.m3onBackground
+                property bool isShown: Config.options.bar.windowTitleTextMode === "title" || Config.options.bar.windowTitleTextMode === "both" || Config.options.bar.windowTitleTextMode === "title"  && !isVertical
+                visible: opacity > 0
+                opacity: isShown ? 1 : 0
+
+                Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
+                Behavior on text {
+                    SequentialAnimation {
+                        NumberAnimation { target: titleText; property: "opacity"; to: 0; duration: 100 }
+                        PropertyAction { target: titleText; property: "text" }
+                        NumberAnimation { target: titleText; property: "opacity"; to: 1; duration: 100 }
+                    }
                 }
             }
         }

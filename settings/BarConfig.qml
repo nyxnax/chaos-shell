@@ -366,14 +366,20 @@ ColumnLayout {
                         Config.options.bar.showWindowIcon = checked;
                     }
                 }
-                ConfigSwitch {
-                    buttonIcon: "text_format"
+
+                ConfigButtonFlow {
+                    buttonIcon: "match_case"
                     text: "Show text"
-                    description: "Display the focused window's title"
-                    checked: Config.options.bar.showWindowTitle
-                    onCheckedChanged: {
-                        Config.options.bar.showWindowTitle = checked;
-                    }
+                    description: "Only visible when the bar is horizontal"
+                    model: [
+                        { name: "Title & Class", icon: "id_card", value: "both" },
+                        { name: "Title",         icon: "title",   value: "title" },
+                        { name: "Class",         icon: "person",  value: "class" },
+                        { name: "None",          icon: "cancel",  value: "none" }
+                    ]
+
+                    currentValue: Config.options.bar.windowTitleTextMode
+                    onChoiceSelected: (val) => Config.options.bar.windowTitleTextMode = val
                 }
             }
 
