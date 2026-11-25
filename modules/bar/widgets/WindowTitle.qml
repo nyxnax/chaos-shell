@@ -69,7 +69,7 @@ BarItem {
                 text: activeWindow?.appId || "Chaos"
                 font.pixelSize: titleText.visible ? Appearance.font.pixelSize.smaller : Appearance.font.pixelSize.normal
                 color: Appearance.colors.m3outline
-                property bool isShown: Config.options.bar.windowTitleTextMode === "class" || Config.options.bar.windowTitleTextMode === "both" && !isVertical
+                property bool isShown: (Config.options.bar.windowTitleTextMode === "class" || Config.options.bar.windowTitleTextMode === "both") && !isVertical
                 visible: opacity > 0
                 opacity: isShown ? 1 : 0
 
@@ -90,7 +90,7 @@ BarItem {
                 text: activeWindow?.title || "Desktop"
                 font.pixelSize: classText.visible ? Appearance.font.pixelSize.smaller : Appearance.font.pixelSize.normal
                 color: Appearance.colors.m3onBackground
-                property bool isShown: Config.options.bar.windowTitleTextMode === "title" || Config.options.bar.windowTitleTextMode === "both" || Config.options.bar.windowTitleTextMode === "title"  && !isVertical
+                property bool isShown: (Config.options.bar.windowTitleTextMode === "title" || Config.options.bar.windowTitleTextMode === "both") && !isVertical
                 visible: opacity > 0
                 opacity: isShown ? 1 : 0
 
