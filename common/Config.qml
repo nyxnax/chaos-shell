@@ -115,6 +115,7 @@ Singleton {
                 property string clockMode: "both" // both | time | date
 
                 property bool showWindowIcon: true
+                property string windowTitleIconMode: "app" //  always | app | none
                 property string windowTitleTextMode: "both" // both | title | class | none
 
                 property bool workspaceIcons: true

@@ -25,9 +25,16 @@ BarItem {
 
         Item {
             id: iconContainer
+
+            property bool shouldShow: Config.options.bar.windowTitleIconMode
+                                    === "always" ? true
+                                    : Config.options.bar.windowTitleIconMode
+                                    === "app" ? (root.activeWindow?.appId.length > 0)
+                                    : false
             visible: opacity > 0
-            opacity: Config.options.bar.showWindowIcon ? 1 : 0
-            scale: Config.options.bar.showWindowIcon ? 1 : 0.95
+            opacity: shouldShow ? 1 : 0
+            scale: shouldShow ? 1 : 0.7
+
             Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
             Behavior on scale   { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
 

@@ -357,14 +357,17 @@ ColumnLayout {
             ConfigGroup { // Active Window Section
                 icon: "title"
                 title: "Active window title"
-                ConfigSwitch {
+                ConfigButtonFlow {
                     buttonIcon: "image"
-                    text: "Show icon"
-                    description: "Display the focused app's icon"
-                    checked: Config.options.bar.showWindowIcon
-                    onCheckedChanged: {
-                        Config.options.bar.showWindowIcon = checked;
-                    }
+                    text: "Show Icon"
+                    model: [
+                        { name: "Focused App Only", icon: "search", value: "app" },
+                        { name: "Always",           icon: "check",       value: "always" },
+                        { name: "None",             icon: "cancel",         value: "none" }
+                    ]
+
+                    currentValue: Config.options.bar.windowTitleIconMode
+                    onChoiceSelected: (val) => Config.options.bar.windowTitleIconMode = val
                 }
 
                 ConfigButtonFlow {
