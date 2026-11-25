@@ -61,7 +61,7 @@ ColumnLayout {
                 ]
 
                 ConfigGroup {
-                    ConfigButtonGroup {
+                    ConfigButtonFlow {
                         text: "Global (Default)"
                         buttonIcon: "globe"
                         model: positionGroup.positionsModel
@@ -90,7 +90,7 @@ ColumnLayout {
                         Repeater {
                             model: Display.activeScreens
 
-                            ConfigButtonGroup {
+                            ConfigButtonFlow {
                                 text: "Display: " + modelData
                                 buttonIcon: info.backend === "backlight" ? "laptop_chromebook" : "monitor"
                                 model: positionGroup.positionsModel
@@ -346,7 +346,7 @@ ColumnLayout {
             ConfigGroup{ // Clock Section
                 icon: "farsight_digital"
                 title: "Clock"
-                ConfigButtonGroup {
+                ConfigButtonFlow {
                     buttonIcon: "mist"
                     text: "Mode"
                     model: [
