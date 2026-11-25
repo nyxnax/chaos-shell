@@ -50,6 +50,7 @@ BarItem {
                 fillMode: Image.PreserveAspectCrop
                 asynchronous: true
                 mipmap: true // Makes it look smooth when scaled down to 32x32
+                cache: false
 
                 layer.enabled: true
                 layer.effect: OpacityMask {

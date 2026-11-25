@@ -65,6 +65,7 @@ ColumnLayout {
                         source: Config.options.appearance.wallpaper ? "file://" + Config.options.appearance.wallpaper : ""
                         fillMode: Image.PreserveAspectCrop
                         asynchronous: true
+                        cache: false
                         sourceSize.width: 800
                         sourceSize.height: 700
                         visible: false
