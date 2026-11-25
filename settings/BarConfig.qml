@@ -60,47 +60,41 @@ ColumnLayout {
                     { name: "Right",    value: "right",     icon: "right_panel_close" },
                 ]
 
-                ConfigGroup {
-                    ConfigButtonFlow {
-                        text: "Global (Default)"
-                        buttonIcon: "globe"
-                        model: positionGroup.positionsModel
-                        currentValue: Config.options.bar.position
-                        onChoiceSelected: (value) => Config.options.bar.position = value
+                ConfigButtonFlow {
+                    text: "Global (Default)"
+                    buttonIcon: "globe"
+                    model: positionGroup.positionsModel
+                    currentValue: Config.options.bar.position
+                    onChoiceSelected: (value) => Config.options.bar.position = value
+                }
+
+                ConfigSwitch {
+                    buttonIcon: "splitscreen"
+                    text: "Enable per display position"
+                    description: ""
+                    isMainToggle: true
+                    checked: Config.options.bar.enablePerDisplayPosition
+                    onCheckedChanged: {
+                        Config.options.bar.enablePerDisplayPosition = checked;
                     }
                 }
 
-                ConfigGroup{
+                ConfigGroup {
                     spacing: 0
+                    shouldShow: Config.options.bar.enablePerDisplayPosition
+                    Repeater {
+                        model: Display.activeScreens
 
-                    ConfigSwitch {
-                        buttonIcon: "splitscreen"
-                        text: "Enable per display position"
-                        description: ""
-                        isMainToggle: true
-                        checked: Config.options.bar.enablePerDisplayPosition
-                        onCheckedChanged: {
-                            Config.options.bar.enablePerDisplayPosition = checked;
-                        }
-                    }
+                        ConfigButtonFlow {
+                            text: "Display: " + modelData
+                            buttonIcon: info.backend === "backlight" ? "laptop_chromebook" : "monitor"
+                            model: positionGroup.positionsModel
 
-                    ConfigGroup {
-                        spacing: 0
-                        shouldShow: Config.options.bar.enablePerDisplayPosition
-                        Repeater {
-                            model: Display.activeScreens
+                            property string displayName: String(modelData)
+                            readonly property var info: Display.displayInfo[displayName] || {}
 
-                            ConfigButtonFlow {
-                                text: "Display: " + modelData
-                                buttonIcon: info.backend === "backlight" ? "laptop_chromebook" : "monitor"
-                                model: positionGroup.positionsModel
-
-                                property string displayName: String(modelData)
-                                readonly property var info: Display.displayInfo[displayName] || {}
-
-                                currentValue: BarService.getPosition(displayName)
-                                onChoiceSelected: (value) => BarService.setPosition(displayName, value)
-                            }
+                            currentValue: BarService.getPosition(displayName)
+                            onChoiceSelected: (value) => BarService.setPosition(displayName, value)
                         }
                     }
                 }
