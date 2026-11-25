@@ -687,15 +687,6 @@ ColumnLayout {
                     }
                 }
             }
-
-            ConfigGroup { // Just here as fluff
-                icon: "dashboard"
-                title: "Test"
-                footer: "idk why I haven't removed this section"
-                ConfigSwitch { text: "Item 1"; description: "These do nothing, they're just here as fluff for testing and showcase" }
-                ConfigSwitch { text: "Item 2" }
-                ConfigSwitch { text: "Item 3" }
-            }
         }
     }
 }
