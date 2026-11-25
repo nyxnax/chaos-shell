@@ -122,9 +122,8 @@ Singleton {
                 property int workspaceMaxPerMonitor: 10
 
                 property bool showCoverArt: false
-                property bool showArtist: true
-                property bool showMediaText: true
                 property bool showMediaControl: true
+                property string mediaTextMode: "both" // none | both | title
 
                 property bool showBluetoothSymbol: true
                 property bool hideBluetoothSymbolWhenDisabled: true

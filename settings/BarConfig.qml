@@ -437,25 +437,18 @@ ColumnLayout {
                         //console.log ("Bar: Media control set to " + checked)
                     }
                 }
-                ConfigSwitch {
-                    buttonIcon: "text_ad"
+                ConfigButtonFlow {
+                    buttonIcon: "match_case"
                     text: "Show text"
-                    description: "(Automatically disabled on vertical bars) Disable to keep cover art and/or control only"
-                    checked: Config.options.bar.showMediaText
-                    onCheckedChanged: {
-                        Config.options.bar.showMediaText = checked;
-                        //console.log ("Bar: Media control set to " + checked)
-                    }
-                }
-                ConfigSwitch {
-                    buttonIcon: "album"
-                    text: "Show artist name"
-                    description: "Display artirst name under the title"
-                    checked: Config.options.bar.showArtist
-                    onCheckedChanged: {
-                        Config.options.bar.showArtist = checked;
-                        //console.log ("Bar: Media artist set to " + checked)
-                    }
+                    description: "Only visible when the bar is horizontal"
+                    model: [
+                        { name: "Title & Artist",  icon: "album",  value: "both" },
+                        { name: "Title",           icon: "title",  value: "title" },
+                        { name: "None",            icon: "cancel", value: "none" }
+                    ]
+
+                    currentValue: Config.options.bar.mediaTextMode
+                    onChoiceSelected: (val) => Config.options.bar.mediaTextMode = val
                 }
             }
 

@@ -127,7 +127,7 @@ BarItem {
 
         // Text Display with Marquee Scrolling
         ColumnLayout {
-            readonly property bool shouldShow: Config.options.bar.showMediaText && !isVertical
+            readonly property bool shouldShow: (Config.options.bar.mediaTextMode === "both" || Config.options.bar.mediaTextMode === "title") && !isVertical
             opacity: shouldShow ? 1 : 0
             visible: opacity > 0
             Behavior on opacity { animation: Appearance.animation.elementMove.numberAnimation.createObject(this) }
@@ -196,7 +196,7 @@ BarItem {
                 Layout.preferredWidth: artistText.implicitWidth
                 Layout.preferredHeight: artistText.implicitHeight
                 clip: true
-                visible: Config.options.bar.showArtist && MediaService.activeTrack?.artist !== null
+                visible: Config.options.bar.mediaTextMode === "both" && MediaService.activeTrack?.artist !== null
                 onWidthChanged: artistText.checkScroll()
 
                 StyledText {
