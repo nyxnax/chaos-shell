@@ -136,10 +136,13 @@ ColumnLayout {
                     continue;
                 }
 
-                if (isPressed || isHovered || items.length === 1) child.position = 3;  // Single
-                else if (virtualIndex === 0) child.position = 1;                       // Top
-                else if (i === items.length - 1) child.position = 2;                   // Bottom
-                else child.position = 0;                                               // Mid
+                let isFirst = virtualIndex === 0;
+                let isLast = (i === items.length - 1) || items[i + 1]?.isMainToggle
+
+                if (isPressed || isHovered || isFirst & isLast) child.position = 3;  // Single
+                else if (isFirst) child.position = 1;                                // Top
+                else if (isLast) child.position = 2;                                 // Bottom
+                else child.position = 0;                                             // Mid
                 virtualIndex++;
             }
         }
