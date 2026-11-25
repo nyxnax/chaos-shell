@@ -123,7 +123,6 @@ Singleton {
 
                 property bool showCoverArt: false
                 property bool showArtist: true
-                property bool showMedia: true
                 property bool showMediaText: true
                 property bool showMediaControl: true
 

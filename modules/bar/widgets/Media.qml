@@ -9,7 +9,7 @@ import Qt5Compat.GraphicalEffects
 BarItem {
     id: root
 
-    readonly property bool shouldShow:  (MediaService.activePlayer !== null) && Config.options.bar.showMedia
+    readonly property bool shouldShow: MediaService.activePlayer !== null
     opacity: shouldShow ? 1 : 0
     visible: opacity > 0
 

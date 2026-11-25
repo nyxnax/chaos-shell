@@ -418,17 +418,6 @@ ColumnLayout {
                 footer: "Automatically hidden when no media source is active"
                 footerIcon: "info"
                 ConfigSwitch {
-                    buttonIcon: Config.options.bar.showMedia ? "visibility" : "visibility_off"
-                    text: Config.options.bar.showMedia ? "Enabled" : "Disabled"
-                    description: ""
-                    isMainToggle: true
-                    checked: Config.options.bar.showMedia
-                    onCheckedChanged: {
-                        Config.options.bar.showMedia = checked;
-                        //console.log ("Bar: Media controller set to " + checked)
-                    }
-                }
-                ConfigSwitch {
                     buttonIcon: "art_track"
                     text: "Show cover art"
                     description: "Display cover art from currently playing media"
