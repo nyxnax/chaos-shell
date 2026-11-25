@@ -13,9 +13,6 @@ BarItem {
     spacing: 3
     usePadding: true
 
-    // Defined locally to prevent scope shadowing from Bar.qml
-    readonly property int workspacesPerScreen: Config.options.bar.workspaceMaxPerMonitor
-
     // Safely get the target monitor name using the passed widgetScreen property
     property string targetMonitorName: {
         if (typeof widgetScreen !== "undefined" && widgetScreen) return widgetScreen.name;
@@ -23,45 +20,39 @@ BarItem {
         return "";
     }
 
-    // Dynamically get the index of the monitor from Hyprland to create a reliable offset
-    property int screenIndex: {
-        if (!targetMonitorName) return 0;
-
-        const monitors = Hyprland.monitors.values;
-        if (!monitors) return 0;
-
-        const idx = monitors.findIndex(m => m && m.name === targetMonitorName);
-        return Math.max(0, idx);
+    // With split-monitor-workspaces active, Hyprland's actual workspace IDs
+    // for this monitor are assigned/renumbered by the plugin itself (it
+    // rebuilds its "first monitor 1-N, second N+1-2N..." mapping whenever a
+    // monitor reconnects - which is what a hypridle DPMS cycle triggers).
+    // Any offset formula we compute client-side (whether from live monitor
+    // enumeration order or a value we've persisted ourselves) can end up
+    // disagreeing with whatever the plugin just reassigned, which is why
+    // pips would silently start pointing at the wrong/nonexistent workspace.
+    //
+    // So: don't guess IDs at all. Ask Hyprland which workspaces currently
+    // belong to this monitor (already reliable - ws.monitor.name is live and
+    // always correct) and lay the pips out positionally over that, sorted by
+    // id. This tracks whatever the plugin decides, automatically, always.
+    readonly property var monitorWorkspaces: {
+        const workspaces = Hyprland.workspaces.values;
+        if (!workspaces) return [];
+        return workspaces
+            .filter(w => w && w.monitor && w.monitor.name === targetMonitorName)
+            .sort((a, b) => a.id - b.id);
     }
 
-    property int workspaceOffset: screenIndex * workspacesPerScreen
-
-    // Dynamically calculate the number of workspaces to show
-    readonly property int workspaceCount: {
-        let maxIdx = Config.options.bar.workspaceMinPerMonitor;
-        const monitorWorkspaces = Hyprland.workspaces.values;
-        if (monitorWorkspaces) {
-            for (let i = 0; i < monitorWorkspaces.length; i++) {
-                const ws = monitorWorkspaces[i];
-                if (ws && ws.monitor && ws.monitor.name === targetMonitorName) {
-                    const relativeId = ws.id - workspaceOffset;
-                    if (relativeId > maxIdx) maxIdx = relativeId;
-                }
-            }
-        }
-        return Math.min(Config.options.bar.workspaceMaxPerMonitor, Math.max(Config.options.bar.workspaceMinPerMonitor, maxIdx));
-    }
+    // Number of pips to show: however many workspaces the plugin currently
+    // has for this monitor, clamped to the configured min/max.
+    readonly property int workspaceCount: Math.min(
+        Config.options.bar.workspaceMaxPerMonitor,
+        Math.max(Config.options.bar.workspaceMinPerMonitor, monitorWorkspaces.length)
+    );
 
     Repeater {
         model: workspaceCount
 
         delegate: Rectangle {
-            readonly property int wsId: workspaceOffset + index + 1
-            readonly property var ws: {
-                const workspaces = Hyprland.workspaces.values;
-                if (!workspaces) return undefined;
-                return workspaces.find(w => w.id === wsId && w.monitor && w.monitor.name === targetMonitorName);
-            }
+            readonly property var ws: index < monitorWorkspaces.length ? monitorWorkspaces[index] : undefined
 
             readonly property bool exists: ws !== undefined
             readonly property bool isOccupied: exists && ws.toplevels.values.length > 0
@@ -131,7 +122,7 @@ BarItem {
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
-                onClicked: ws.activate();
+                onClicked: if (exists) ws.activate();
             }
         }
     }
