@@ -17,8 +17,7 @@ BarItem {
     readonly property Toplevel activeWindow: ToplevelManager.activeToplevel
     property var mainAppIconSource: Quickshell.iconPath(AppSearch.guessIcon(ClassOrTitle.excludeClass(activeWindow?.appId, activeWindow?.title, false , true)), "image-missing")
 
-    property bool isShown: Config.options.bar.showWindowTitle || Config.options.bar.showWindowIcon
-    visible: isShown
+    visible: iconContainer.visible || classText.isShown || titleText.isShown
 
     RowLayout {
         id: layout
