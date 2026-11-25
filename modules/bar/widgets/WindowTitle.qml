@@ -69,10 +69,11 @@ BarItem {
 
                 Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
                 Behavior on text {
+                    enabled: classText.isShown
                     SequentialAnimation {
-                        NumberAnimation { target: titleText; property: "opacity"; to: 0; duration: 100 }
-                        PropertyAction { target: titleText; property: "text" }
-                        NumberAnimation { target: titleText; property: "opacity"; to: 1; duration: 100 }
+                        NumberAnimation { target: classText; property: "opacity"; to: 0; duration: 100 }
+                        PropertyAction { target: classText; property: "text" }
+                        NumberAnimation { target: classText; property: "opacity"; to: 1; duration: 100 }
                     }
                 }
             }
@@ -89,6 +90,7 @@ BarItem {
 
                 Behavior on opacity { animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this) }
                 Behavior on text {
+                    enabled: titleText.isShown
                     SequentialAnimation {
                         NumberAnimation { target: titleText; property: "opacity"; to: 0; duration: 100 }
                         PropertyAction { target: titleText; property: "text" }
