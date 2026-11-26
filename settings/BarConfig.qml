@@ -519,25 +519,24 @@ ColumnLayout {
                 }
 
                 ConfigGroup {
+                    descriptionIcon: "speed"
+                    description: "Network Speed"
 
-                    ConfigSwitch {
-                        buttonIcon: "download"
-                        text: "Show download speed"
-                        description: ""
-                        checked: Config.options.bar.showDownloadSpeed
-                        onCheckedChanged: {
-                            Config.options.bar.showDownloadSpeed = checked;
-                        }
+                    ConfigButtonFlow {
+                        buttonIcon: "rocket_launch"
+                        text: "Show Indicators"
+                        isMainToggle: true
+                        model: [
+                            { name: "Both",     icon: "sync",     value: "both" },
+                            { name: "Download", icon: "download", value: "download" },
+                            { name: "Upload",   icon: "upload",   value: "upload" },
+                            { name: "None",     icon: "cancel",   value: "none" }
+                        ]
+
+                        currentValue: Config.options.bar.networkSpeedIndicators
+                        onChoiceSelected: (val) => Config.options.bar.networkSpeedIndicators = val
                     }
-                    ConfigSwitch {
-                        buttonIcon: "upload"
-                        text: "Show upload speed"
-                        description: ""
-                        checked: Config.options.bar.showUploadSpeed
-                        onCheckedChanged: {
-                            Config.options.bar.showUploadSpeed = checked;
-                        }
-                    }
+
                     ConfigSwitch {
                         buttonIcon: "hide"
                         text: (Config.options.bar.showDownloadSpeed && Config.options.bar.showUploadSpeed) ? "Hide indicators when at 0 B/s" : "Hide indicator when at 0 B/s"

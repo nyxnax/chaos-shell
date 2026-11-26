@@ -121,7 +121,7 @@ BarItem {
 
         readonly property bool shouldShow: {
             const isConnected = Network.status === "connected" || Network.wifiStatus === "connected";
-            const isEnabledInConfig = Config.options.bar.showDownloadSpeed;
+            const isEnabledInConfig = Config.options.bar.networkSpeedIndicators === "download" || Config.options.bar.networkSpeedIndicators === "both";
             const passesZeroCheck = Config.options.bar.hideNetworkSpeedWhenZero ? Network.downloadSpeedBytes > 0 : true;
             const passesHoverCheck = Config.options.bar.showNetworkSpeedOnHover ? root.hovered : true;
             return isConnected && isEnabledInConfig && passesZeroCheck && passesHoverCheck;
@@ -157,7 +157,7 @@ BarItem {
 
         readonly property bool shouldShow: {
             const isConnected = Network.status === "connected" || Network.wifiStatus === "connected";
-            const isEnabledInConfig = Config.options.bar.showUploadSpeed;
+            const isEnabledInConfig = Config.options.bar.networkSpeedIndicators === "upload" || Config.options.bar.networkSpeedIndicators === "both";
             const passesZeroCheck = Config.options.bar.hideNetworkSpeedWhenZero ? Network.uploadSpeedBytes > 0 : true;
             const passesHoverCheck = Config.options.bar.showNetworkSpeedOnHover ? root.hovered : true;
             return isConnected && isEnabledInConfig && passesZeroCheck && passesHoverCheck;

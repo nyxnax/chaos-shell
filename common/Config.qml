@@ -135,16 +135,16 @@ Singleton {
                 property bool showRamUsageOnHover: true
                 property bool showSystemStatsPercentOnHover: true
 
-                property bool showSinkSymbol: true
-                property bool showSinkOnVolumeChanged: true
-                property bool showSinkPercent: true
-                property bool showSinkPercentOnHover: true
-                property bool showDownloadSpeed: true
-                property bool showUploadSpeed: true
+                property string networkSpeedIndicators: "both" // both | download | upload | none
                 property bool hideNetworkSpeedWhenZero: false
                 property bool showNetworkSpeedOnHover: true
                 property bool showNetworkSpeedText: true
                 property bool showNetworkSpeedTextOnHover: false
+
+                property bool showSinkSymbol: true
+                property bool showSinkOnVolumeChanged: true
+                property bool showSinkPercent: true
+                property bool showSinkPercentOnHover: true
 
                 property bool showBatteryPercentage: true
                 property bool hideBatteryWhenPlugged: false
