@@ -7,7 +7,7 @@ import qs.services
 BarItem {
     id: root
     usePadding: true
-    spacing: 8
+    spacing: 2
 
     GridLayout { // CPU Percentage
         id: cpuGrid
