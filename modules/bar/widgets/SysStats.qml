@@ -13,7 +13,7 @@ BarItem {
         id: cpuGrid
         flow: isVertical ? Grid.TopToBottom : Grid.LeftToRight
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        visible: Config.options.bar.showCpuPercent
+        visible: Config.options.bar.hardwareStatIndicators === "cpu" || Config.options.bar.hardwareStatIndicators === "both"
         rowSpacing: 4
         columnSpacing: 2
 
@@ -53,7 +53,7 @@ BarItem {
         id: ramGrid
         flow: isVertical ? Grid.TopToBottom : Grid.LeftToRight
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-        visible: Config.options.bar.showRamPercent
+        visible: Config.options.bar.hardwareStatIndicators === "ram" || Config.options.bar.hardwareStatIndicators === "both"
         rowSpacing: 4
         columnSpacing: 2
 

@@ -129,8 +129,7 @@ Singleton {
                 property bool showBluetoothSymbol: true
                 property bool hideBluetoothSymbolWhenDisabled: true
 
-                property bool showCpuPercent: true
-                property bool showRamPercent: true
+                property string hardwareStatIndicators: "both" // both | cpu | ram | none
                 property bool showRamUsage: true
                 property bool showRamUsageOnHover: true
                 property bool showSystemStatsPercentOnHover: true

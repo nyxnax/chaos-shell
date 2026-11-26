@@ -467,27 +467,32 @@ ColumnLayout {
                 ConfigGroup {
                     footerIcon: "info"
                     footer: "CPU and RAM Stats are updated every 2 seconds"
-                    ConfigGroup {
-                        ConfigSwitch{
-                            buttonIcon: "memory"
-                            text: "Show CPU usage"
-                            description: ""
-                            checked: Config.options.bar.showCpuPercent
-                            onCheckedChanged: {
-                                Config.options.bar.showCpuPercent = checked;
-                            }
+
+                    ConfigButtonFlow {
+                        buttonIcon: "developer_board"
+                        text: "Show Hardware Indicators"
+                        isMainToggle: true
+                        model: [
+                            { name: "Both", icon: "computer",   value: "both" },
+                            { name: "CPU",  icon: "memory",     value: "cpu" },
+                            { name: "RAM",  icon: "memory_alt", value: "ram" },
+                            { name: "None", icon: "cancel",     value: "none" }
+                        ]
+
+                        currentValue: Config.options.bar.hardwareStatIndicators
+                        onChoiceSelected: (val) => Config.options.bar.hardwareStatIndicators = val
+                    }
+                    ConfigSwitch{
+                        buttonIcon: "highlight_mouse_cursor"
+                        text: "Show percentages on hover"
+                        description: ""
+                        checked: Config.options.bar.showSystemStatsPercentOnHover
+                        onCheckedChanged: {
+                            Config.options.bar.showSystemStatsPercentOnHover = checked;
                         }
                     }
+
                     ConfigGroup {
-                        ConfigSwitch{
-                            buttonIcon: "memory_alt"
-                            text: "Show RAM usage"
-                            description: ""
-                            checked: Config.options.bar.showRamPercent
-                            onCheckedChanged: {
-                                Config.options.bar.showRamPercent = checked;
-                            }
-                        }
                         ConfigSwitch{
                             buttonIcon: "numbers"
                             text: "Show RAM usage values"
@@ -507,17 +512,7 @@ ColumnLayout {
                             }
                         }
                     }
-                    ConfigGroup {
-                        ConfigSwitch{
-                            buttonIcon: "highlight_mouse_cursor"
-                            text: "Show percentages on hover"
-                            description: ""
-                            checked: Config.options.bar.showSystemStatsPercentOnHover
-                            onCheckedChanged: {
-                                Config.options.bar.showSystemStatsPercentOnHover = checked;
-                            }
-                        }
-                    }
+
                 }
 
                 ConfigGroup {
