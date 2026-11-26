@@ -359,7 +359,7 @@ ColumnLayout {
                 title: "Active window title"
                 ConfigButtonFlow {
                     buttonIcon: "image"
-                    text: "Show Icon"
+                    text: "Show icon"
                     model: [
                         { name: "Focused App Only", icon: "search", value: "app" },
                         { name: "Always",           icon: "check",       value: "always" },
@@ -539,7 +539,7 @@ ColumnLayout {
 
                     ConfigSwitch {
                         buttonIcon: "hide"
-                        text: (Config.options.bar.showDownloadSpeed && Config.options.bar.showUploadSpeed) ? "Hide indicators when at 0 B/s" : "Hide indicator when at 0 B/s"
+                        text: Config.options.bar.networkSpeedIndicators === "both" ? "Hide indicators when at 0 B/s" : "Hide indicator when at 0 B/s"
                         description: ""
                         checked: Config.options.bar.hideNetworkSpeedWhenZero
                         onCheckedChanged: {
@@ -548,7 +548,7 @@ ColumnLayout {
                     }
                     ConfigSwitch {
                         buttonIcon: "highlight_mouse_cursor"
-                        text: (Config.options.bar.showDownloadSpeed && Config.options.bar.showUploadSpeed) ? "Show indicators on Hover" : "Show indicator on Hover"
+                        text: Config.options.bar.networkSpeedIndicators === "both" ? "Show indicators on Hover" : "Show indicator on Hover"
                         description: ""
                         checked: Config.options.bar.showNetworkSpeedOnHover
                         onCheckedChanged: {
