@@ -555,23 +555,19 @@ ColumnLayout {
                             Config.options.bar.showNetworkSpeedOnHover = checked;
                         }
                     }
-                    ConfigSwitch {
-                        buttonIcon: "123"
-                        text: "Show speed value"
-                        description: ""
-                        checked: Config.options.bar.showNetworkSpeedText
-                        onCheckedChanged: {
-                            Config.options.bar.showNetworkSpeedText = checked;
-                        }
-                    }
-                    ConfigSwitch {
-                        buttonIcon: "arrow_selector_tool"
-                        text: "Show speed value on hover"
-                        description: ""
-                        checked: Config.options.bar.showNetworkSpeedTextOnHover
-                        onCheckedChanged: {
-                            Config.options.bar.showNetworkSpeedTextOnHover = checked;
-                        }
+
+                    ConfigButtonFlow {
+                        buttonIcon: "query_stats"
+                        text: Config.options.bar.networkSpeedIndicators === "both" ? "Show Speed Values" : "Show Speed Value"
+                        description: "Only visible when the bar is horizontal"
+                        model: [
+                            { name: "Always",   icon: "check",                  value: "always" },
+                            { name: "On Hover", icon: "highlight_mouse_cursor", value: "hover" },
+                            { name: "None",     icon: "cancel",                 value: "none" }
+                        ]
+
+                        currentValue: Config.options.bar.networkSpeedValues
+                        onChoiceSelected: (val) => Config.options.bar.networkSpeedValues = val
                     }
                 }
             }

@@ -136,10 +136,9 @@ Singleton {
                 property bool showSystemStatsPercentOnHover: true
 
                 property string networkSpeedIndicators: "both" // both | download | upload | none
+                property string networkSpeedValues: "hover" // hover | always | none
                 property bool hideNetworkSpeedWhenZero: false
                 property bool showNetworkSpeedOnHover: true
-                property bool showNetworkSpeedText: true
-                property bool showNetworkSpeedTextOnHover: false
 
                 property bool showSinkSymbol: true
                 property bool showSinkOnVolumeChanged: true
