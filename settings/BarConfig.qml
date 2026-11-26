@@ -464,56 +464,58 @@ ColumnLayout {
             ConfigGroup { // System Stats Section
                 icon: "browse_activity"
                 title: "System Stats"
-                footerIcon: "info"
-                footer: "CPU and RAM Stats are updated every 2 seconds"
                 ConfigGroup {
-                    ConfigSwitch{
-                        buttonIcon: "memory"
-                        text: "Show CPU usage"
-                        description: ""
-                        checked: Config.options.bar.showCpuPercent
-                        onCheckedChanged: {
-                            Config.options.bar.showCpuPercent = checked;
+                    footerIcon: "info"
+                    footer: "CPU and RAM Stats are updated every 2 seconds"
+                    ConfigGroup {
+                        ConfigSwitch{
+                            buttonIcon: "memory"
+                            text: "Show CPU usage"
+                            description: ""
+                            checked: Config.options.bar.showCpuPercent
+                            onCheckedChanged: {
+                                Config.options.bar.showCpuPercent = checked;
+                            }
                         }
                     }
-                }
-                ConfigGroup {
-                    ConfigSwitch{
-                        buttonIcon: "memory_alt"
-                        text: "Show RAM usage"
-                        description: ""
-                        checked: Config.options.bar.showRamPercent
-                        onCheckedChanged: {
-                            Config.options.bar.showRamPercent = checked;
+                    ConfigGroup {
+                        ConfigSwitch{
+                            buttonIcon: "memory_alt"
+                            text: "Show RAM usage"
+                            description: ""
+                            checked: Config.options.bar.showRamPercent
+                            onCheckedChanged: {
+                                Config.options.bar.showRamPercent = checked;
+                            }
+                        }
+                        ConfigSwitch{
+                            buttonIcon: "numbers"
+                            text: "Show RAM usage values"
+                            description: ""
+                            checked: Config.options.bar.showRamUsage
+                            onCheckedChanged: {
+                                Config.options.bar.showRamUsage = checked;
+                            }
+                        }
+                        ConfigSwitch{
+                            buttonIcon: "highlight_mouse_cursor"
+                            text: "Show RAM usage values on hover"
+                            description: ""
+                            checked: Config.options.bar.showRamUsageOnHover
+                            onCheckedChanged: {
+                                Config.options.bar.showRamUsageOnHover = checked;
+                            }
                         }
                     }
-                    ConfigSwitch{
-                        buttonIcon: "numbers"
-                        text: "Show RAM usage values"
-                        description: ""
-                        checked: Config.options.bar.showRamUsage
-                        onCheckedChanged: {
-                            Config.options.bar.showRamUsage = checked;
-                        }
-                    }
-                    ConfigSwitch{
-                        buttonIcon: "highlight_mouse_cursor"
-                        text: "Show RAM usage values on hover"
-                        description: ""
-                        checked: Config.options.bar.showRamUsageOnHover
-                        onCheckedChanged: {
-                            Config.options.bar.showRamUsageOnHover = checked;
-                        }
-                    }
-                }
-                ConfigGroup {
-                    ConfigSwitch{
-                        buttonIcon: "highlight_mouse_cursor"
-                        text: "Show percentages on hover"
-                        description: ""
-                        checked: Config.options.bar.showSystemStatsPercentOnHover
-                        onCheckedChanged: {
-                            Config.options.bar.showSystemStatsPercentOnHover = checked;
+                    ConfigGroup {
+                        ConfigSwitch{
+                            buttonIcon: "highlight_mouse_cursor"
+                            text: "Show percentages on hover"
+                            description: ""
+                            checked: Config.options.bar.showSystemStatsPercentOnHover
+                            onCheckedChanged: {
+                                Config.options.bar.showSystemStatsPercentOnHover = checked;
+                            }
                         }
                     }
                 }
@@ -536,38 +538,41 @@ ColumnLayout {
                         currentValue: Config.options.bar.networkSpeedIndicators
                         onChoiceSelected: (val) => Config.options.bar.networkSpeedIndicators = val
                     }
+                    ConfigGroup {
+                        shouldShow: Config.options.bar.networkSpeedIndicators !== "none"
 
-                    ConfigSwitch {
-                        buttonIcon: "hide"
-                        text: Config.options.bar.networkSpeedIndicators === "both" ? "Hide indicators when at 0 B/s" : "Hide indicator when at 0 B/s"
-                        description: ""
-                        checked: Config.options.bar.hideNetworkSpeedWhenZero
-                        onCheckedChanged: {
-                            Config.options.bar.hideNetworkSpeedWhenZero = checked;
+                        ConfigSwitch {
+                            buttonIcon: "hide"
+                            text: Config.options.bar.networkSpeedIndicators === "both" ? "Hide indicators when at 0 B/s" : "Hide indicator when at 0 B/s"
+                            description: ""
+                            checked: Config.options.bar.hideNetworkSpeedWhenZero
+                            onCheckedChanged: {
+                                Config.options.bar.hideNetworkSpeedWhenZero = checked;
+                            }
                         }
-                    }
-                    ConfigSwitch {
-                        buttonIcon: "highlight_mouse_cursor"
-                        text: Config.options.bar.networkSpeedIndicators === "both" ? "Show indicators on Hover" : "Show indicator on Hover"
-                        description: ""
-                        checked: Config.options.bar.showNetworkSpeedOnHover
-                        onCheckedChanged: {
-                            Config.options.bar.showNetworkSpeedOnHover = checked;
+                        ConfigSwitch {
+                            buttonIcon: "highlight_mouse_cursor"
+                            text: Config.options.bar.networkSpeedIndicators === "both" ? "Show indicators on Hover" : "Show indicator on Hover"
+                            description: ""
+                            checked: Config.options.bar.showNetworkSpeedOnHover
+                            onCheckedChanged: {
+                                Config.options.bar.showNetworkSpeedOnHover = checked;
+                            }
                         }
-                    }
 
-                    ConfigButtonFlow {
-                        buttonIcon: "query_stats"
-                        text: Config.options.bar.networkSpeedIndicators === "both" ? "Show Speed Values" : "Show Speed Value"
-                        description: "Only visible when the bar is horizontal"
-                        model: [
-                            { name: "Always",   icon: "check",                  value: "always" },
-                            { name: "On Hover", icon: "highlight_mouse_cursor", value: "hover" },
-                            { name: "None",     icon: "cancel",                 value: "none" }
-                        ]
+                        ConfigButtonFlow {
+                            buttonIcon: "query_stats"
+                            text: Config.options.bar.networkSpeedIndicators === "both" ? "Show Speed Values" : "Show Speed Value"
+                            description: "Only visible when the bar is horizontal"
+                            model: [
+                                { name: "Always",   icon: "check",                  value: "always" },
+                                { name: "On Hover", icon: "highlight_mouse_cursor", value: "hover" },
+                                { name: "None",     icon: "cancel",                 value: "none" }
+                            ]
 
-                        currentValue: Config.options.bar.networkSpeedValues
-                        onChoiceSelected: (val) => Config.options.bar.networkSpeedValues = val
+                            currentValue: Config.options.bar.networkSpeedValues
+                            onChoiceSelected: (val) => Config.options.bar.networkSpeedValues = val
+                        }
                     }
                 }
             }
