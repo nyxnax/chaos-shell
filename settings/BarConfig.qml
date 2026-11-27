@@ -61,6 +61,7 @@ ColumnLayout {
                 ]
 
                 ConfigButtonFlow {
+                    shouldShow: Config.options.bar.enablePerDisplayPosition === false
                     text: "Global (Default)"
                     buttonIcon: "globe"
                     model: positionGroup.positionsModel
