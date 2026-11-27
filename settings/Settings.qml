@@ -78,6 +78,15 @@ ApplicationWindow {
             }
         }
 
+        Shortcut {
+            sequence: "Alt+Up"
+            onActivated: root.currentPage = (root.currentPage - 1 + root.pages.length) % root.pages.length;
+        }
+        Shortcut {
+            sequence: "Alt+Down"
+            onActivated: root.currentPage = (root.currentPage + 1) % root.pages.length
+        }
+
         Item {
             id: headerArea
             anchors.top: parent.top
