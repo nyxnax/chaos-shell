@@ -93,6 +93,12 @@ ApplicationWindow {
             onActivated: backButton.animateClick()
         }
 
+        Shortcut {
+            sequence: "Ctrl+B"
+            onActivated: navRail.isExpanded = !navRail.isExpanded
+            autoRepeat: false
+        }
+
         Item {
             id: headerArea
             anchors.top: parent.top
