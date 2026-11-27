@@ -105,7 +105,7 @@ ColumnLayout {
                 id: globalWidgetGroup
                 icon: "extension"
                 title: "Widgets"
-
+                shouldShow: Config.options.bar.enablePerDisplayWidgets === false
                 property string selectedArea: "left"
 
                 ConfigButtonGroup {
