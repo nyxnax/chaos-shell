@@ -46,11 +46,11 @@ ApplicationWindow {
 
     property int currentPage: 0
     property var pages: [
-        { name: "Wallpaper", icon: "wallpaper_slideshow", iconRotation: 180, component: "WallpaperConfig.qml" },
-        { name: "Display",   icon: "display_settings",    iconRotation: 180, component: "DisplayConfig.qml" },
-        { name: "Bar",       icon: "toast",               iconRotation: 180, component: "BarConfig.qml"},
-        { name: "System",    icon: "tune",                iconRotation: 180, component: "SystemConfig.qml" },
-        { name: "About",     icon: "info",                iconRotation: 180, component: "About.qml" }
+        { name: "Wallpaper", icon: "wallpaper_slideshow", component: "WallpaperConfig.qml" },
+        { name: "Display",   icon: "display_settings",    component: "DisplayConfig.qml" },
+        { name: "Bar",       icon: "toast",               component: "BarConfig.qml"},
+        { name: "System",    icon: "tune",                component: "SystemConfig.qml" },
+        { name: "About",     icon: "info",                component: "About.qml" }
     ]
 
     Item {
