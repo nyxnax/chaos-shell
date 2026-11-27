@@ -87,6 +87,12 @@ ApplicationWindow {
             onActivated: root.currentPage = (root.currentPage + 1) % root.pages.length
         }
 
+        Shortcut {
+            sequences: ["Alt+Left", "Escape"]
+            enabled: backButton.visible && root.currentPage > 0
+            onActivated: backButton.animateClick()
+        }
+
         Item {
             id: headerArea
             anchors.top: parent.top
@@ -113,12 +119,6 @@ ApplicationWindow {
                     fontColor: Appearance.colors.m3onSurface
                     onReleased: root.currentPage = Math.max(0, root.currentPage - 1)
                     opacity: root.currentPage === 0 ? 0.38 : 1
-                }
-
-                Shortcut {
-                    sequence: "Escape"
-                    enabled: backButton.visible && root.currentPage > 0
-                    onActivated: backButton.click()
                 }
 
                 StyledText {
