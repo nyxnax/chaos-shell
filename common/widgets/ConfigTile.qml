@@ -18,6 +18,58 @@ ItemDelegate {
     property bool isMainToggle: false
     property int smallRadius: Appearance.rounding.unsharpen
     property int outerRadius: Appearance.rounding.normal
+    property bool shouldShow: true
+
+    states: [
+        State {
+            name: "visible"
+            when: root.shouldShow
+            PropertyChanges { target: root; opacity: 1.0 }
+            PropertyChanges { target: root; Layout.preferredHeight: root.implicitHeight }
+        },
+        State {
+            name: "hidden"
+            when: !root.shouldShow
+            PropertyChanges { target: root; opacity: 0.0 }
+            PropertyChanges { target: root; Layout.preferredHeight: 0 }
+        }
+    ]
+
+    transitions: [
+        Transition {
+            from: "hidden"; to: "visible"
+
+            NumberAnimation {
+                properties: "Layout.preferredHeight"
+                duration: Appearance.animation.elementResize.duration
+                easing.type: Appearance.animation.elementResize.type
+                easing.bezierCurve: Appearance.animation.elementResize.bezierCurve
+            }
+
+            NumberAnimation {
+                properties: "opacity"
+                duration: Appearance.animation.elementMoveEnter.duration
+                easing.type: Appearance.animation.elementMoveEnter.type
+                easing.bezierCurve: Appearance.animation.elementMoveEnter.bezierCurve
+            }
+        },
+        Transition {
+            from: "visible"; to: "hidden"
+
+            NumberAnimation {
+                properties: "Layout.preferredHeight"
+                duration: Appearance.animation.elementResize.duration
+                easing.type: Appearance.animation.elementResize.type
+                easing.bezierCurve: Appearance.animation.elementResize.bezierCurve
+            }
+            NumberAnimation {
+                properties: "opacity"
+                duration: Appearance.animation.elementMoveExit.duration
+                easing.type: Appearance.animation.elementMoveExit.type
+                easing.bezierCurve: Appearance.animation.elementMoveExit.bezierCurve
+            }
+        }
+    ]
 
     Layout.fillWidth: true
     topPadding: 16 + (isMainToggle ? 6 : 0)
