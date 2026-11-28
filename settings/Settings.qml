@@ -159,7 +159,9 @@ ApplicationWindow {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.topMargin: 12
-            anchors.leftMargin: isCompact ? 30 : navRail.width + 40
+            anchors.leftMargin: isCompact ? 30
+                                : navRail.isExpanded ? (navRail.width + 20)
+                                : (navRail.width + 40)
             anchors.rightMargin: 20
             currentIndex: root.currentPage
             Behavior on anchors.leftMargin {animation: Appearance.animation.elementResize.numberAnimation.createObject(this)}
@@ -253,13 +255,14 @@ ApplicationWindow {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            anchors.margins: 20
+            anchors.margins: isExpanded ? 0 : 20
             color: isExpanded ? Appearance.colors.m3surfaceContainer : Appearance.colors.m3surfaceContainerLow
             radius: 12
 
             Behavior on width {animation: Appearance.animation.elementResize.numberAnimation.createObject(root)}
             Behavior on color {animation: Appearance.animation.elementMoveFast.colorAnimation.createObject(this)}
             Behavior on opacity {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
+            Behavior on anchors.margins {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
 
             StyledButton {
                 size: StyledButton.Size.L
