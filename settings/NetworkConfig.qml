@@ -44,7 +44,7 @@ ColumnLayout {
 
 
                 ConfigGroup {
-                    title: "Available Networks: "
+                    title: "Available Networks: " + Network.friendlyWifiNetworks.length
                     shouldShow: Network.wifiEnabled
 
                     RowLayout {
