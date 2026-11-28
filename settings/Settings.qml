@@ -264,25 +264,23 @@ ApplicationWindow {
             Behavior on opacity {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
             Behavior on anchors.margins {animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)}
 
-            StyledButton {
-                size: StyledButton.Size.L
-                buttonIcon: navRail.isExpanded ? "menu_open" : "menu"
-                //text: navRail.isExpanded ? "Retract" : ""
-                onPressed: navRail.isExpanded = !navRail.isExpanded
-                x: 16
-                y: 8
-                buttonColor: "transparent"
-                fontColor: Appearance.colors.m3onSurface
-            }
-
             Column {
                 id: buttonColumn
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
                 spacing: 4
                 leftPadding: 16
                 rightPadding: 16
+                y: 8
+
+                StyledButton {
+                    size: StyledButton.Size.L
+                    buttonIcon: navRail.isExpanded ? "menu_open" : "menu"
+                    //text: navRail.isExpanded ? "Retract" : ""
+                    onPressed: navRail.isExpanded = !navRail.isExpanded
+                    buttonColor: "transparent"
+                    fontColor: Appearance.colors.m3onSurface
+                }
 
                 Repeater {
                     model: root.pages
