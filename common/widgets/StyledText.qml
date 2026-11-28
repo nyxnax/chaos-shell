@@ -1,7 +1,7 @@
 import qs.common
 import QtQuick
 
-// Credit: end-4
+// Credit: modified from end-4
 
 Text {
     id: root
@@ -10,6 +10,7 @@ Text {
     property real animationDistanceY: 6
 
     renderType: Text.NativeRendering
+    wrapMode: Text.WordWrap
     verticalAlignment: Text.AlignVCenter
     property bool shouldUseNumberFont: /^\d+$/.test(root.text)
     property var defaultFont: shouldUseNumberFont ? Appearance.font.family.numbers : Appearance.font.family.main
