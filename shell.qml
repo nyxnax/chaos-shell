@@ -32,5 +32,6 @@ ShellRoot {
 
     Component.onCompleted: {
         Theme.reapplyTheme()
+        Network.rescanWifi()
     }
 }
