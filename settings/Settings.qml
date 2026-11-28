@@ -286,16 +286,14 @@ ApplicationWindow {
                     model: root.pages
                     delegate: StyledButton {
                         size: StyledButton.Size.L
+                        style: isSelected ? StyledButton.Style.Tonal : StyledButton.Style.Text
                         text: navRail.isExpanded ? modelData.name : ""
                         buttonIcon: modelData.icon
                         isSelected: root.currentPage === index
                         onReleased: root.currentPage = index
+                        opacity: isSelected ? 1 : 0.8
                         clip: true
-                        buttonColor: pressed ? Appearance.colors.m3primaryContainer :
-                                     isSelected && hovered ? Qt.darker(Appearance.colors.m3primary, 1.25) :
-                                     isSelected ? Appearance.colors.m3primary :
-                                     hovered ? Appearance.colors.m3surfaceContainerHigh
-                                     : "transparent"
+
                         StyledToolTip {
                             text: modelData.name
                             shown: parent.hovered && !navRail.isExpanded && text !== ""
